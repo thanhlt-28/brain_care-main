@@ -1,0 +1,38 @@
+body {
+    background: #17568c;
+    margin: auto;
+    padding: 0;
+}
+.panel {
+    margin: auto;
+    width: 50%;
+    margin-bottom: 10px;
+    align-items: center;
+    border-radius: 5px;
+    text-align: center;
+    background-image: url(../img/blog_2.jpg);
+}
+.panel-body {
+    text-align: center;
+    width: 70%;
+    align-items: center;
+}
+.panel-heading {
+    padding: 10px 15px;
+}
+.panel-title {
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: #17568c;
+}
+
+.profile-img {
+    width: 70px;
+    height: 70px;
+    margin: 10px auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
