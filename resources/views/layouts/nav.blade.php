@@ -108,7 +108,9 @@
         <li>
             <a href="{{route('register')}}">Đăng ký</a>
         </li>
-
+        <li>
+            <a href="">{{Auth::user()->name}}</a>
+        </li>
     </ul>
     </ul>
 </nav>

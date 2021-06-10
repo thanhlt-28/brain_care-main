@@ -5,6 +5,16 @@
     <div class="container" style="margin-top: 1%">
         <div class="panel panel-default">
             <div class="panel-body mx-auto">
+                @if(session('success'))
+                <span class="mx-auto alert alert-success">
+                    <strong>{{ session('success') }}</strong>
+                </span>
+                @endif
+                @if(session()->has('message'))
+                <div class="alert alert-success">
+                    {{ session()->get('message') }}
+                </div>
+                @endif
                 <form role="form" action="{{route('login')}}" method="POST">
                     @csrf
                     <fieldset>

@@ -2,11 +2,11 @@
 @section('content')
 
 <div class="container-wraper">
-    @if(session('success'))
+    <!-- @if(session('success'))
     <span class="mx-auto alert alert-success">
         <strong>{{ session('success') }}</strong>
     </span>
-    @endif
+    @endif -->
     <div class="container" style="margin-top: 1%">
         <div class="panel panel-default">
             <div class="row">
