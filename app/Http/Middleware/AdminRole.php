@@ -20,6 +20,6 @@ class AdminRole
         if (Auth::check() && Auth::user()->is_admin == 1) {
             return $next($request);
         }
-        return redirect(route('login'));
+        return 'home';
     }
 }

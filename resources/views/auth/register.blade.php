@@ -46,11 +46,7 @@
                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                             <input class="form-control mt-3" placeholder="Mật khẩu" name="password" type="password">
                         </div>
-                        @if ($errors->has('password'))
-                        <span class="text-danger">
-                            <strong>{{ $errors->first('password') }}</strong>
-                        </span>
-                        @endif
+
                     </div>
                     <div class="form-group  mt-3">
                         <div class="input-group">
@@ -58,6 +54,11 @@
                             <input class="form-control mt-3" placeholder="Xác nhận mật khẩu" name="password_confirmation" type="password">
                         </div>
                     </div>
+                    @if ($errors->has('password'))
+                    <span class="text-danger">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                    @endif
 
                     <div class="form-group  mt-5 mb-3">
                         <button type="submit" class="btn btn-lg btn-primary btn-block">Đăng ký</button>
