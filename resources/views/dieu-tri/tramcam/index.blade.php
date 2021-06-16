@@ -444,23 +444,33 @@
                     <!---------Collum-1 ------------>
                     <div class="col-md-3">
                         <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kd02" type="checkbox" name="symptom[]" value="buon" onchange="chkChange('02');">
+                            <input class="form-check-input" id="kd02" type="checkbox" name="symptom[]" value="buon" onchange="chkChange('02');" @if (strpos($model->symptom[0], 'buon') !== false)
+                            checked
+                            @endif>
                             <label for="">Buồn</label>
                         </div>
                         <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kd03" type="checkbox" name="symptom[]" value="nguit" onchange="chkChange('03');">
+                            <input class="form-check-input" id="kd03" type="checkbox" name="symptom[]" value="nguit" onchange="chkChange('03');" @if (strpos($model->symptom[0], 'nguit') !== false)
+                            checked
+                            @endif>
                             <label for="">Ngủ ít</label>
                         </div>
                         <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kd04" type="checkbox" name="symptom[]" value="tutu" onchange="chkChange('04');">
+                            <input class="form-check-input" id="kd04" type="checkbox" name="symptom[]" value="tutu" onchange="chkChange('04');" @if (strpos($model->symptom[0], 'tutu') !== false)
+                            checked
+                            @endif>
                             <label for="">Tự tử</label>
                         </div>
                         <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kd07" type="checkbox" name="symptom[]" value="mtt" onchange="chkChange('07');">
+                            <input class="form-check-input" id="kd07" type="checkbox" name="symptom[]" value="mtt" onchange="chkChange('07');" @if (strpos($model->symptom[0], 'mtt') !== false)
+                            checked
+                            @endif>
                             <label for="">Mất thích thú</label>
                         </div>
                         <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kd08" type="checkbox" name="symptom[]" value="metmoi" onchange="chkChange('08');">
+                            <input class="form-check-input" id="kd08" type="checkbox" name="symptom[]" value="metmoi" onchange="chkChange('08');" @if (strpos($model->symptom[0], 'metmoi') !== false)
+                            checked
+                            @endif>
                             <label for="">Mệt mỏi</label>
                         </div>
 

@@ -377,7 +377,7 @@
 
     <div class="container-fluid">
         <div class="card-title mx-auto">
-            <h3>Khám Chẩn Đoán</h3>
+            <h3>Khám Theo Dõi</h3>
         </div>
         <div class="content-tabs">
             <ul class="nav nav-tabs" id="myTab" role="tablist">

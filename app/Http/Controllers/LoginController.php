@@ -13,7 +13,7 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])
             // || Auth::attempt(['phone_number' => $request->email, 'password' => $request->password])    
         ) {
-            return redirect(route('dashboard'))->with('message', 'Đăng nhập thành công');
+            return redirect(route('home'))->with('message', 'Đăng nhập thành công');
         }
 
         return view('auth.login', [

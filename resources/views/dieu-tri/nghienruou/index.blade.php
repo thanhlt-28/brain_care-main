@@ -60,250 +60,227 @@
         }
     </script>
 
-
-
-    <!---------------Check---------------->
-
+    <!---/////------------check-----------/////------->
     <div class="container-fluid">
         <div class="card-title mx-auto">
-            <h3>Khám Chẩn Đoán</h3>
+            <h3>Khám theo dõi</h3>
         </div>
         <div class="content-tabs">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home" data-bs-toggle="tab" data-bs-target="#tab0" type="button" role="tab" aria-controls="home" aria-selected="true">Chẩn đoán</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="contact" aria-selected="false">Uống rượu có hại</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="contact" aria-selected="false">Uống rượu có hại (kết quả)</button>
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab0" type="button" role="tab" aria-controls="home" aria-selected="true">Theo dõi nghiện rượu</button>
                 </li>
             </ul>
         </div>
     </div>
-
-    @php
-    $index=1
-    @endphp
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="tab0" role="tabpanel" aria-labelledby="v-pills-home-tab">
-            <form class="mt-3 ml-5 mr-5" action="{{route('nghien-ruou.next_store')}}" method="POST" enctype="multipart/form-data">
+        @php
+        $index=1
+        @endphp
+        <div class="tab-pane fade show active" id="tab0" role="tabpanel" aria-labelledby="home-tab">
+            <form class="mt-3 ml-5 mr-5" action="{{route('nghienruou.updated', $model->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <div class="row">
+                    <h5>Thông tin
+                        <!-- <hr width="10%"> -->
+                    </h5>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Họ và tên : </label>
+                            <input type="text" value="{{$model->treat_name}}" name="treat_name" class="form-control-sm" placeholder="Điền họ tên...">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">Giới tính : </label>
+                            <input type="text" class="form-control-sm" value="{{$model->treat_gender}}" name="treat_gender" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="doB" class="form-label">Năm sinh : </label>
+                            <input type="text" value="{{$model->treat_dob}}" name="treat_dob" class="form-control-sm" placeholder="Năm sinh...">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="mobile" class="form-label">SĐT : </label>
+                            <input type="number" value="{{$model->treat_phone}}" name="treat_phone" placeholder="Số điện thoại..." class="form-control-sm">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email : </label>
+                            <input type="email" value="{{$model->treat_email}}" name="treat_email" placeholder="Điền email..." class="form-control-sm">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Địa chỉ : </label>
+                            <input type="text" placeholder="Địa chỉ..." value="{{$model->treat_address}}" name="treat_address" class="form-control-sm">
+                        </div>
+                    </div>
+                </div>
 
-                <!----------checkbox------------>
                 <div class="mt-1">
                     <h5>Triệu chứng</h5>
                     <!-- <hr width="10%"> -->
                 </div>
-                <!----------Collum-1------------>
+                <!--------Form Checkbox--------->
                 <div class="row ml-1">
-                    <div class="col-md-4">
-                        <div class="mb-0 form-check">
-                            <select name="cust_id" id="cust_id">
-                                @foreach($model as $item)
-                                <option value="{{$item->cust_id}}">{{$item->name}}</option>
-                                @endforeach
-                            </select>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd02" type="checkbox" name="symptom[]" value="nr" onchange="chkChange('02');" @if (strpos($model->symptom[0], 'parkinson') !== false)
+                            checked
+                            @endif>
+                            <label for="">Nghiện rượu</label>
                         </div>
-
-                        <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kc04" type="checkbox" onchange="chkChange('04');">
-                            <label for="">Có vấn đề về rượu trong 12 tháng qua</label>
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd07" type="checkbox" name="symptom[]" value="unr" onchange="chkChange('07');" @if (strpos($model->symptom[0], 'unr') !== false)
+                            checked
+                            @endif>
+                            <label for="">Uống nhiều rượu</label>
                         </div>
-                        <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kc05" type="checkbox" onchange="chkChange('05');">
-                            <label for="">Uống nhiều rượu hoặc lâu dài</label>
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd08" type="checkbox" name="symptom[]" value="cktc" onchange="chkChange('08');" @if (strpos($model->symptom[0], 'cktc') !== false)
+                            checked
+                            @endif>
+                            <label for="cktc">Cai không thành công</label>
                         </div>
-                        <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kc06" type="checkbox" onchange="chkChange('06');">
-                            <label for="">Có cố gắng cai, nhưng không thành công</label>
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd15" type="checkbox" name="symptom[]" value="tur" onchange="chkChange('15');" @if (strpos($model->symptom[0], 'tur') !== false)
+                            checked
+                            @endif>
+                            <label for="">Thèm uống rượu</label>
                         </div>
-                        <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kc07" type="checkbox" onchange="chkChange('07');">
-                            <label for="">Tốn thời gian mua rượu hoặc uống rượu</label>
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd16" type="checkbox" name="symptom[]" value="ahsh" onchange="chkChange('16');" @if (strpos($model->symptom[0], 'ahsh') !== false)
+                            checked
+                            @endif>
+                            <label for="">Ảnh hưởng sinh hoạt</label>
                         </div>
-
                     </div>
                     <!---------Collum-2 ------------>
-                    <div class="col-md-4">
-                        <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kc09" type="checkbox" onchange="chkChange('09');">
-                            <label for="">Ảnh hưởng việc làm, học tập</label>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd17" type="checkbox" name="symptom[]" value="hvnh" onchange="chkChange('17');" @if (strpos($model->symptom[0], 'hvnh') !== false)
+                            checked
+                            @endif>
+                            <label for="">Hành vi nguy hiểm</label>
                         </div>
-                        <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kc10" type="checkbox" onchange="chkChange('10');">
-                            <label for="">Ảnh hưởng quan hệ xã hội</label>
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd03" type="checkbox" name="symptom[]" value="tc" onchange="chkChange('03');" @if (strpos($model->symptom[0], 'tc') !== false)
+                            checked
+                            @endif>
+                            <label for="">Tình cảm</label>
                         </div>
-                        <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kc11" type="checkbox" onchange="chkChange('11');">
-                            <label for="">Ảnh hưởng nghề nghiệp</label>
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd04" type="checkbox" name="symptom[]" value="lt" onchange="chkChange('04');" @if (strpos($model->symptom[0], 'lt') !== false)
+                            checked
+                            @endif>
+                            <label for="">Loạn thần</label>
                         </div>
-                        <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kc12" type="checkbox" onchange="chkChange('12');">
-                            <label for="">Gây nguy hiểm như tai nạn giao thông</label>
-                        </div>
-                        <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kc13" type="checkbox" onchange="chkChange('13');">
-                            <label for="">Uống ngày nhiều hơn</label>
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd05" type="checkbox" name="symptom[]" value="la" onchange="chkChange('05');" @if (strpos($model->symptom[0], 'la') !== false)
+                            checked
+                            @endif>
+                            <label for="">Lo âu</label>
                         </div>
                     </div>
                     <!---------Collum-3 ------------>
-                    <div class="col-md-4">
-                        <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kc08" type="checkbox" onchange="chkChange('08');">
-                            <label for="">Cơn thèm uống rượu</label>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd06" type="checkbox" name="symptom[]" value="hl" onchange="chkChange('06');" @if (strpos($model->symptom[0], 'hl') !== false)
+                            checked
+                            @endif>
+                            <label for="">Hoảng loạn</label>
                         </div>
-                        <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kc14" type="checkbox" onchange="chkChange('14');">
-                            <label for="">Uống ít rượu, không còn hiệu quả như ban đầu</label>
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd09" type="checkbox" name="symptom[]" value="hathap" onchange="chkChange('09');" @if (strpos($model->symptom[0], 'hathap') !== false)
+                            checked
+                            @endif>
+                            <label for="">Huyết áp thấp</label>
                         </div>
-                        <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kc15" type="checkbox" onchange="chkChange('15');">
-                            <label for="">Có triệu chứng cai rượu</label>
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd10" type="checkbox" name="symptom[]" value="hacao" onchange="chkChange('10');" @if (strpos($model->symptom[0], 'hacao') !== false)
+                            checked
+                            @endif>
+                            <label for="">Huyết áp cao</label>
                         </div>
-                        <div class="mb-0 form-check">
-                            <input class="form-check-input" id="kc16" type="checkbox" onchange="chkChange('16');">
-                            <label for="">Rượu, một số chất làm giảm triệu chứng cai</label>
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd11" type="checkbox" name="symptom[]" value="tm" onchange="chkChange('11');" @if (strpos($model->symptom[0], 'tm') !== false)
+                            checked
+                            @endif>
+                            <label for="">Tim mạch</label>
                         </div>
-                        <div class="col-md-12">
-                            <h5 class="">Chẩn đoán: <span id="kc21" style="color:blue;"></span></h5>
+                    </div>
+
+                    <!---------Collum-4 ------------>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd12" type="checkbox" name="symptom[]" value="dtd" onchange="chkChange('12');" @if (strpos($model->symptom[0], 'dtd') !== false)
+                            checked
+                            @endif>
+                            <label for="">Đái tháo đường</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd13" type="checkbox" name="symptom[]" value="parkinson" onchange="chkChange('13');" @if (strpos($model->symptom[0], 'parkinson') !== false)
+                            checked
+                            @endif>
+                            <label for="">Parkinson</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd17" type="checkbox" name="symptom[]" value="td" onchange="chkChange('17');" @if (strpos($model->symptom[0], 'td') !== false)
+                            checked
+                            @endif>
+                            <label for="">Tình dục</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" id="kd18" type="checkbox" name="symptom[]" value="thai" onchange="chkChange('18');" @if (strpos($model->symptom[0], 'thai') !== false)
+                            checked
+                            @endif>
+                            <label for="">Thai</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ml-1">
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label for="" class="form-label-dt">Số triệu chứng : </label>
+                            <input type="text" name="sym_time" value="{{$model->sym_time}}" class="form-control-smt" id="kd21" onblur="txtBlur('21');">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label class="form-label-dt" for="">Thuyên giảm</label>
+                            <input style="color: blue; font-weight:500" class="form-control-smt" name="result" value="{{$model->result}}" id="kd22" type="text" onblur="txtBlur('22');" width="10">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label class="form-label-dt" for="">Thuốc CTC</label>
+                            <input class="form-control-smt" name="medicine_once" value="{{$model->medicine_once}}" id="kd23" type="text" onblur="txtBlur('23');" width="10">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label class="form-label-dt" for="">Thuốc CLT</label>
+                            <input class="form-control-smt" name="medicine_twice" value="{{$model->medicine_twice}}" id="kd24" type="text" onblur="txtBlur('24');" width="10">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label class="form-label-dt" for="">Thuốc CCG</label>
+                            <input class="form-control-smt" name="medicine_three" value="{{$model->medicine_three}}" id="kd25" type="text" onblur="txtBlur('25');" width="10">
                         </div>
                     </div>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                    <button class="btn btn-primary" type="submit"> Lưu lại</button>
+                    <button class="btn btn-primary"><i class="fas fa-long-arrow-alt-left"></i> Trở lại</button>
                 </div>
             </form>
         </div>
-        <div class="tab-pane ml-5 fade" id="tab1" role="tabpanel" aria-labelledby="v-pills-home-tab">
-            <h4>Uống rượu có hại</h4>
-            <table class="table table-bordered border-primary" id="tt" border="1">
-                <thead>
-                    <th>STT</th>
-                    <th>Triệu chứng</th>
-                    <th>Chỉ số</th>
-                    <th>Dấu hiệu</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Trong 12 tháng qua</td>
-                        <td id="tc01a">&nbsp;</td>
-                        <td id="tc01b">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Uống nhiều rượu</td>
-                        <td id="tc02a">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Cai, không thành công </td>
-                        <td id="tc03a">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Mất thời gian mua, uống rượu</td>
-                        <td id="tc04">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Cơn thèm rượu</td>
-                        <td id="tc05">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Ảnh hưởng việc làm học tập</td>
-                        <td id="tc06">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Ảnh hưởng quan hệ xã hội</td>
-                        <td id="tc07">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Nghề nghiệp, xã hội</td>
-                        <td id="tc08">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Gây nguy hiểm</td>
-                        <td id="tc09">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane ml-5 fade" id="tab2" role="tabpanel" aria-labelledby="v-pills-home-tab">
-            <h4>Uống rượu có hại</h4>
-            <table class="table table-bordered border-primary" id="tt" border="1">
-                <thead>
-                    <th>STT</th>
-                    <th>Triệu chứng</th>
-                    <th>Chỉ số</th>
-                    <th>Dấu hiệu</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Lên liều</td>
-                        <td id="tc10a">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Kém hiệu quả</td>
-                        <td id="tc10b">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Dung nạp</td>
-                        <td>&nbsp;</td>
-                        <td id="tc11">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Triệu chứng cai</td>
-                        <td id="tc12a">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Một số chất làm giảm Tc cai></td>
-                        <td id="tc12b">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Tình trạng cai</td>
-                        <td>&nbsp;</td>
-                        <td id="tc13">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Triệu chứng</td>
-                        <td>&nbsp;</td>
-                        <td id="tc15">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Chẩn đoán</td>
-                        <td id="tc14a">&nbsp;</td>
-                        <td id="tc14b" title="IF(tc14a=1;'Uống rượu có hại';'K uống rượu có hại')">&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+
     </div>
 </div>
 @endsection

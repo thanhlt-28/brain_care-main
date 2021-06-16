@@ -32,7 +32,7 @@ use Inertia\Inertia;
 */
 
 // Route::get('/', function () {
-//     return view('welcome');
+//     return view('dashboard');
 // });
 // Route::get('/', [HomeController::class, 'index'])->name('home');
 // Route::get('/', function () {
@@ -49,7 +49,7 @@ Route::view('register', 'auth.register')->name('register');
 Route::post('register', [RegisterController::class, 'postRegister'])->name('auth.postRegister');
 
 Route::view('login', 'auth.login')->name('login');
-Route::post('login', [LoginController::class, 'postLogin']);
+Route::post('login', [LoginController::class, 'postLogin'])->name('auth.postLogin');
 Route::any('logout', function () {
     Auth::logout();
     return redirect(route('login'));
@@ -85,19 +85,83 @@ Route::prefix('/')->group(function () {
         Route::get('xoa-ket-qua-nr/{id}', [DianoseController::class, 'destroy_ngruou'])->name('nghien-ruou.destroy');
         Route::get('nghien-ruou/{id}', [DianoseController::class, 'detail_ngruou'])->name('nghien-ruou.index');
         Route::post('nghien-ruou/{id}', [DianoseController::class, 'update_ngruou'])->name('nghien-ruou.update');
+        //........Mất trí
+        Route::get('ket-qua-mattri', [DianoseController::class, 'index_mattri'])->name('mat-tri.views');
+        Route::get('them-chan-doan-mattri', [DianoseController::class, 'create_mattri'])->name('mat-tri.create');
+        Route::post('luu-lai-mattri', [DianoseController::class, 'store_mattri'])->name('mat-tri.store_mattri');
+        Route::get('xoa-ket-qua-mattri/{id}', [DianoseController::class, 'destroy_mattri'])->name('mat-tri.destroy');
+        Route::get('mattri/{id}', [DianoseController::class, 'detail_mattri'])->name('mat-tri.index');
+        Route::post('mattri/{id}', [DianoseController::class, 'update_mattri'])->name('mat-tri.update');
+    });
+
+    Route::prefix('dieu-tri')->group(function () {
+        // Trầm cảm
+        Route::get('dieu-tri-tc', [TreatmentController::class, 'index'])->name('tramcam.views');
+        Route::get('theo-doi-tc', [TreatmentController::class, 'create'])->name('tramcam.create');
+        Route::post('luu-lai-tc', [TreatmentController::class, 'store'])->name('tramcam.store');
+        Route::get('chi-tiet/{id}', [TreatmentController::class, 'details'])->name('tramcam.index');
+        Route::post('dieu-tri-update/{id}', [TreatmentController::class, 'updated'])->name('tramcam.updated');
+        Route::get('xoa/{id}', [TreatmentController::class, 'destroy'])->name('tramcam.destroy');
+        // Nghiện rượu
+        Route::get('dieu-tri-nr', [TreatmentController::class, 'index_ngruou'])->name('nghienruou.views');
+        Route::get('theo-doi-nr', [TreatmentController::class, 'create_ngruou'])->name('nghienruou.create');
+        Route::post('luu-lai-nr', [TreatmentController::class, 'store_ngruou'])->name('nghienruou.store');
+        Route::get('chi-tiet-nr/{id}', [TreatmentController::class, 'details_ngruou'])->name('nghienruou.index');
+        Route::post('dieu-tri-nr/{id}', [TreatmentController::class, 'updated_ngruou'])->name('nghienruou.updated');
+        Route::get('xoa-nr/{id}', [TreatmentController::class, 'destroy'])->name('nghienruou.destroy');
+        // Mất trí
+        Route::get('dieu-tri-mtri', [TreatmentController::class, 'index_mattri'])->name('mattri.views');
+        Route::get('theo-doi-mtri', [TreatmentController::class, 'create_mattri'])->name('mattri.create');
+        Route::post('luu-lai-mtri', [TreatmentController::class, 'store_mattri'])->name('mattri.store');
+        Route::get('chi-tiet-mtri/{id}', [TreatmentController::class, 'details_mattri'])->name('mattri.index');
+        Route::post('dieu-tri-mtri/{id}', [TreatmentController::class, 'updated_mattri'])->name('mattri.updated');
+        Route::get('xoa-mtri/{id}', [TreatmentController::class, 'destroy'])->name('mattri.destroy');
+        // Loạn thần
+        Route::get('dieu-tri-loanthan', [TreatmentController::class, 'index_loanthan'])->name('loanthan.views');
+        Route::get('theo-doi-loanthan', [TreatmentController::class, 'create_loanthan'])->name('loanthan.create');
+        Route::post('luu-lai-loanthan', [TreatmentController::class, 'store_loanthan'])->name('loanthan.store');
+        Route::get('chi-tiet-loanthan/{id}', [TreatmentController::class, 'details_loanthan'])->name('loanthan.index');
+        Route::post('dieu-tri-loanthan/{id}', [TreatmentController::class, 'updated_loanthan'])->name('loanthan.updated');
+        Route::get('xoa-loanthan/{id}', [TreatmentController::class, 'destroy'])->name('loanthan.destroy');
+        // Lo âu
+        Route::get('dieu-tri-loau', [TreatmentController::class, 'index_loau'])->name('loau.views');
+        Route::get('theo-doi-loau', [TreatmentController::class, 'create_loau'])->name('loau.create');
+        Route::post('luu-lai-loau', [TreatmentController::class, 'store_loau'])->name('loau.store');
+        Route::get('chi-tiet-loau/{id}', [TreatmentController::class, 'details_loau'])->name('loau.index');
+        Route::post('dieu-tri-loau/{id}', [TreatmentController::class, 'updated_loau'])->name('loau.updated');
+        Route::get('xoa-loau/{id}', [TreatmentController::class, 'destroy'])->name('loau.destroy');
+        // Hưng cảm
+        Route::get('dieu-tri-hungcam', [TreatmentController::class, 'index_hcam'])->name('hungcam.views');
+        Route::get('theo-doi-hungcam', [TreatmentController::class, 'create_hcam'])->name('hungcam.create');
+        Route::post('luu-lai-hungcam', [TreatmentController::class, 'store_hcam'])->name('hungcam.store');
+        Route::get('chi-tiet-hungcam/{id}', [TreatmentController::class, 'details_hcam'])->name('hungcam.index');
+        Route::post('dieu-tri-hungcam/{id}', [TreatmentController::class, 'updated_hcam'])->name('hungcam.updated');
+        Route::get('xoa-hungcam/{id}', [TreatmentController::class, 'destroy'])->name('hungcam.destroy');
+        // Hoảng loạn
+        Route::get('dieu-tri-hoangloan', [TreatmentController::class, 'index_hloan'])->name('hoangloan.views');
+        Route::get('theo-doi-hoangloan', [TreatmentController::class, 'create_hloan'])->name('hoangloan.create');
+        Route::post('luu-lai-hoangloan', [TreatmentController::class, 'store_hloan'])->name('hoangloan.store');
+        Route::get('chi-tiet-hoangloan/{id}', [TreatmentController::class, 'details_hloan'])->name('hoangloan.index');
+        Route::post('dieu-tri-hoangloan/{id}', [TreatmentController::class, 'updated_hloan'])->name('hoangloan.updated');
+        Route::get('xoa-hoangloan/{id}', [TreatmentController::class, 'destroy'])->name('hoangloan.destroy');
+        // Động kinh
+        Route::get('dieu-tri-dongkinh', [TreatmentController::class, 'index_dkinh'])->name('dongkinh.views');
+        Route::get('theo-doi-dongkinh', [TreatmentController::class, 'create_dkinh'])->name('dongkinh.create');
+        Route::post('luu-lai-dongkinh', [TreatmentController::class, 'store_dkinh'])->name('dongkinh.store');
+        Route::get('chi-tiet-dongkinh/{id}', [TreatmentController::class, 'details_dkinh'])->name('dongkinh.index');
+        Route::post('dieu-tri-dongkinh/{id}', [TreatmentController::class, 'updated_dkinh'])->name('dongkinh.updated');
+        Route::get('xoa-dongkinh/{id}', [TreatmentController::class, 'destroy'])->name('dongkinh.destroy');
+        // Ám ảnh
+        Route::get('dieu-tri-amanh', [TreatmentController::class, 'index_amanh'])->name('amanh.views');
+        Route::get('theo-doi-amanh', [TreatmentController::class, 'create_amanh'])->name('amanh.create');
+        Route::post('luu-lai-amanh', [TreatmentController::class, 'store_amanh'])->name('amanh.store');
+        Route::get('chi-tiet-amanh/{id}', [TreatmentController::class, 'details_amanh'])->name('amanh.index');
+        Route::post('dieu-tri-amanh/{id}', [TreatmentController::class, 'updated_amanh'])->name('amanh.updated');
+        Route::get('xoa-amanh/{id}', [TreatmentController::class, 'destroy'])->name('amanh.destroy');
     });
 });
 
-Route::prefix('dieu-tri')->group(function () {
-    Route::get('dieu-tri-tc', [TreatmentController::class, 'index'])->name('tramcam.views');
-    Route::get('theo-doi-tc', [TreatmentController::class, 'create'])->name('tramcam.create');
-    Route::post('luu-lai-tc', [TreatmentController::class, 'store'])->name('tramcam.store');
-    Route::get('chi-tiet/{id}', [TreatmentController::class, 'details'])->name('tramcam.index');
-    Route::post('dieu-tri-update/{id}', [TreatmentController::class, 'updated'])->name('tramcam.updated');
-    Route::get('xoa/{id}', [TreatmentController::class, 'destroy'])->name('tramcam.destroy');
-});
-
-Route::prefix('admin')->middleware('check-admin-role')->group(function () {
+Route::prefix('/admin')->middleware('check-admin-role')->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
     })->name('dashboard');

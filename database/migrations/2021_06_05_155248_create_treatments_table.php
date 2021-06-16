@@ -23,11 +23,11 @@ class CreateTreatmentsTable extends Migration
             $table->string('treat_email')->unique();
             $table->longText('treat_address');
             $table->string('sym_time');
-            $table->string('result');
+            $table->string('result')->NULL;
             $table->string('medicine_once');
             $table->string('medicine_twice');
             $table->string('medicine_three');
-            $table->string('medicine_fourth');
+            $table->string('medicine_fourth')->NULL;
             $table->timestamps();
         });
     }

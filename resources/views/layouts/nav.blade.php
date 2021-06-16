@@ -1,6 +1,6 @@
 <nav class="topnav" id="myTopnav" role="navigation">
     <ul>
-        <li><a href=" {{route('home')}}">Trang chủ</a></li>
+        <li><a href="{{route('home')}}">Trang chủ</a></li>
         <li><a href="{{route('about')}}">Giới thiệu</a></li>
         <li><a href="#">Sản phẩm & Dịch vụ <i class="fas fa-chevron-down"></i></a>
             <!-- menu con sổ xuống cấp 1 -->
@@ -19,7 +19,7 @@
                             <!-- menu con sổ ngang cấp 3 -->
                             <ul>
                                 <li><a href="">Chẩn đoán</a></li>
-                                <li><a href="">Điều trị</a></li>
+                                <li><a href="{{route('hungcam.views')}}">Điều trị</a></li>
                                 <li><a href="">Thuốc</a></li>
                             </ul>
                         </li>
@@ -31,7 +31,7 @@
                             <!-- menu con sổ ngang cấp 3 -->
                             <ul>
                                 <li><a href="">Chẩn đoán</a></li>
-                                <li><a href="">Điều trị</a></li>
+                                <li><a href="{{route('loau.views')}}">Điều trị</a></li>
                                 <li><a href="">Thuốc</a></li>
                             </ul>
                         </li>
@@ -39,7 +39,7 @@
                             <!-- menu con sổ ngang cấp 3 -->
                             <ul>
                                 <li><a href="">Chẩn đoán</a></li>
-                                <li><a href="">Điều trị</a></li>
+                                <li><a href="{{route('hoangloan.views')}}">Điều trị</a></li>
                                 <li><a href="">Thuốc</a></li>
                             </ul>
                         </li>
@@ -47,7 +47,7 @@
                             <!-- menu con sổ ngang cấp 3 -->
                             <ul>
                                 <li><a href="">Chẩn đoán</a></li>
-                                <li><a href="">Điều trị</a></li>
+                                <li><a href="{{route('amanh.views')}}">Điều trị</a></li>
                                 <li><a href="">Thuốc</a></li>
                             </ul>
                         </li>
@@ -61,8 +61,8 @@
                 <li><a href="#">Mất trí</a>
                     <!-- menu con sổ ngang cấp 3 -->
                     <ul>
-                        <li><a href="">Chẩn đoán</a></li>
-                        <li><a href="">Điều trị</a></li>
+                        <li><a href="{{route('mat-tri.views')}}">Chẩn đoán</a></li>
+                        <li><a href="{{route('mattri.views')}}">Điều trị</a></li>
                         <li><a href="">Thuốc</a></li>
                     </ul>
                 </li>
@@ -70,7 +70,7 @@
                     <!-- menu con sổ ngang cấp 3 -->
                     <ul>
                         <li><a href="">Chẩn đoán</a></li>
-                        <li><a href="">Điều trị</a></li>
+                        <li><a href="{{route('dongkinh.views')}}">Điều trị</a></li>
                         <li><a href="">Thuốc</a></li>
                     </ul>
                 </li>
@@ -78,7 +78,7 @@
                     <!-- menu con sổ ngang cấp 3 -->
                     <ul>
                         <li><a href="{{route('nghien-ruou.views')}}">Chẩn đoán</a></li>
-                        <li><a href="">Điều trị</a></li>
+                        <li><a href="{{route('nghienruou.views')}}">Điều trị</a></li>
                         <li><a href="">Thuốc</a></li>
                     </ul>
                 </li>
@@ -86,7 +86,7 @@
                     <!-- menu con sổ ngang cấp 3 -->
                     <ul>
                         <li><a href="">Chẩn đoán</a></li>
-                        <li><a href="">Điều trị</a></li>
+                        <li><a href="{{route('loanthan.views')}}">Điều trị</a></li>
                         <li><a href="">Thuốc</a></li>
                     </ul>
                 </li>
@@ -100,15 +100,35 @@
             <li><a href="#">Sản xuất phần mềm</a></li>
         </ul>
     </li>
-    <li><a href="{{route('contact')}}">Liên hệ</a></li>
-    <ul class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <li>
-            <a href="{{route('login')}}">Đăng nhập</a>
-        </li>
-        <li>
-            <a href="{{route('register')}}">Đăng ký</a>
-        </li>
+    <li style="border-right: 1px solid white;"><a href="{{route('contact')}}">Liên hệ</a></li>
 
+    <div class="text-end">
+        @if (Route::has('login'))
+        @auth
+        @else
+        <div class="row">
+            <div class="col-md-3">
+                <div class="text-white">
+                    <li><a href="{{ route('login') }}" class="text-sm underline">Login</a></li>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-white">
+                    @if (Route::has('register'))
+                    <li><a href="{{ route('register') }}" class="text-sm underline">Register</a></li>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-white">
+                    <li> <a href="{{ route('logout') }}" class="text-sm underline">Logout</a></li>
+                </div>
+            </div>
+        </div>
+        @endif
+        @endauth
+        @endif
+
+    </div>
     </ul>
-    </ul>
+
 </nav>

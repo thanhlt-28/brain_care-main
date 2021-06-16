@@ -5,7 +5,7 @@
 <!-----Link to scss------->
 
 <link rel="stylesheet" href="{{asset('assets/scss/css/style.css')}}">
-<link rel="stylesheet" href="{{asset('assets/css/login.css')}}">
+<!-- <link rel="stylesheet" href="{{asset('assets/css/login.css')}}"> -->
 <link rel="stylesheet" href="{{asset('assets/scss/css/background-variant.scss')}}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <meta name="keywords" content="Space Login Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
@@ -382,6 +382,11 @@
         margin-left: 248px;
         margin-top: -40px;
         position: fixed;
+    }
+
+    .text-end {
+        margin: auto;
+        margin-right: 5px;
     }
 
     .form-control-sm {

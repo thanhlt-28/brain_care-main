@@ -49,7 +49,7 @@ class DianoseController extends Controller
         return redirect(route('chan-doan.tram-cam.views'));
     }
 
-    // Nghiện rượu
+    // =========== Nghiện rượu
     public function index_ngruou()
     {
         $cust = Dianose::all();
@@ -90,5 +90,48 @@ class DianoseController extends Controller
         $model = Dianose::findOrFail($id);
         $model->delele();
         return redirect(route('nghien-ruou.views'));
+    }
+
+    // =========== Mất trí
+    public function index_mattri()
+    {
+        $cust = Dianose::all();
+        return view('chan-doan.mat-tri.views', compact('cust'));
+    }
+
+    public function create_mattri()
+    {
+        return view('chan-doan.mat-tri.create');
+    }
+
+    public function store_mattri(Request $request)
+    {
+        $input = $request->all();
+        $input['symptom'] = implode(", ", $input['symptom']);
+        Dianose::create($input);
+        return redirect(route('mat-tri.views'));
+    }
+
+    public function detail_mattri($id, Request $request)
+    {
+        //==== Edit
+        $model = Dianose::find($id);
+        $model['symptom'] = explode("value", $model['symptom']);
+        return view('chan-doan.mat-tri.index', ['model' => $model]);
+    }
+
+    public function update_mattri(Request $request, $id)
+    {
+        $model = Dianose::find($id);
+        $input = $request->all();
+        $input['symptom'] = implode(", ", $input['symptom']);
+        $model->update($input);
+        return redirect(route('mat-tri.views', ['model' => $model, 'input' => $input]));
+    }
+    public function destroy_mattri($id, $input)
+    {
+        $model = Dianose::findOrFail($id);
+        $model->delele();
+        return redirect(route('mat-tri.views'));
     }
 }

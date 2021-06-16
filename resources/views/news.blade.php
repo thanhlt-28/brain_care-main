@@ -27,7 +27,6 @@
                             <h2 class="fw-bolder">{{$item->title}}</h2>
                             <p class="mt-2">{{$item->desc}}</p>
                             <span class="fw-normal"><b>{{ $item->created_at->format('d M Y')}}</b></span>
-
                         </div>
                     </a>
                 </div>

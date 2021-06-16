@@ -63,112 +63,48 @@
 
     <!---------------Check---------------->
 
-    <div class="container-fluid">
-        <div class="card-title mx-auto">
-            <h3>Nghiện rượu</h3>
-        </div>
-        <div class="content-tabs">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="home" aria-selected="true">Chẩn đoán</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="contact" aria-selected="false">Theo dõi</button>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    @php
-    $index=1
-    @endphp
-    <div class="tab-content" id="myTabContent">
+    <!---/////------------check-----------/////------->
+    <div class="tab-content" id="">
+        @php
+        $index=1
+        @endphp
         <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="home-tab">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header bg-info">
-                        <div class="card-title mx-auto">
-                            <h6 class="text-white">Chẩn đoán nghiện rượu</h6>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-hover">
-                            @csrf
-                            <tr>
-                                <th>Họ tên</th>
-                                <th>Số điện thoại</th>
-                                <th>Năm sinh</th>
-                                <th>Giới tính</th>
-                                <th>Các triệu chứng</th>
-                                <th>Kết quả</th>
-                                <th>
-                                    <a href="{{route('nghien-ruou.create')}}" class="btn btn-success">Chẩn đoán mới</a>
-                                </th>
-                            </tr>
-                            @foreach($custom as $item)
-                            <tr>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->mobile }}</td>
-                                <td>{{ $item->doB }}</td>
-                                <td>{{ $item->gender }}</td>
-                                <td>
-                                    @foreach($item->symptom as $value)
-                                    {{$value}},
-                                    @endforeach
-                                </td>
-                                <td>{{ $item->result }}</td>
-                                <td>
-                                    <a href="" class="btn btn-info">Xem kết quả</a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </table>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="v-pills-home-tab">
             <div class="col-md-12 mt-2">
-                <div class="card">
-                    <div class="card-header bg-info">
-                        <div class="card-title mx-auto">
-                            <h6 class="text-white">Theo dõi nghiện rượu</h6>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-hover">
-                            @csrf
+                <div class="card-title mx-auto">
+                    <h4 class="t">Thông tin theo dõi</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead class="table-light">
                             <tr>
                                 <th>Họ tên</th>
                                 <th>Số điện thoại</th>
+                                <th>Email</th>
                                 <th>Năm sinh</th>
-                                <th>Giới tính</th>
-                                <th>Các triệu chứng</th>
+                                <th>Địa chỉ</th>
                                 <th>Kết quả</th>
                                 <th>
-                                    <a href="" class="btn btn-success">Theo dõi mới</a>
+                                    <a href="{{ route('nghienruou.create') }}" class="btn btn-success">Thêm chẩn đoán mới</a>
                                 </th>
                             </tr>
-                            @foreach($custom as $item)
+                        </thead>
+                        <tbody>
+                            @foreach($treat as $item)
                             <tr>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->mobile }}</td>
-                                <td>{{ $item->doB }}</td>
-                                <td>{{ $item->gender }}</td>
-                                <td>
-                                    @foreach($item->symptom as $value)
-                                    {{$value}},
-                                    @endforeach
-                                </td>
+                                <td>{{ $item->treat_name }}</td>
+                                <td>{{ $item->treat_phone }}</td>
+                                <td>{{ $item->treat_email }}</td>
+                                <td>{{ $item->treat_dob }}</td>
+                                <td>{{ $item->treat_address }}</td>
                                 <td>{{ $item->result }}</td>
                                 <td>
-                                    <a href="" class="btn btn-info">Xem kết quả</a>
+                                    <a class="btn btn-info" href="{{route('nghienruou.index', $item->id)}}">Xem chi tiết</a>
+                                    <a class="btn btn-warning" href="{{route('nghienruou.destroy', ['id' => $item->id])}}">Xóa</a>
                                 </td>
                             </tr>
                             @endforeach
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
