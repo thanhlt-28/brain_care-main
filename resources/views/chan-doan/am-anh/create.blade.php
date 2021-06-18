@@ -1,6 +1,5 @@
 @extends('layouts.main')
 @section('content')
-
 <div class="container-wraper">
     <script type="text/javascript">
         var kc = ["", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0];
@@ -89,15 +88,16 @@
         }
     </script>
 
-    <!---------------Check---------------->
+    <!---/////------------check-----------/////------->
+
     <div class="container-fluid">
         <div class="card-title mx-auto">
-            <h3>Khám Chẩn Đoán</h3>
+            <h3>Khám chẩn đoán</h3>
         </div>
         <div class="content-tabs">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab0" type="button" role="tab" aria-controls="home" aria-selected="true">Chẩn đoán</button>
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab0" type="button" role="tab" aria-controls="home" aria-selected="true">Chẩn đoán hoảng loạn</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="home" aria-selected="true">Ám ảnh sợ đặc hiệu</button>
@@ -111,13 +111,13 @@
             </ul>
         </div>
     </div>
-    <div class="tab-content" id="myTabContent">
-        @php
-        $index=1
-        @endphp
 
+    @php
+    $index=1
+    @endphp
+    <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="tab0" role="tabpanel" aria-labelledby="home-tab">
-            <form class="mt-3 ml-5 mr-5" action="{{route('am-anh.update', $model->id)}}" method="POST" enctype="multipart/form-data">
+            <form class="mt-3 ml-5 mr-5" action="{{route('am-anh.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <h5>Thông tin
@@ -126,38 +126,38 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="cust_name" class="form-label">Họ và tên : </label>
-                            <input type="text" name="cust_name" value="{{$model->cust_name}}" class="form-control-sm">
+                            <input type="text" name="cust_name" class="form-control-sm" placeholder="Điền họ tên..." id="kc01">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="cust_gender" class="form-label">Giới tính : </label>
-                            <input type="text" name="cust_gender" value="{{$model->cust_gender}}" class="form-control-sm" id="cust_gender" disabled>
+                            <label for="gender" class="form-label">Giới tính : </label>
+                            <input type="radio" class="form-input" name="cust_gender" value="Nam" checked="1" id="kc02"> Nam
+                            <input type="radio" class="form-input" name="cust_gender" value="Nữ" id="kc02"> Nữ
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="doB" class="form-label">Năm sinh : </label>
-                            <input type="text" value="{{$model->cust_dob}}" name="cust_dob" class="form-control-sm" placeholder="">
-
+                            <input type="text" name="cust_dob" class="form-control-sm" placeholder="Năm sinh..." id="kc02">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="phone" class="form-label">SĐT : </label>
-                            <input type="number" value="{{$model->phone}}" name="phone" placeholder="Số điện thoại..." class="form-control-sm">
+                            <input type="number" name="phone" placeholder="Số điện thoại..." class="form-control-sm" id="kc03">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email : </label>
-                            <input type="email" value="{{$model->cust_email}}" name="cust_email" placeholder="Điền email..." class="form-control-sm">
+                            <input type="email" name="cust_email" placeholder="Điền email..." class="form-control-sm" id="kc03">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="address" class="form-label">Địa chỉ : </label>
-                            <input type="text" placeholder="Địa chỉ..." value="{{$model->cust_address}}" name="cust_address" class="form-control-sm">
+                            <input type="text" placeholder="Địa chỉ..." name="cust_address" class="form-control-sm" id="kc03">
                         </div>
                     </div>
                 </div>
@@ -170,121 +170,89 @@
                     <!----------collum-1------------>
                     <div class="col-md-3">
                         <div class="form-check">
-                            <input class="form-check-input" id="kc06" type="checkbox" name="symptom[]" value="noicongcong" onchange="chkChange('06');" @if (strpos($model->symptom[0], 'noicongcong') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc06" type="checkbox" name="symptom[]" value="noicongcong" onchange="chkChange('06');">
                             <label for=""> Nơi công cộng</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc07" type="checkbox" name="symptom[]" value="noikin" onchange="chkChange('07');" @if (strpos($model->symptom[0], 'noikin') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc07" type="checkbox" name="symptom[]" value="noikin" onchange="chkChange('07');">
                             <label for="">Nơi kín</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc08" type="checkbox" name="symptom[]" value="trongdamdong" onchange="chkChange('08');" @if (strpos($model->symptom[0], 'trongdamdong') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc08" type="checkbox" name="symptom[]" value="trongdamdong" onchange="chkChange('08');">
                             <label for="">Trong đám đông</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc09" type="checkbox" name="symptom[]" value="ongoainha" onchange="chkChange('09');" @if (strpos($model->symptom[0], 'ongoainha') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc09" type="checkbox" name="symptom[]" value="ongoainha" onchange="chkChange('09');">
                             <label for="">Ở ngoài nhà</label>
                         </div>
                     </div>
                     <!---------Collum-2 ------------>
                     <div class="col-md-3">
                         <div class="form-check">
-                            <input class="form-check-input" id="kc10" type="checkbox" name="symptom[]" value="tiepxucvoinguoilkhac" onchange="chkChange('10');" @if (strpos($model->symptom[0], 'tiepxucvoinguoilkhac') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc10" type="checkbox" name="symptom[]" value="tiepxucvoinguoilkhac" onchange="chkChange('10');">
                             <label for="">Tiếp xúc người khác</label>
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input" id="kc15" type="checkbox" name="symptom[]" value="luongcuong" onchange="chkChange('15');" @if (strpos($model->symptom[0], 'luongcuong') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc15" type="checkbox" name="symptom[]" value="luongcuong" onchange="chkChange('15');">
                             <label for="">Luống cuống</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc18" type="checkbox" name="symptom[]" value="sinhhoataa" onchange="chkChange('18');" @if (strpos($model->symptom[0], 'sinhhoataa') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc18" type="checkbox" name="symptom[]" value="sinhhoataa" onchange="chkChange('18');">
                             <label for="">Sinh hoạt</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc19" type="checkbox" name="symptom[]" value="benhcotheaa" onchange="chkChange('19');" @if (strpos($model->symptom[0], 'benhcotheaa') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc19" type="checkbox" name="symptom[]" value="benhcotheaa" onchange="chkChange('19');">
                             <label for="">Bệnh cơ thể</label>
                         </div>
                     </div>
                     <!---------Collum-3 ------------>
                     <div class="col-md-3">
                         <div class="form-check">
-                            <input class="form-check-input" id="kc16" type="checkbox" name="symptom[]" value="loauquadang" onchange="chkChange('16');" @if (strpos($model->symptom[0], 'loauquadang') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc16" type="checkbox" name="symptom[]" value="loauquadang" onchange="chkChange('16');">
                             <label for="">Lo âu quá đáng</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc17" type="checkbox" name="symptom[]" value="thoigiantren6thang" onchange="chkChange('17');" @if (strpos($model->symptom[0], 'thoigiantren6thang') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc17" type="checkbox" name="symptom[]" value="thoigiantren6thang" onchange="chkChange('17');">
                             <label for="">Thời gian trên 6 tháng</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc22" type="checkbox" name="symptom[]" value="sudungchat" onchange="chkChange('22');" @if (strpos($model->symptom[0], 'sudungchat') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc22" type="checkbox" name="symptom[]" value="sudungchat" onchange="chkChange('22');">
                             <label for="">Sử dụng chất</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc05" type="checkbox" name="symptom[]" value="giaothongcongcong" onchange="chkChange('05');" @if (strpos($model->symptom[0], 'giaothongcongcong') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc05" type="checkbox" name="symptom[]" value="giaothongcongcong" onchange="chkChange('05');">
                             <label for="">Giao thông công cộng</label>
                         </div>
                     </div>
                     <!---------Collum-4 ------------>
                     <div class="col-md-3">
                         <div class="form-check">
-                            <input class="form-check-input" id="kc11" type="checkbox" name="symptom[]" value="doituongtrenthcuthe" onchange="chkChange('11');" @if (strpos($model->symptom[0], 'doituongtrenthcuthe') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc11" type="checkbox" name="symptom[]" value="doituongtrenthcuthe" onchange="chkChange('11');">
                             <label for="">Đối tượng, tình huống cụ thể</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc12" type="checkbox" name="symptom[]" value="netranhtinhhuong" onchange="chkChange('12');" @if (strpos($model->symptom[0], 'netranhtinhhuong') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc12" type="checkbox" name="symptom[]" value="netranhtinhhuong" onchange="chkChange('12');">
                             <label for="">Né tránh tình huống</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc13" type="checkbox" name="symptom[]" value="tinhhuonggaylolang" onchange="chkChange('13');" @if (strpos($model->symptom[0], 'tinhhuonggaylolang') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc13" type="checkbox" name="symptom[]" value="tinhhuonggaylolang" onchange="chkChange('13');">
                             <label for="">Tình huống gây lo lắng</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc23" type="checkbox" name="symptom[]" value="roiloanttkhacaa" onchange="chkChange('23');" @if (strpos($model->symptom[0], 'roiloanttkhacaa') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc23" type="checkbox" name="symptom[]" value="roiloanttkhacaa" onchange="chkChange('23');">
                             <label for="">Rối loạn tâm thần khác</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label class="form-label-w" for="">Chẩn đoán: </label>
-                            <textarea style="color:blue;font-weight: bold" name="result" class="form-control-sm" id="kc21" cols="30" rows="1">{{$model->result}}</textarea>
+                            <textarea style="color:blue;font-weight: bold" name="result" class="form-control-sm" id="kc21" cols="30" rows="1"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="d-grid mt-2 gap-2 d-md-flex justify-content-md-center">
-                    <button class="btn btn-primary"> <i class="fas fa-long-arrow-alt-left"></i> Trở lại </button>
+                    <button class="btn btn-primary" type="submit"> Lưu lại</button>
                 </div>
             </form>
         </div>
@@ -515,6 +483,4 @@
         </div>
     </div>
 </div>
-
-
 @endsection

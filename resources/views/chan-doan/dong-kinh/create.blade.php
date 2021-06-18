@@ -75,27 +75,36 @@
             recalc();
         }
     </script>
+    <!---/////------------check-----------/////------->
 
-    <!---------------Check---------------->
     <div class="container-fluid">
         <div class="card-title mx-auto">
-            <h3>Khám Chẩn Đoán</h3>
+            <h3>Khám chẩn đoán</h3>
         </div>
         <div class="content-tabs">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab0" type="button" role="tab" aria-controls="home" aria-selected="true">Chẩn đoán</button>
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab0" type="button" role="tab" aria-controls="home" aria-selected="true">Chẩn đoán hoảng loạn</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="home" aria-selected="true">Động kinh cục bộ đơn giản</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="profile" aria-selected="false">Động kinh cục bộ phức tạp</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="profile" aria-selected="false">Động kinh cơn lớn</button>
                 </li>
             </ul>
         </div>
     </div>
-    <div class="tab-content" id="myTabContent">
-        @php
-        $index=1
-        @endphp
 
+    @php
+    $index=1
+    @endphp
+    <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="tab0" role="tabpanel" aria-labelledby="home-tab">
-            <form class="mt-3 ml-5 mr-5" action="{{route('dong-kinh.update', $model->id)}}" method="POST" enctype="multipart/form-data">
+            <form class="mt-3 ml-5 mr-5" action="{{route('hoang-loan.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <h5>Thông tin
@@ -104,38 +113,38 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="cust_name" class="form-label">Họ và tên : </label>
-                            <input type="text" name="cust_name" value="{{$model->cust_name}}" class="form-control-sm">
+                            <input type="text" name="cust_name" class="form-control-sm" placeholder="Điền họ tên..." id="kc01">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="cust_gender" class="form-label">Giới tính : </label>
-                            <input type="text" name="cust_gender" value="{{$model->cust_gender}}" class="form-control-sm" id="cust_gender" disabled>
+                            <label for="gender" class="form-label">Giới tính : </label>
+                            <input type="radio" class="form-input" name="cust_gender" value="Nam" checked="1" id="kc02"> Nam
+                            <input type="radio" class="form-input" name="cust_gender" value="Nữ" id="kc02"> Nữ
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="doB" class="form-label">Năm sinh : </label>
-                            <input type="text" value="{{$model->cust_dob}}" name="cust_dob" class="form-control-sm" placeholder="">
-
+                            <input type="text" name="cust_dob" class="form-control-sm" placeholder="Năm sinh..." id="kc02">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="phone" class="form-label">SĐT : </label>
-                            <input type="number" value="{{$model->phone}}" name="phone" placeholder="Số điện thoại..." class="form-control-sm">
+                            <input type="number" name="phone" placeholder="Số điện thoại..." class="form-control-sm" id="kc03">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email : </label>
-                            <input type="email" value="{{$model->cust_email}}" name="cust_email" placeholder="Điền email..." class="form-control-sm">
+                            <input type="email" name="cust_email" placeholder="Điền email..." class="form-control-sm" id="kc03">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="address" class="form-label">Địa chỉ : </label>
-                            <input type="text" placeholder="Địa chỉ..." value="{{$model->cust_address}}" name="cust_address" class="form-control-sm">
+                            <input type="text" placeholder="Địa chỉ..." name="cust_address" class="form-control-sm" id="kc03">
                         </div>
                     </div>
                 </div>
@@ -148,18 +157,14 @@
                     <!----------Collum-1------------>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" id="kc04" type="checkbox" name="symptom[]" value="cocungcucbo" onchange="chkChange('04');" @if (strpos($model->symptom[0], 'doroiloantamthankhachl') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc04" type="checkbox" name="symptom[]" value="cocungcucbo" onchange="chkChange('04');">
                             <label for="">Co cứng cục bộ</label>
                         </div>
                     </div>
                     <!----------Collum-1------------>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" id="kc05" type="checkbox" name="symptom[]" value="cocungtoanthan" onchange="chkChange('05');" @if (strpos($model->symptom[0], 'cocungtoanthan') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc05" type="checkbox" name="symptom[]" value="cocungtoanthan" onchange="chkChange('05');">
                             <label for="">Co cứng toàn thân</label>
                         </div>
                     </div>
@@ -167,56 +172,158 @@
                     <!---------Collum-2 ------------>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" id="kc06" type="checkbox" name="symptom[]" value="cogiatcucbo" onchange="chkChange('06');" @if (strpos($model->symptom[0], 'cogiatcucbo') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc06" type="checkbox" name="symptom[]" value="cogiatcucbo" onchange="chkChange('06');">
                             <label for="">Co giật cục bộ</label>
                         </div>
                     </div>
                     <!---------Collum-2 ------------>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" id="kc07" type="checkbox" name="symptom[]" value="cogiattoanthan" onchange="chkChange('07');" @if (strpos($model->symptom[0], 'cogiattoanthan') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc07" type="checkbox" name="symptom[]" value="cogiattoanthan" onchange="chkChange('07');">
                             <label for="">Co giật toàn thân</label>
                         </div>
                     </div>
                     <!---------Collum-3 ------------>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" id="kc08" type="checkbox" name="symptom[]" value="honme" onchange="chkChange('08');" @if (strpos($model->symptom[0], 'honme') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc08" type="checkbox" name="symptom[]" value="honme" onchange="chkChange('08');">
                             <label for="">Hôn mê</label>
                         </div>
                     </div>
                     <!---------Collum-3 ------------>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" id="kc09" type="checkbox" name="symptom[]" value="quentrongcon" onchange="chkChange('09');" @if (strpos($model->symptom[0], 'quentrongcon') !== false)
-                            checked
-                            @endif >
+                            <input class="form-check-input" id="kc09" type="checkbox" name="symptom[]" value="quentrongcon" onchange="chkChange('09');">
                             <label for="">Quên trong cơn</label>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-6">
                             <label class="form-label-w" for="">Thời gian cơn :</label>
-                            <input class="form-control-sm" placeholder="Tính theo ngày" name="time_sym" value="{{$model->time_sym}}" id="kc18" onblur="txtBlur('18');" width="10">
+                            <input class="form-control-sm" placeholder="Tính theo ngày" name="time_sym" id="kc20" onblur="txtBlur('20');" width="10">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label-w" for="">Chẩn đoán: </label>
-                            <textarea style="color:blue;font-weight: bold" name="result" class="form-control-sm" id="kc21" cols="30" rows="1">{{$model->result}}</textarea>
+                            <textarea style="color:blue;font-weight: bold" name="result" class="form-control-sm" id="kc21" cols="30" rows="1"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="d-grid mt-2 gap-2 d-md-flex justify-content-md-center">
-                    <button class="btn btn-primary"> <i class="fas fa-long-arrow-alt-left"></i> Trở lại </button>
+                    <button class="btn btn-primary" type="submit"> Lưu lại</button>
                 </div>
             </form>
         </div>
+        <div class="tab-pane fade ml-5" id="tab1" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            <h3>Động kinh cục bộ đơn giản</h3>
+            <table class="table table-bordered border-primary" id="tt" border="1">
+                <thead>
+                    <th>STT</th>
+                    <th>Triệu chứng</th>
+                    <th>Chỉ số</th>
+                    <th>Dấu hiệu</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{$index++}}</td>
+                        <td>Số cơn co giật</td>
+                        <td id="sps1a">&nbsp;</td>
+                        <td id="sps1b">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>{{$index++}}</td>
+                        <td>Cơn co giật cục bộ</td>
+                        <td id="sps2a">&nbsp;</td>
+                        <td id="sps2b">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>{{$index++}}</td>
+                        <td>Hôn mê</td>
+                        <td id="sps3">&nbsp;</td>
+                        <td id="sps4">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>{{$index++}}</td>
+                        <td>Chẩn đoán</td>
+                        <td id="sps5a">&nbsp;</td>
+                        <td id="sps5b" title="IF(sps5a=1;'Đkcb đơn giản';'Không Đkcb đơn giản')">&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade ml-5" id="tab2" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+            <h3>Động kinh cục bộ phức tạp</h3>
+            <table class="table table-bordered border-primary" id="tt" border="1">
+                <thead>
+                    <th>STT</th>
+                    <th>Triệu chứng</th>
+                    <th>Chỉ số</th>
+                    <th>Dấu hiệu</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{$index++}}</td>
+                        <td>Số cơn co giật</td>
+                        <td id="cps1a">&nbsp;</td>
+                        <td id="cps1b">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>{{$index++}}</td>
+                        <td>Cơn co giật cục bộ</td>
+                        <td id="cps2a">&nbsp;</td>
+                        <td id="cps2b">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>{{$index++}}</td>
+                        <td>Hôn mê</td>
+                        <td id="cps3">&nbsp;</td>
+                        <td id="cps4">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>{{$index++}}</td>
+                        <td>Chẩn đoán</td>
+                        <td id="cps5a">&nbsp;</td>
+                        <td id="cps5b" title="IF(cps5a=1;'Đkcb p tạp';'Không Đkcb p tạp')">&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade ml-5" id="tab3" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+            <h3>Động kinh cơn lớn</h3>
+            <table class="table table-bordered border-primary" id="tt" border="1">
+                <thead>
+                    <th>STT</th>
+                    <th>Triệu chứng</th>
+                    <th>Chỉ số</th>
+                    <th>Dấu hiệu</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{$index++}}</td>
+                        <td>Số cơn co giật</td>
+                        <td id="gm1a">&nbsp;</td>
+                        <td id="gm1b">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>{{$index++}}</td>
+                        <td>Cơn co giật toàn thể</td>
+                        <td id="gm2a">&nbsp;</td>
+                        <td id="gm2b">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>{{$index++}}</td>
+                        <td>Hôn mê</td>
+                        <td id="gm3">&nbsp;</td>
+                        <td id="gm4">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>{{$index++}}</td>
+                        <td>Chẩn đoán</td>
+                        <td id="gm5a">&nbsp;</td>
+                        <td id="gm5b" title="IF(gm5a=1;'Đk cơn lớn';'Không Đk cơn lớn')">&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 </div>
 @endsection

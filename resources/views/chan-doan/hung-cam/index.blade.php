@@ -84,13 +84,7 @@
         <div class="content-tabs">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab0" type="button" role="tab" aria-controls="home" aria-selected="true">Chẩn đoán</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="home" aria-selected="true">Hưng cảm</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="profile" aria-selected="false">Hưng cảm nhẹ</button>
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab0" type="button" role="tab" aria-controls="home" aria-selected="true">Kết quả chẩn đoán hưng cảm</button>
                 </li>
             </ul>
         </div>
@@ -101,7 +95,7 @@
         @endphp
 
         <div class="tab-pane fade show active" id="tab0" role="tabpanel" aria-labelledby="home-tab">
-            <form class="mt-3 ml-5 mr-5" action="{{route('view.store')}}" method="POST" enctype="multipart/form-data">
+            <form class="mt-3 ml-5 mr-5" action="{{route('hung-cam.update', $model->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <h5>Thông tin
@@ -109,39 +103,39 @@
                     </h5>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Họ và tên : </label>
-                            <input type="text" name="name" class="form-control-sm" placeholder="Điền họ tên..." id="kc01" onblur="txtBlur('01');">
+                            <label for="cust_name" class="form-label">Họ và tên : </label>
+                            <input type="text" name="cust_name" value="{{$model->cust_name}}" class="form-control-sm">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="gender" class="form-label">Giới tính : </label>
-                            <input type="radio" class="form-input" name="gender" value="0" checked="1" id="kc02" onblur="txtBlur('02');"> Nam
-                            <input type="radio" class="form-input" name="gender" value="1" id="kc02" onblur="txtBlur('02');"> Nữ
+                            <label for="cust_gender" class="form-label">Giới tính : </label>
+                            <input type="text" name="cust_gender" value="{{$model->cust_gender}}" class="form-control-sm" id="cust_gender" disabled>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="doB" class="form-label">Năm sinh : </label>
-                            <input type="date" name="doB" class="form-control-sm" placeholder="Tuổi..." id="kc02" onblur="txtBlur('02');">
+                            <input type="text" value="{{$model->cust_dob}}" name="cust_dob" class="form-control-sm" placeholder="">
+
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="mobile" class="form-label">SĐT : </label>
-                            <input type="number" name="mobile" placeholder="Số điện thoại..." class="form-control-sm" id="kc03" onblur="txtBlur('03');">
+                            <label for="phone" class="form-label">SĐT : </label>
+                            <input type="number" value="{{$model->phone}}" name="phone" placeholder="Số điện thoại..." class="form-control-sm">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email : </label>
-                            <input type="email" name="email" placeholder="Điền email..." class="form-control-sm" id="kc03" onblur="txtBlur('03');">
+                            <input type="email" value="{{$model->cust_email}}" name="cust_email" placeholder="Điền email..." class="form-control-sm">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="address" class="form-label">Địa chỉ : </label>
-                            <input type="text" placeholder="Địa chỉ..." name="address" class="form-control-sm" id="kc03" onblur="txtBlur('03');">
+                            <input type="text" placeholder="Địa chỉ..." value="{{$model->cust_address}}" name="cust_address" class="form-control-sm">
                         </div>
                     </div>
                 </div>
@@ -154,15 +148,21 @@
                     <!-- ---Collum-1 -->
                     <div class="col-md-3">
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" id="kc04" type="checkbox" onchange="chkChange('04');">
+                            <input class="form-check-input" id="kc04" type="checkbox" name="symptom[]" value="vuivehc" onchange="chkChange('04');" @if (strpos($model->symptom[0], 'vuivehc') !== false)
+                            checked
+                            @endif>
                             <label for="">Vui vẻ</label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" id="kc05" type="checkbox" onchange="chkChange('05');">
+                            <input class="form-check-input" id="kc05" type="checkbox" name="symptom[]" value="debikichthichhc" onchange="chkChange('05');" @if (strpos($model->symptom[0], 'debikichthichhc') !== false)
+                            checked
+                            @endif>
                             <label for="">Dễ bị kích thích</label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" id="kc06" type="checkbox" onchange="chkChange('06');">
+                            <input class="form-check-input" id="kc06" type="checkbox" name="symptom[]" value="ytuongtucaohc" onchange="chkChange('06');" @if (strpos($model->symptom[0], 'ytuongtucaohc') !== false)
+                            checked
+                            @endif>
                             <label for="">Ý tưởng tự cao</label>
                         </div>
                     </div>
@@ -171,204 +171,75 @@
                     <div class="col-md-3">
 
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" id="kc10" type="checkbox" onchange="chkChange('10');">
+                            <input class="form-check-input" id="kc10" type="checkbox" name="symptom[]" value="dangtrihc" onchange="chkChange('10');" @if (strpos($model->symptom[0], 'dangtrihc') !== false)
+                            checked
+                            @endif>
                             <label for="">Đãng trí</label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" id="kc13" type="checkbox" onchange="chkChange('13');">
+                            <input class="form-check-input" id="kc13" type="checkbox" name="symptom[]" value="sinhhoathc" onchange="chkChange('13');" @if (strpos($model->symptom[0], 'sinhhoathc') !== false)
+                            checked
+                            @endif>
                             <label for="">Sinh hoạt</label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" id="kc12" type="checkbox" onchange="chkChange('12');">
+                            <input class="form-check-input" id="kc12" type="checkbox" name="symptom[]" value="hanhvinguyhienhc" onchange="chkChange('12');" @if (strpos($model->symptom[0], 'hanhvinguyhienhc') !== false)
+                            checked
+                            @endif>
                             <label for="">Hành vi nguy hiểm</label>
                         </div>
                     </div>
                     <!---------Collum-3 ------------>
                     <div class="col-md-3">
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" id="kc08" type="checkbox" onchange="chkChange('08');">
+                            <input class="form-check-input" id="kc08" type="checkbox" name="symptom[]" value="noinhieuhc" onchange="chkChange('08');" @if (strpos($model->symptom[0], 'noinhieuhc') !== false)
+                            checked
+                            @endif>
                             <label for="">Nói nhiều</label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" id="kc09" type="checkbox" onchange="chkChange('09');">
+                            <input class="form-check-input" id="kc09" type="checkbox" name="symptom[]" value="suynghinhieuhc" onchange="chkChange('09');" @if (strpos($model->symptom[0], 'suynghinhieuhc') !== false)
+                            checked
+                            @endif>
                             <label for="">Suy nghĩ nhiều</label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" id="kc07" type="checkbox" onchange="chkChange('07');">
+                            <input class="form-check-input" id="kc07" type="checkbox" name="symptom[]" value="giamnhucaunguhc" onchange="chkChange('07');" @if (strpos($model->symptom[0], 'giamnhucaunguhc') !== false)
+                            checked
+                            @endif>
                             <label for="">Giảm nhu cầu ngủ</label>
                         </div>
                     </div>
                     <!---------Collum-4------------>
                     <div class="col-md-3">
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" id="kc11" type="checkbox" onchange="chkChange('11');">
+                            <input class="form-check-input" id="kc11" type="checkbox" name="symptom[]" value="giatanghdhc" onchange="chkChange('11');" @if (strpos($model->symptom[0], 'giatanghdhc') !== false)
+                            checked
+                            @endif>
                             <label for="">Gia tăng hoạt động</label>
                         </div>
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" id="kc14" type="checkbox" onchange="chkChange('14');">
+                            <input class="form-check-input" id="kc14" type="checkbox" name="symptom[]" value="benhcothesdc" onchange="chkChange('14');" @if (strpos($model->symptom[0], 'benhcothesdc') !== false)
+                            checked
+                            @endif>
                             <label for="">Bệnh cơ thể, sử dụng chất</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label class="form-label-w" for="">Thời gian cơn :</label>
-                            <input class="form-control-sm" placeholder="Tính theo ngày" id="kc20" onblur="txtBlur('20');" width="10">
+                            <input class="form-control-sm" placeholder="Tính theo ngày" name="time_sym" value="{{$model->time_sym}}" id="kc18" onblur="txtBlur('18');" width="10">
                         </div>
-                        <div class="col-md-4">
-                            <h5>Chẩn đoán: <span id="kc21" style="color:blue;"></span></h5>
+                        <div class="col-md-6">
+                            <label class="form-label-w" for="">Chẩn đoán: </label>
+                            <textarea style="color:blue;font-weight: bold" name="result" class="form-control-sm" id="kc21" cols="30" rows="1">{{$model->result}}</textarea>
                         </div>
                     </div>
                 </div>
                 <div class="d-grid mt-2 gap-2 d-md-flex justify-content-md-center">
-                    <button class="btn btn-primary" type="submit"> Lưu lại</button>
+                    <button class="btn btn-primary"> <i class="fas fa-long-arrow-alt-left"></i> Trở lại </button>
                 </div>
             </form>
-        </div>
-        <div class="tab-pane fade ml-5" id="tab1" role="tabpanel" aria-labelledby="v-pills-home-tab">
-            <h3>Hưng cảm</h3>
-            <table class="table table-bordered border-primary" id="tt" border="1">
-                <thead>
-                    <th>STT</th>
-                    <th>Triệu chứng</th>
-                    <th>Chỉ số</th>
-                    <th>Dấu hiệu</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Thời gian cơn</td>
-                        <td id="tc01a">&nbsp;</td>
-                        <td id="tc01b">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Triệu chứng chính</td>
-                        <td id="tc02a">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn A</b></td>
-                        <td>&nbsp;</td>
-                        <td id="tc04">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Số triệu chứng</td>
-                        <td id="tc05">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn B</b></td>
-                        <td>&nbsp;</td>
-                        <td id="tc06">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Sinh hoạt
-                        <td id="tc07">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn C</b></td>
-                        <td>&nbsp;</td>
-                        <td id="tc08">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>B cơ thể, dùng chất</td>
-                        <td id="tc09">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn D</b></td>
-                        <td>&nbsp;</td>
-                        <td id="tc10">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Chẩn đoán</td>
-                        <td id="tc14a">&nbsp;</td>
-                        <td id="tc14b" title="IF(tc14a=1;'Hưng cảm';'Không trầm cảm')">&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane fade ml-5" id="tab2" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-            <h3>Hưng cảm nhẹ</h3>
-            <table class="table table-bordered border-primary" id="tt" border="1">
-                <thead>
-                    <th>STT</th>
-                    <th>Triệu chứng</th>
-                    <th>Chỉ số</th>
-                    <th>Dấu hiệu</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Thời gian cơn</td>
-                        <td id="tcb01a">&nbsp;</td>
-                        <td id="tcb01b">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Triệu chứng chính</td>
-                        <td id="tcb02a">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn A</b></td>
-                        <td id="tcb04">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Số triệu chứng</td>
-                        <td id="tcb05">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn B</b></td>
-                        <td id="tcb06">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Không thay đỗi sinh hoạt</td>
-                        <td id="tcb11">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn E</b></td>
-                        <td id="tcb13">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>B cơ thể, dùng chất</td>
-                        <td id="tcb14">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn F</b></td>
-                        <td id="tcb15">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Chẩn đoán</td>
-                        <td id="tcb12a">&nbsp;</td>
-                        <td id="tcb12b">&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 </div>

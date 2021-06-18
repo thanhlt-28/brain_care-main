@@ -181,25 +181,7 @@
         <div class="content-tabs">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab0" type="button" role="tab" aria-controls="home" aria-selected="true">Chẩn đoán</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="home" aria-selected="true">Mất trí nhẹ</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="home" aria-selected="true">Mất trí nặng</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="profile" aria-selected="false">Alzheimer nhẹ</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#tab4" type="button" role="tab" aria-controls="contact" aria-selected="false">Alzheimer nặng</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#tab5" type="button" role="tab" aria-controls="contact" aria-selected="false">Mất trí do Parkinson</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#tab6" type="button" role="tab" aria-controls="contact" aria-selected="false">Mất trí do mạch máu</button>
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab0" type="button" role="tab" aria-controls="home" aria-selected="true">Kết quả chẩn đoán mất trí</button>
                 </li>
             </ul>
         </div>
@@ -209,47 +191,47 @@
         $index=1
         @endphp
         <div class="tab-pane fade show active" id="tab0" role="tabpanel" aria-labelledby="home-tab">
-            <form class="mt-3 ml-5 mr-5" action="{{route('view.store')}}" method="POST" enctype="multipart/form-data">
+            <form class="mt-3 ml-5 mr-5" action="{{route('mat-tri.update', $model->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <h5>Thông tin
-                    <!-- <hr width="10%"> -->
-                </h5>
                 <div class="row">
+                    <h5>Thông tin
+                        <!-- <hr width="10%"> -->
+                    </h5>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Họ và tên : </label>
-                            <input type="text" name="name" class="form-control-sm" placeholder="Điền họ tên..." id="kc01" onblur="txtBlur('01');">
+                            <label for="cust_name" class="form-label">Họ và tên : </label>
+                            <input type="text" name="cust_name" value="{{$model->cust_name}}" class="form-control-sm">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="gender" class="form-label">Giới tính : </label>
-                            <input type="radio" class="form-input" name="gender" value="0" checked="1" id="kc02" onblur="txtBlur('02');"> Nam
-                            <input type="radio" class="form-input" name="gender" value="1" id="kc02" onblur="txtBlur('02');"> Nữ
+                            <label for="cust_gender" class="form-label">Giới tính : </label>
+                            <input type="text" name="cust_gender" value="{{$model->cust_gender}}" class="form-control-sm" id="cust_gender" disabled>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="doB" class="form-label">Năm sinh : </label>
-                            <input type="date" name="doB" class="form-control-sm" placeholder="Tuổi..." id="kc02" onblur="txtBlur('02');">
+                            <input type="text" value="{{$model->cust_dob}}" name="cust_dob" class="form-control-sm" placeholder="">
+
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="mobile" class="form-label">SĐT : </label>
-                            <input type="number" name="mobile" placeholder="Số điện thoại..." class="form-control-sm" id="kc03" onblur="txtBlur('03');">
+                            <label for="phone" class="form-label">SĐT : </label>
+                            <input type="number" value="{{$model->phone}}" name="phone" placeholder="Số điện thoại..." class="form-control-sm">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email : </label>
-                            <input type="email" name="email" placeholder="Điền email..." class="form-control-sm" id="kc03" onblur="txtBlur('03');">
+                            <input type="email" value="{{$model->cust_email}}" name="cust_email" placeholder="Điền email..." class="form-control-sm">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="address" class="form-label">Địa chỉ : </label>
-                            <input type="text" placeholder="Địa chỉ..." name="address" class="form-control-sm" id="kc03" onblur="txtBlur('03');">
+                            <input type="text" placeholder="Địa chỉ..." value="{{$model->cust_address}}" name="cust_address" class="form-control-sm">
                         </div>
                     </div>
                 </div>
@@ -262,16 +244,22 @@
                 <div class="row ml-1">
                     <div class="col-md-3">
                         <div class="form-check">
-                            <input class="form-check-input" id="kc05" type="checkbox" onchange="chkChange('05');">
+                            <input class="form-check-input" id="kc05" type="checkbox" name="symptom[]" value="2dovatdongian" onchange="chkChange('05');" @if (strpos($model->symptom[0], '2dovatdongian') !== false)
+                            checked
+                            @endif>
                             <label for="">2 đồ vật đơn giản</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc06" type="checkbox" onchange="chkChange('06');">
+                            <input class="form-check-input" id="kc06" type="checkbox" name="symptom[]" value="goiten3dovat" onchange="chkChange('06');" @if (strpos($model->symptom[0], 'goiten3dovat') !== false)
+                            checked
+                            @endif>
                             <label for="">Gọi tên 3 đồ vật</label>
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input" id="kc11" type="checkbox" onchange="chkChange('11');">
+                            <input class="form-check-input" id="kc11" type="checkbox" name="symptom[]" value="sinhhoatphuthuoc" onchange="chkChange('11');" @if (strpos($model->symptom[0], 'sinhhoatphuthuoc') !== false)
+                            checked
+                            @endif>
                             <label for="">Sinh hoạt phụ thuộc</label>
                         </div>
                     </div>
@@ -279,542 +267,81 @@
                     <!---------Collum-2 ------------>
                     <div class="col-md-3">
                         <div class="form-check">
-                            <input class="form-check-input" id="kc12" type="checkbox" onchange="chkChange('12');">
+                            <input class="form-check-input" id="kc12" type="checkbox" name="symptom[]" value="parkinson" onchange="chkChange('12');" @if (strpos($model->symptom[0], 'parkinson') !== false)
+                            checked
+                            @endif>
                             <label for="">Parkinson</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc13" type="checkbox" onchange="chkChange('13');">
+                            <input class="form-check-input" id="kc13" type="checkbox" name="symptom[]" value="benhmachmaunao" onchange="chkChange('13');" @if (strpos($model->symptom[0], 'benhmachmaunao') !== false)
+                            checked
+                            @endif>
                             <label for="">Bệnh mạch máu não</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc15" type="checkbox" onchange="chkChange('15');">
+                            <input class="form-check-input" id="kc15" type="checkbox" name="symptom[]" value="cobenhcothe" onchange="chkChange('15');" @if (strpos($model->symptom[0], 'cobenhcothe') !== false)
+                            checked
+                            @endif>
                             <label for="">Có bệnh cơ thể</label>
                         </div>
                     </div>
                     <!---------Collum-3 ------------>
                     <div class="col-md-3">
                         <div class="form-check">
-                            <input class="form-check-input" id="kc17" type="checkbox" onchange="chkChange('17');">
+                            <input class="form-check-input" id="kc17" type="checkbox" name="symptom[]" value="khongbimesang" onchange="chkChange('17');" @if (strpos($model->symptom[0], 'khongbimesang') !== false)
+                            checked
+                            @endif>
                             <label for="">Không bị mê sảng</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc18" type="checkbox" onchange="chkChange('18');">
+                            <input class="form-check-input" id="kc18" type="checkbox" name="symptom[]" value="tientrientutu" onchange="chkChange('18');" @if (strpos($model->symptom[0], 'tientrientutu') !== false)
+                            checked
+                            @endif>
                             <label for="">Tiến triển từ từ</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc14" type="checkbox" onchange="chkChange('14');">
+                            <input class="form-check-input" id="kc14" type="checkbox" name="symptom[]" value="trieuchungthankinh" onchange="chkChange('14');" @if (strpos($model->symptom[0], 'trieuchungthankinh') !== false)
+                            checked
+                            @endif>
                             <label for="">Triệu chứng thần kinh</label>
                         </div>
                     </div>
                     <!---------Collum-4 ------------>
                     <div class="col-md-3">
                         <div class="form-check">
-                            <input class="form-check-input" id="kc07" type="checkbox" onchange="chkChange('07');">
+                            <input class="form-check-input" id="kc07" type="checkbox" name="symptom[]" value="vehinhgapgiay" onchange="chkChange('07');" @if (strpos($model->symptom[0], 'vehinhgapgiay') !== false)
+                            checked
+                            @endif>
                             <label for="">Vẽ hình, gấp giấy, viết một câu</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc16" type="checkbox" onchange="chkChange('16');">
+                            <input class="form-check-input" id="kc16" type="checkbox" name="symptom[]" value="cothuocdieutrigaynghien" onchange="chkChange('16');" @if (strpos($model->symptom[0], 'cothuocdieutrigaynghien') !== false)
+                            checked
+                            @endif>
                             <label for="">Có dùng thuốc điều trị, gây nghiện</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc19" type="checkbox" onchange="chkChange('19');">
+                            <input class="form-check-input" id="kc19" type="checkbox" name="symptom[]" value="kobiroiloan" onchange="chkChange('19');" @if (strpos($model->symptom[0], 'kobiroiloan') !== false)
+                            checked
+                            @endif>
                             <label for="">Không bị rối loạn tâm thần khác</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" id="kc04" type="checkbox" onchange="chkChange('04');">
+                            <input class="form-check-input" id="kc04" type="checkbox" name="symptom[]" value="1007dangvannguoc" onchange="chkChange('04');" @if (strpos($model->symptom[0], '1007dangvannguoc') !== false)
+                            checked
+                            @endif>
                             <label for="">100-7, đánh vần ngược</label>
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <label class="form-label-w" for="">
-                            <h5>Chẩn đoán: <span id="kc21" style="color:blue;"></span></h5>
-                        </label>
+                        <label class="form-label-w" for="">Chẩn đoán: </label>
+                        <textarea style=" color:blue;font-weight: bold" name="result" class="form-control-sm" id="kc21" cols="30" rows="1">{{$model->result}}</textarea>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <button class="btn btn-primary"> <i class="fas fa-long-arrow-alt-left"></i> Trở lại </button>
                     </div>
                 </div>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                    <button class="btn btn-primary" type="submit"> Lưu lại</button>
-                </div>
             </form>
-        </div>
-        <div class="tab-pane fade ml-5" id="tab1" role="tabpanel" aria-labelledby="home-tab">
-            <h4>Mất trí nhẹ</h4>
-            <table class="table table-bordered border-primary" id="tt" border="1">
-                <thead>
-                    <th>STT</th>
-                    <th>Triệu chứng</th>
-                    <th>Chỉ số</th>
-                    <th>Dấu hiệu</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>RL nhận thức </td>
-                        <td id="tc03b">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn A</b></td>
-                        <td>&nbsp;</td>
-                        <td id="tc04">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Sinh hoạt phụ thuộc</td>
-                        <td id="tc05">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn B</b></td>
-                        <td>&nbsp;</td>
-                        <td id="tc06">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Mê sảng</td>
-                        <td id="tc07">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn C</b></td>
-                        <td>&nbsp;</td>
-                        <td id="tc09">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>RL tâm thần khác</td>
-                        <td id="tc10">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn D</b></td>
-                        <td>&nbsp;</td>
-                        <td id="tc11">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Chẩn đoán</td>
-                        <td id="tc14a">&nbsp;</td>
-                        <td id="tc14b" title="IF(tc14a=1;'Trầm cảm';'Không trầm cảm')">&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane fade ml-5" id="tab2" role="tabpanel" aria-labelledby="profile-tab">
-            <h4>Mất trí nặng</h4>
-            <table class="table table-bordered border-primary" id="tt" border="1">
-                <thead>
-                    <th>STT</th>
-                    <th>Triệu chứng</th>
-                    <th>Chỉ số</th>
-                    <th>Dấu hiệu</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Số triệu chứng chính</td>
-                        <td id="tcb01"></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Số triệu chứng </td>
-                        <td id="tcb02"></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn A</b></td>
-                        <td></td>
-                        <td id="tcb03"></td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Bệnh cơ thể</td>
-                        <td id="tcb04"></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn B</b></td>
-                        <td></td>
-                        <td id="tcb05"></td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Bệnh trầm cảm</td>
-                        <td id="tcb06"></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn C</b></td>
-                        <td></td>
-                        <td id="tcb07"></td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Mê sảng</td>
-                        <td id="tcb08"></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn D</b></td>
-                        <td></td>
-                        <td id="tcb09"></td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Sinh hoạt</td>
-                        <td id="tcb10"></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn E</b></td>
-                        <td></td>
-                        <td id="tcb11"></td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Chẩn đoán</td>
-                        <td id="tcb12a"></td>
-                        <td id="tcb12b"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane fade ml-5" id="tab3" role="tabpanel" aria-labelledby="contact-tab">
-            <h4>Alzheimer nhẹ</h4>
-            <table class="table table-bordered border-primary" id="tt" border="1">
-                <thead>
-                    <th>STT</th>
-                    <th>Triệu chứng</th>
-                    <th>Chỉ số</th>
-                    <th>Dấu hiệu</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Trí nhớ và học tập</td>
-                        <td id="tcc01">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>RL nhận thức </td>
-                        <td id="tcc02">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Mê sảng </td>
-                        <td id="tcc03">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>RL tâm thần khác</td>
-                        <td id="tcc04">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Sinh hoạt phụ thuộc</td>
-                        <td id="tcc13">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn A</b></td>
-                        <td>&nbsp;</td>
-                        <td id="tcc05">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Diễn tiến từ từ</td>
-                        <td id="tcc06">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn B</b></td>
-                        <td>&nbsp;</td>
-                        <td id="tcc07">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Bệnh thần kinh</td>
-                        <td id="tcc08">0</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn C</b></td>
-                        <td>&nbsp;</td>
-                        <td id="tcc09">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Bệnh cơ thể, dùng chất</td>
-                        <td id="tcc10">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn D</b></td>
-                        <td>&nbsp;</td>
-                        <td id="tcc11">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Chẩn đoán</td>
-                        <td id="tcc12a">&nbsp;</td>
-                        <td id="tcc12b">&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane fade ml-5" id="tab4" role="tabpanel" aria-labelledby="contact-tab">
-            <h4>Alzheimer nặng</h4>
-            <table class="table table-bordered border-primary" id="tt" border="1">
-                <thead>
-                    <th>STT</th>
-                    <th>Triệu chứng</th>
-                    <th>Chỉ số</th>
-                    <th>Dấu hiệu</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Trí nhớ và học tập</td>
-                        <td id="rlt01">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>RL nhận thức </td>
-                        <td id="rlt02">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Mê sảng</td>
-                        <td id="rlt03">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>RL tâm thần khác </td>
-                        <td id="rlt04">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Sinh hoạt độc lập</td>
-                        <td id="rlt13">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn A</b></td>
-                        <td>&nbsp;</td>
-                        <td id="rlt05">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Diễn tiến từ từ</td>
-                        <td id="rlt06">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn B</b></td>
-                        <td>&nbsp;</td>
-                        <td id="rlt07">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Bệnh thần kinh</td>
-                        <td id="rlt08">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn C</b></td>
-                        <td>&nbsp;</td>
-                        <td id="rlt09">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Bệnh cơ thể,dùng chất</td>
-                        <td id="rlt10">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn D</b></td>
-                        <td>&nbsp;</td>
-                        <td id="rlt11">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Chẩn đoán</td>
-                        <td id="rlt12a">&nbsp;</td>
-                        <td id="rlt12b">&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane fade ml-5" id="tab5" role="tabpanel" aria-labelledby="contact-tab">
-            <h4>Mất trí do Parkinson</h4>
-            <table class="table table-bordered border-primary" id="tt" border="1">
-                <thead>
-                    <th>STT</th>
-                    <th>Triệu chứng</th>
-                    <th>Chỉ số</th>
-                    <th>Dấu hiệu</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>RL nhận thức </td>
-                        <td id="hc02">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Mê sảng</td>
-                        <td id="hc03">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn A</b></td>
-                        <td>&nbsp;</td>
-                        <td id="hc05">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Bệnh Parkinson</td>
-                        <td id="hc06">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn B</b></td>
-                        <td>&nbsp;</td>
-                        <td id="hc07">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Diễn tiến từ từ</td>
-                        <td id="hc09">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn C</b></td>
-                        <td>&nbsp;</td>
-                        <td id="hc10">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Bệnh cơ thể</td>
-                        <td id="hc11">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Sử dụng chất</td>
-                        <td id="hc12">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>RL tâm thần khác</td>
-                        <td id="hc13">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn D</b></td>
-                        <td>&nbsp;</td>
-                        <td id="hc14">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Chẩn đoán</td>
-                        <td id="hc08a">&nbsp;</td>
-                        <td id="hc08b">&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane fade ml-5" id="tab6" role="tabpanel" aria-labelledby="contact-tab">
-            <h4>Mất trí do mạch máu</h4>
-            <table class="table table-bordered border-primary" id="tt" border="1">
-                <thead>
-                    <th>STT</th>
-                    <th>Triệu chứng</th>
-                    <th>Chỉ số</th>
-                    <th>Dấu hiệu</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>RL nhận thức </td>
-                        <td id="mm02">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Mê sảng</td>
-                        <td id="mm03">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn A</b></td>
-                        <td>&nbsp;</td>
-                        <td id="mm05">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Bệnh mạch máu não</td>
-                        <td id="mm06">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn B</b></td>
-                        <td>&nbsp;</td>
-                        <td id="mm07">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Bệnh cơ thể</td>
-                        <td id="mm11">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td><b>Tiêu chuẩn D</b></td>
-                        <td>&nbsp;</td>
-                        <td id="mm14">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{$index++}}</td>
-                        <td>Chẩn đoán</td>
-                        <td id="mm08a">&nbsp;</td>
-                        <td id="mm08b">&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 </div>

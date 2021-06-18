@@ -83,7 +83,7 @@
         $index=1
         @endphp
         <div class="tab-pane ml-5 fade show active" id="tab0" role="tabpanel" aria-labelledby="v-pills-home-tab">
-            <form class="mt-3" action="{{route('nghien-ruou.store_ngruou')}}" method="POST" enctype="multipart/form-data">
+            <form class="mt-3" action="{{route('nghien-ruou.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <h5>Thông tin

@@ -12,15 +12,15 @@
                             <ul>
                                 <li><a href="{{route('tram-cam.views')}}">Chẩn đoán</a></li>
                                 <li><a href="{{route('tramcam.views')}}">Điều trị</a></li>
-                                <li><a href="">Thuốc</a></li>
+                                <li><a href="{{route('tramcam.index-3')}}">Thuốc</a></li>
                             </ul>
                         </li>
                         <li><a href="#">Hưng cảm</a>
                             <!-- menu con sổ ngang cấp 3 -->
                             <ul>
-                                <li><a href="">Chẩn đoán</a></li>
+                                <li><a href="{{route('hung-cam.views')}}">Chẩn đoán</a></li>
                                 <li><a href="{{route('hungcam.views')}}">Điều trị</a></li>
-                                <li><a href="">Thuốc</a></li>
+                                <li><a href="{{route('hungcam.index-3')}}">Thuốc</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -30,25 +30,25 @@
                         <li><a href="#">Lo âu</a>
                             <!-- menu con sổ ngang cấp 3 -->
                             <ul>
-                                <li><a href="">Chẩn đoán</a></li>
+                                <li><a href="{{route('lo-au.views')}}">Chẩn đoán</a></li>
                                 <li><a href="{{route('loau.views')}}">Điều trị</a></li>
-                                <li><a href="">Thuốc</a></li>
+                                <li><a href="{{route('loau.index-3')}}">Thuốc</a></li>
                             </ul>
                         </li>
                         <li><a href="#">Hoảng loạn</a>
                             <!-- menu con sổ ngang cấp 3 -->
                             <ul>
-                                <li><a href="">Chẩn đoán</a></li>
+                                <li><a href="{{route('hoang-loan.views')}}">Chẩn đoán</a></li>
                                 <li><a href="{{route('hoangloan.views')}}">Điều trị</a></li>
-                                <li><a href="">Thuốc</a></li>
+                                <li><a href="{{route('hoangloan.index-3')}}">Thuốc</a></li>
                             </ul>
                         </li>
                         <li><a href="#">Ám ảnh</a>
                             <!-- menu con sổ ngang cấp 3 -->
                             <ul>
-                                <li><a href="">Chẩn đoán</a></li>
+                                <li><a href="{{route('am-anh.views')}}">Chẩn đoán</a></li>
                                 <li><a href="{{route('amanh.views')}}">Điều trị</a></li>
-                                <li><a href="">Thuốc</a></li>
+                                <li><a href="{{route('amanh.index-3')}}">Thuốc</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -63,15 +63,15 @@
                     <ul>
                         <li><a href="{{route('mat-tri.views')}}">Chẩn đoán</a></li>
                         <li><a href="{{route('mattri.views')}}">Điều trị</a></li>
-                        <li><a href="">Thuốc</a></li>
+                        <li><a href="{{route('mattri.index-3')}}">Thuốc</a></li>
                     </ul>
                 </li>
                 <li><a href="#">Động kinh</a>
                     <!-- menu con sổ ngang cấp 3 -->
                     <ul>
-                        <li><a href="">Chẩn đoán</a></li>
+                        <li><a href="{{route('dong-kinh.views')}}">Chẩn đoán</a></li>
                         <li><a href="{{route('dongkinh.views')}}">Điều trị</a></li>
-                        <li><a href="">Thuốc</a></li>
+                        <li><a href="{{route('dongkinh.index-3')}}">Thuốc</a></li>
                     </ul>
                 </li>
                 <li><a href="#">Nghiện rượu</a>
@@ -79,15 +79,15 @@
                     <ul>
                         <li><a href="{{route('nghien-ruou.views')}}">Chẩn đoán</a></li>
                         <li><a href="{{route('nghienruou.views')}}">Điều trị</a></li>
-                        <li><a href="">Thuốc</a></li>
+                        <li><a href="{{route('nghienruou.index-3')}}">Thuốc</a></li>
                     </ul>
                 </li>
                 <li><a href="#">Loạn thần</a>
                     <!-- menu con sổ ngang cấp 3 -->
                     <ul>
-                        <li><a href="">Chẩn đoán</a></li>
+                        <li><a href="{{route('loan-than.views')}}">Chẩn đoán</a></li>
                         <li><a href="{{route('loanthan.views')}}">Điều trị</a></li>
-                        <li><a href="">Thuốc</a></li>
+                        <li><a href="{{route('loanthan.index-3')}}">Thuốc</a></li>
                     </ul>
                 </li>
             </ul>
@@ -96,7 +96,7 @@
     </li>
     <li><a href="{{route('news')}}">Tin tức</a>
         <ul>
-            <li><a href="#">Thực tập sinh chuyên đề</a></li>
+            <li><a href="{{route('diagnose.index')}}">Thực tập sinh chuyên đề</a></li>
             <li><a href="#">Sản xuất phần mềm</a></li>
         </ul>
     </li>

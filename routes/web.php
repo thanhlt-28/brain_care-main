@@ -8,6 +8,7 @@ use App\Http\Controllers\DianoseController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SymptomController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserCustomerController;
 use App\Http\Requests\TypeRequest;
+use App\Models\Medicine;
 use Illuminate\Console\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -34,15 +36,6 @@ use Inertia\Inertia;
 // Route::get('/', function () {
 //     return view('dashboard');
 // });
-// Route::get('/', [HomeController::class, 'index'])->name('home');
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });J
 
 
 Route::view('register', 'auth.register')->name('register');
@@ -71,8 +64,8 @@ Route::prefix('/')->group(function () {
 
     Route::prefix('chan-doan')->group(function () {
         //........Trầm cảm
-        Route::get('ket-qua', [DianoseController::class, 'index'])->name('tram-cam.views');
-        Route::get('them-chan-doan', [DianoseController::class, 'create'])->name('tram-cam.create');
+        Route::get('ket-qua-tram-cam', [DianoseController::class, 'index'])->name('tram-cam.views');
+        Route::get('them-chan-doan-tram-cam', [DianoseController::class, 'create'])->name('tram-cam.create');
         Route::post('luu-lai', [DianoseController::class, 'store'])->name('tram-cam.store');
         Route::get('xoa-ket-qua/{id}', [DianoseController::class, 'destroy'])->name('tram-cam.destroy');
         Route::get('chi-tiet/{id}', [DianoseController::class, 'detail'])->name('tram-cam.index');
@@ -81,20 +74,72 @@ Route::prefix('/')->group(function () {
         //........Nghiện rượu
         Route::get('ket-qua-nr', [DianoseController::class, 'index_ngruou'])->name('nghien-ruou.views');
         Route::get('them-chan-doan-nr', [DianoseController::class, 'create_ngruou'])->name('nghien-ruou.create');
-        Route::post('luu-lai-nr', [DianoseController::class, 'store_ngruou'])->name('nghien-ruou.store_ngruou');
+        Route::post('luu-lai-nr', [DianoseController::class, 'store_ngruou'])->name('nghien-ruou.store');
         Route::get('xoa-ket-qua-nr/{id}', [DianoseController::class, 'destroy_ngruou'])->name('nghien-ruou.destroy');
         Route::get('nghien-ruou/{id}', [DianoseController::class, 'detail_ngruou'])->name('nghien-ruou.index');
         Route::post('nghien-ruou/{id}', [DianoseController::class, 'update_ngruou'])->name('nghien-ruou.update');
         //........Mất trí
         Route::get('ket-qua-mattri', [DianoseController::class, 'index_mattri'])->name('mat-tri.views');
         Route::get('them-chan-doan-mattri', [DianoseController::class, 'create_mattri'])->name('mat-tri.create');
-        Route::post('luu-lai-mattri', [DianoseController::class, 'store_mattri'])->name('mat-tri.store_mattri');
+        Route::post('luu-lai-mattri', [DianoseController::class, 'store_mattri'])->name('mat-tri.store');
         Route::get('xoa-ket-qua-mattri/{id}', [DianoseController::class, 'destroy_mattri'])->name('mat-tri.destroy');
-        Route::get('mattri/{id}', [DianoseController::class, 'detail_mattri'])->name('mat-tri.index');
-        Route::post('mattri/{id}', [DianoseController::class, 'update_mattri'])->name('mat-tri.update');
+        Route::get('ket-qua-mattri/{id}', [DianoseController::class, 'detail_mattri'])->name('mat-tri.index');
+        Route::post('ket-qua-mattri/{id}', [DianoseController::class, 'update_mattri'])->name('mat-tri.update');
+        //........Loạn thần
+        Route::get('ket-qua-loanthan', [DianoseController::class, 'index_lthan'])->name('loan-than.views');
+        Route::get('them-chan-doan-loanthan', [DianoseController::class, 'create_lthan'])->name('loan-than.create');
+        Route::post('luu-lai-loanthan', [DianoseController::class, 'store_lthan'])->name('loan-than.store');
+        Route::get('xoa-ket-qua-loanthan/{id}', [DianoseController::class, 'destroy_lthan'])->name('loan-than.destroy');
+        Route::get('ket-qua-loanthan/{id}', [DianoseController::class, 'detail_lthan'])->name('loan-than.index');
+        Route::post('ket-qua-loanthan/{id}', [DianoseController::class, 'update_lthan'])->name('loan-than.update');
+        //........Lo âu
+        Route::get('ket-qua-lo-au', [DianoseController::class, 'index_loau'])->name('lo-au.views');
+        Route::get('them-chan-doan-lo-au', [DianoseController::class, 'create_loau'])->name('lo-au.create');
+        Route::post('luu-lai-lo-au', [DianoseController::class, 'store_loau'])->name('lo-au.store');
+        Route::get('xoa-ket-qua-lo-au/{id}', [DianoseController::class, 'destroy_loau'])->name('lo-au.destroy');
+        Route::get('ket-qua-lo-au/{id}', [DianoseController::class, 'detail_loau'])->name('lo-au.index');
+        Route::post('ket-qua-lo-au/{id}', [DianoseController::class, 'update_loau'])->name('lo-au.update');
+        //........Hưng cảm
+        Route::get('ket-qua-hung-cam', [DianoseController::class, 'index_hcam'])->name('hung-cam.views');
+        Route::get('them-chan-doan-hung-cam', [DianoseController::class, 'create_hcam'])->name('hung-cam.create');
+        Route::post('luu-lai-hung-cam', [DianoseController::class, 'store_hcam'])->name('hung-cam.store');
+        Route::get('xoa-ket-qua-hung-cam/{id}', [DianoseController::class, 'destroy_hcam'])->name('hung-cam.destroy');
+        Route::get('ket-qua-hung-cam/{id}', [DianoseController::class, 'detail_hcam'])->name('hung-cam.index');
+        Route::post('ket-qua-hung-cam/{id}', [DianoseController::class, 'update_hcam'])->name('hung-cam.update');
+        //........Hoảng loạn
+        Route::get('ket-qua-hoang-loan', [DianoseController::class, 'index_hloan'])->name('hoang-loan.views');
+        Route::get('them-chan-doan-hoang-loan', [DianoseController::class, 'create_hloan'])->name('hoang-loan.create');
+        Route::post('luu-lai-hoang-loan', [DianoseController::class, 'store_hloan'])->name('hoang-loan.store');
+        Route::get('xoa-ket-qua-hoang-loan/{id}', [DianoseController::class, 'destroy_hloan'])->name('hoang-loan.destroy');
+        Route::get('ket-qua-hoang-loan/{id}', [DianoseController::class, 'detail_hloan'])->name('hoang-loan.index');
+        Route::post('ket-qua-hoang-loan/{id}', [DianoseController::class, 'update_hloan'])->name('hoang-loan.update');
+        //........Động kinh
+        Route::get('ket-qua-dong-kinh', [DianoseController::class, 'index_dongkinh'])->name('dong-kinh.views');
+        Route::get('them-chan-doan-dong-kinh', [DianoseController::class, 'create_dongkinh'])->name('dong-kinh.create');
+        Route::post('luu-lai-dong-kinh', [DianoseController::class, 'store_dongkinh'])->name('dong-kinh.store');
+        Route::get('xoa-ket-qua-dong-kinh/{id}', [DianoseController::class, 'destroy_dongkinh'])->name('dong-kinh.destroy');
+        Route::get('ket-qua-dong-kinh/{id}', [DianoseController::class, 'detail_dongkinh'])->name('dong-kinh.index');
+        Route::post('ket-qua-dong-kinh/{id}', [DianoseController::class, 'update_dongkinh'])->name('dong-kinh.update');
+        //........Ám ảnh
+        Route::get('ket-qua-am-anh', [DianoseController::class, 'index_amanh'])->name('am-anh.views');
+        Route::get('them-chan-doan-am-anh', [DianoseController::class, 'create_amanh'])->name('am-anh.create');
+        Route::post('luu-lai-am-anh', [DianoseController::class, 'store_amanh'])->name('am-anh.store');
+        Route::get('xoa-ket-qua-am-anh/{id}', [DianoseController::class, 'destroy_amanh'])->name('am-anh.destroy');
+        Route::get('ket-qua-am-anh/{id}', [DianoseController::class, 'detail_amanh'])->name('am-anh.index');
+        Route::post('ket-qua-am-anh/{id}', [DianoseController::class, 'update_amanh'])->name('am-anh.update');
     });
 
     Route::prefix('dieu-tri')->group(function () {
+        Route::get('thuoc-tram-cam', [DepressionController::class, 'indexof1'])->name('tramcam.index-3');
+        Route::get('thuoc-hung-cam', [DepressionController::class, 'indexof2'])->name('hungcam.index-3');
+        Route::get('thuoc-lo-au', [DepressionController::class, 'indexof3'])->name('loau.index-3');
+        Route::get('thuoc-hoang-loan', [DepressionController::class, 'indexof4'])->name('hoangloan.index-3');
+        Route::get('thuoc-am-anh', [DepressionController::class, 'indexof5'])->name('amanh.index-3');
+        Route::get('thuoc-mat-tri', [DepressionController::class, 'indexof6'])->name('mattri.index-3');
+        Route::get('thuoc-dong-kinh', [DepressionController::class, 'indexof7'])->name('dongkinh.index-3');
+        Route::get('thuoc-loan-than', [DepressionController::class, 'indexof8'])->name('loanthan.index-3');
+        Route::get('thuoc-nghien-ruou', [DepressionController::class, 'indexof9'])->name('nghienruou.index-3');
+
         // Trầm cảm
         Route::get('dieu-tri-tc', [TreatmentController::class, 'index'])->name('tramcam.views');
         Route::get('theo-doi-tc', [TreatmentController::class, 'create'])->name('tramcam.create');
@@ -161,6 +206,7 @@ Route::prefix('/')->group(function () {
     });
 });
 
+
 Route::prefix('/admin')->middleware('check-admin-role')->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
@@ -217,10 +263,8 @@ Route::get('chi-tiet/{id}', [PostController::class, 'details'])->name('posts.det
 
 Route::resource('diagnose', DiaController::class)->only(['index', 'create', 'store', 'edit', 'destroy']);
 Route::post('diagnose/{id}', [DiaController::class, 'update'])->name('diagnose.update');
+Route::get('index-nnn', [MedicineController::class, 'index'])->name('diagnose.index');
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');
-// })->name('dashboard');
-// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
 // })->name('dashboard');

@@ -17,23 +17,3 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/symptom', function (Request $request) {
-    $tramcam1 = [
-        [
-            "Buon" => "1"
-        ],
-        [
-            "Nguit" => "1"
-        ],
-        [
-            "Anit" => "1"
-        ],
-        [
-            "Tutu" => "1"
-        ],
-        [
-            "Metmoi" => "1"
-        ],
-    ];
-    return response()->json($tramcam1, 200);
-});

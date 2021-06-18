@@ -79,7 +79,7 @@
     @endphp
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="tab0" role="tabpanel" aria-labelledby="v-pills-home-tab">
-            <form class="mt-3 ml-5 mr-5" action="{{route('nghien-ruou.store_ngruou')}}" method="POST" enctype="multipart/form-data">
+            <form class="mt-3 ml-5 mr-5" action="{{route('nghien-ruou.update', $model->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <h5>
@@ -96,9 +96,6 @@
                         <div class="mb-3">
                             <label for="cust_gender" class="form-label">Giới tính : </label>
                             <input type="text" name="cust_gender" value="{{$model->cust_gender}}" class="form-control-sm" id="cust_gender" disabled>
-                            <!-- <textarea name="cust_gender" id="cust_gender" cols="30" rows="1">{{$model->cust_gender}}</textarea> -->
-                            <!-- <input class="form-input" type="radio" name="cust_gender" value="0" @if(old('cust_gender',$model->cust_gender)=="0") checked @endif> Nam
-                            <input type="radio" class="form-input" name="cust_gender" value="1" @if(old('cust_gender',$model->cust_gender)=="1") checked @endif> Nữ -->
                         </div>
                     </div>
                     <div class="col-md-4">
