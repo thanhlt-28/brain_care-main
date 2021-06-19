@@ -11,7 +11,7 @@ class DianoseController extends Controller
     public function index()
     {
         $cust = Dianose::all();
-        $medis = Medicine::paginate(10);
+        $medis = Medicine::all();
         return view('chan-doan.tram-cam.views', compact('cust', 'medis'));
     }
     public function search(Request $request)

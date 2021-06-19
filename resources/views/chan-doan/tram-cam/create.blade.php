@@ -364,7 +364,6 @@
                 <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                     <button class="btn btn-primary" type="submit"> Lưu lại</button>
                 </div>
-                @include('layouts.aside')
 
             </form>
         </div>

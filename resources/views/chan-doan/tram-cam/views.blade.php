@@ -234,6 +234,5 @@
             </div>
         </div>
     </div>
-    @include('layouts.aside')
 </div>
 @endsection

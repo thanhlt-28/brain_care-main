@@ -9,27 +9,25 @@ class MedicineController extends Controller
 {
     public function index()
     {
-        $medis = Medicine::all();
-
-        return view('layouts.aside', compact('medis'));
+        return view('diagnose.index');
     }
-    // public function search(Request $request)
-    // {
-    //     if ($request->keyword) {
 
-    //         $medicine = Medicine::where(
-    //             'name',
-    //             'like',
-    //             "%" . $request->keyword . "%"
-    //         )->paginate(20);
-    //         $medicine->withPath('?keyword=' . $request->keyword);
-    //     } else {
-    //         $medicine = Medicine::paginate(20);
-    //     }
+    public function AutoSearch(Request $request)
+    {
+        $search = $request->get('term');
 
-    //     return view('views', [
-    //         'medicine' => $medicine,
-    //         'keyword' => $request->keyword
-    //     ]);
-    // }
+        $result = Medicine::where('name', 'LIKE', '%' . $search . '%')->get();
+
+        return response()->json($result);
+
+        // $medis = Medicine::all();
+
+        // if ($request->has('q')) {
+        //     $search = $request->q;
+        //     $medis = Medicine::input("id", "name")
+        //         ->where('name', 'LIKE', "%$search%")
+        //         ->get();
+        // }
+        // return response()->json($medis);
+    }
 }

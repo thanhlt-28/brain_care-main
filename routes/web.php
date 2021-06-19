@@ -263,7 +263,9 @@ Route::get('chi-tiet/{id}', [PostController::class, 'details'])->name('posts.det
 
 Route::resource('diagnose', DiaController::class)->only(['index', 'create', 'store', 'edit', 'destroy']);
 Route::post('diagnose/{id}', [DiaController::class, 'update'])->name('diagnose.update');
-Route::get('index-nnn', [MedicineController::class, 'index'])->name('diagnose.index');
+
+Route::get('/search', [MedicineController::class, 'index']);
+Route::get('/autocomplete', [MedicineController::class, 'AutoSearch']);
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');
