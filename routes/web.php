@@ -265,7 +265,7 @@ Route::resource('diagnose', DiaController::class)->only(['index', 'create', 'sto
 Route::post('diagnose/{id}', [DiaController::class, 'update'])->name('diagnose.update');
 
 Route::get('/search', [MedicineController::class, 'index']);
-Route::get('/autocomplete', [MedicineController::class, 'AutoSearch']);
+Route::get('/autocomplete', [MedicineController::class, 'AutoSearch'])->name('diagnose.index');
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');

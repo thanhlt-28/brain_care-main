@@ -14,20 +14,15 @@ class MedicineController extends Controller
 
     public function AutoSearch(Request $request)
     {
-        $search = $request->get('term');
 
-        $result = Medicine::where('name', 'LIKE', '%' . $search . '%')->get();
+        $medis = Medicine::all();
 
-        return response()->json($result);
-
-        // $medis = Medicine::all();
-
-        // if ($request->has('q')) {
-        //     $search = $request->q;
-        //     $medis = Medicine::input("id", "name")
-        //         ->where('name', 'LIKE', "%$search%")
-        //         ->get();
-        // }
-        // return response()->json($medis);
+        if ($request->has('q')) {
+            $search = $request->q;
+            $medis = Medicine::input("id", "name")
+                ->where('name', 'LIKE', "%$search%")
+                ->get();
+        }
+        return response()->json($medis);
     }
 }
