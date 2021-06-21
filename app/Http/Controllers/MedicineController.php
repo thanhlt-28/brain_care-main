@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class MedicineController extends Controller
 {
-    public function index()
+    public function search()
     {
         return view('diagnose.index');
     }
@@ -15,14 +15,22 @@ class MedicineController extends Controller
     public function AutoSearch(Request $request)
     {
 
-        $medis = Medicine::all();
-
-        if ($request->has('q')) {
-            $search = $request->q;
-            $medis = Medicine::input("id", "name")
-                ->where('name', 'LIKE', "%$search%")
+        // $data = Medicine::select('Name')
+        //     ->where('Name', 'LIKE', "%{$request->keyword}%")
+        //     ->get();
+        // dd($data);
+        if ($request->get('data')) {
+            $data = $request->get('data');
+            $data = Medicine::select('Name', 'Type')
+                ->where('Name', 'LIKE', "%{$data}%")
                 ->get();
+            // $output = '<ul class="dropdown-menu" style="display:block; position:relative;">';
+            // foreach ($data as $row) {
+            //     $output .= '
+            //     <li><a href="data/' . $row->id . '" class="ml-2" style="color:black; font-weight: bold">' . $row->Name . '</a></li>';
+            // }
+            // $output .= '</ul>';
+            return $data->toJson();
         }
-        return response()->json($medis);
     }
 }

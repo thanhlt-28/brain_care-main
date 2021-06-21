@@ -366,6 +366,7 @@
                 </div>
 
             </form>
+
         </div>
         <div class="tab-pane ml-5 fade show" id="tab1" role="tabpanel" aria-labelledby="home-tab">
             <h4>Trầm cảm</h4>
@@ -786,6 +787,7 @@
                 </tbody>
             </table>
         </div>
+        @include('layouts.aside')
     </div>
 </div>
 @endsection

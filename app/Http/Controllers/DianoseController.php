@@ -4,34 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Dianose;
 use App\Models\Medicine;
+use App\Models\Prescription;
 use Illuminate\Http\Request;
 
 class DianoseController extends Controller
 {
+    public function stores(Request $request)
+    {
+        $pres = new Prescription();
+        $pres->fill($request->all());
+        $pres->save();
+
+        return redirect(route('medicine'));
+    }
+    // ===========Trầm cảm
     public function index()
     {
         $cust = Dianose::all();
         $medis = Medicine::all();
         return view('chan-doan.tram-cam.views', compact('cust', 'medis'));
-    }
-    public function search(Request $request)
-    {
-        if ($request->keyword) {
-
-            $medis = Medicine::where(
-                'name',
-                'like',
-                "%" . $request->keyword . "%"
-            )->paginate(20);
-            $medis->withPath('?keyword=' . $request->keyword);
-        } else {
-            $medis = Medicine::paginate(20);
-        }
-
-        return view('views', [
-            'medis' => $medis,
-            'keyword' => $request->keyword
-        ]);
     }
 
     public function create()

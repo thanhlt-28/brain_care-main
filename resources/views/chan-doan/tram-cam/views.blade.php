@@ -173,17 +173,6 @@
                 </li>
             </ul>
         </div>
-        <form class="input-group mt-4" method="GET" action="">
-            @csrf
-            <div class="form-outline">
-                <input id="search-input" name="keyword" type="search" id="form1" class="form-control-sm" value="@php
-                        if(isset($keyword)) echo $keyword
-                    @endphp" />
-                <button id="search-button" type="submit" class="btn btn-primary h-100">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </form>
     </div>
 
 

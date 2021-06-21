@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SymptomController;
 use App\Http\Controllers\TreatmentController;
@@ -264,8 +265,11 @@ Route::get('chi-tiet/{id}', [PostController::class, 'details'])->name('posts.det
 Route::resource('diagnose', DiaController::class)->only(['index', 'create', 'store', 'edit', 'destroy']);
 Route::post('diagnose/{id}', [DiaController::class, 'update'])->name('diagnose.update');
 
-Route::get('/search', [MedicineController::class, 'index']);
-Route::get('/autocomplete', [MedicineController::class, 'AutoSearch'])->name('diagnose.index');
+// Search Medicine
+Route::get('search', [MedicineController::class, 'search']);
+Route::post('autocomplete', [MedicineController::class, 'AutoSearch'])->name('autocomplete');
+Route::post('save', [DianoseController::class, 'stores'])->name('stores');
+Route::post('save', [TreatmentController::class, 'stores'])->name('stores');
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');
