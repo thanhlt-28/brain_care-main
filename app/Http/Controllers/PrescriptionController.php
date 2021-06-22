@@ -13,6 +13,6 @@ class PrescriptionController extends Controller
         $pres->fill($request->all());
         $pres->save();
 
-        return redirect(route('index'));
+        return redirect(route('medicine'));
     }
 }

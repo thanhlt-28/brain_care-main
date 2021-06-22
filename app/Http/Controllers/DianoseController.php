@@ -15,7 +15,7 @@ class DianoseController extends Controller
         $pres->fill($request->all());
         $pres->save();
 
-        return redirect(route('medicine'));
+        return redirect(route('diagnose.medicine'));
     }
     // ===========Trầm cảm
     public function index()

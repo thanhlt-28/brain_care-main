@@ -14,7 +14,7 @@ class TreatmentController extends Controller
         $pres->fill($request->all());
         $pres->save();
 
-        // return redirect(route(''));
+        return redirect(route('diagnose.medicine'));
     }
     //============== Trầm cảm
     public function index()

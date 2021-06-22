@@ -646,6 +646,7 @@
                 </tbody>
             </table>
         </div>
+        @include('layouts.formMultiple')
     </div>
 </div>
 @endsection

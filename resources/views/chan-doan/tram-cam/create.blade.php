@@ -787,7 +787,7 @@
                 </tbody>
             </table>
         </div>
-        @include('layouts.aside')
+        @include('layouts.formMultiple')
     </div>
 </div>
 @endsection

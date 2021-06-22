@@ -262,14 +262,16 @@ Route::prefix('/admin')->middleware('check-admin-role')->group(function () {
 
 Route::get('chi-tiet/{id}', [PostController::class, 'details'])->name('posts.details');
 
-Route::resource('diagnose', DiaController::class)->only(['index', 'create', 'store', 'edit', 'destroy']);
-Route::post('diagnose/{id}', [DiaController::class, 'update'])->name('diagnose.update');
+// Route::resource('diagnose', DiaController::class)->only(['index', 'create', 'store', 'edit', 'destroy']);
+// Route::post('diagnose/{id}', [DiaController::class, 'update'])->name('diagnose.update');
 
 // Search Medicine
 Route::get('search', [MedicineController::class, 'search']);
 Route::post('autocomplete', [MedicineController::class, 'AutoSearch'])->name('autocomplete');
 Route::post('save', [DianoseController::class, 'stores'])->name('stores');
 Route::post('save', [TreatmentController::class, 'stores'])->name('stores');
+Route::get('index', [DiaController::class, 'index'])->name('diagnose.index');
+
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');

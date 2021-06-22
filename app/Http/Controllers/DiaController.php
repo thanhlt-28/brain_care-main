@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Diagnose;
+use App\Models\Prescription;
 use Illuminate\Http\Request;
 
 class DiaController extends Controller
@@ -14,8 +15,8 @@ class DiaController extends Controller
      */
     public function index()
     {
-        $dia = Diagnose::all();
-        return view('diagnose.multipleCheckbox', compact('dia'));
+        $pres = Prescription::all();
+        return view('diagnose.medicine', compact('pres'));
     }
 
     /**
@@ -25,7 +26,7 @@ class DiaController extends Controller
      */
     public function create()
     {
-        return view('diagnose.formMultipleCheckbox');
+        // return view('diagnose.formMultipleCheckbox');
     }
     /**
      * Store a newly created resource in storage.

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Diagnose extends Model
 {
     use HasFactory;
-    protected $table = 'diagnoses';
+    protected $table = 'dianoses';
     protected $fillable = ['name', 'category', 'description'];
 
     public function setCategoryAttribute($value)
