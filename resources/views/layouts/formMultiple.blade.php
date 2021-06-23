@@ -15,7 +15,8 @@
                                 <div class="form-group">
                                     <input id="medicineName" name="Name" type="text" class="typeahead form-control" placeholder="Tên thuốc ...">
                                     <!-- For displaying selected option value from autocomplete suggestion -->
-                                    <input type="text" id='id' name="id" readonly>
+                                    <input type="text" id='mediId' name="id" readonly>
+
                                     <input type="text" id='type' name="type" readonly>
                                     <div id="search-ajax">
                                     </div>
@@ -76,7 +77,7 @@
 
                 $(document).on('click', 'li', function() {
                     $('#medicineName').val($(this).text());
-                    $('#id').val($(this).text());
+                    $('#mediId').val($(this).text());
                     $('#type').val($(this).text());
                     $('#search-ajax').fadeOut();
                     return false;
