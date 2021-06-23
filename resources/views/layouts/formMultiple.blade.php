@@ -14,66 +14,15 @@
                                 @csrf
                                 <div class="form-group">
                                     <input id="medicineName" name="Name" type="text" class="typeahead form-control" placeholder="Tên thuốc ...">
-
+                                    <!-- For displaying selected option value from autocomplete suggestion -->
+                                    <input type="text" id='id' name="id" readonly>
+                                    <input type="text" id='type' name="type" readonly>
                                     <div id="search-ajax">
                                     </div>
-                                    <table class="table table-success table-striped mt-3">
-                                        <tbody>
-                                            <!-- <tr>
-                                                <th>CustID</th>
-                                                <th>Số lượng</th>
-                                                <th>Loại thuốc</th>
-                                            </tr> -->
-                                            <tr>
-                                                <td>
-                                                    <input class="form-control" name="CustID" type="text" placeholder="ID khách hàng">
-                                                </td>
-                                                <td>
-                                                    <input class="form-control" name="Amount" type="text" placeholder="Số lượng">
-                                                </td>
-                                                <td>
-                                                    <input class="form-control" name="Type" type="text" placeholder="Loại thuốc">
-                                                </td>
-                                                <td></td>
-                                            </tr>
-                                            <!-- <tr>
-                                                <th>Nhóm thuốc</th>
-                                                <th>Thị trường</th>
-                                                <th>Bắt đầu</th>
-                                            </tr> -->
-                                            <tr>
 
-                                                <td>
-                                                    <input class="form-control" name="Grouptype" type="text" placeholder="Nhóm thuốc">
-                                                </td>
-                                                <td>
-                                                    <input class="form-control" name="Market" type="text" placeholder="Thị trường">
-                                                </td>
-                                                <td>
-                                                    <input class="form-control" name="Begin" type="text" placeholder="Bắt đầu">
-                                                </td>
-                                                <td></td>
-                                            </tr>
-                                            <!-- <tr>
-                                                <th>Điều trị</th>
-                                                <th>Công ty</th>
-                                                <th>Quốc gia</th>
-                                            </tr> -->
-                                            <tr>
+                                    <div id="content" style="clear: both">
 
-                                                <td>
-                                                    <input class="form-control" name="Treatment" type="text" placeholder="Điều trị">
-                                                </td>
-                                                <td>
-                                                    <input class="form-control" name="Company" type="text" placeholder="Công ty">
-                                                </td>
-                                                <td>
-                                                    <input class="form-control" name="National" type="text" placeholder="Quốc gia">
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <div id="content" style="clear: both"></div>
+                                    </div>
                                 </div>
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                                     <button class="btn btn-success" type="submit"> Nhập </button>
@@ -108,7 +57,7 @@
                                 $.each(medicine, function(index, value) {
                                     // console.log(index, value);
                                     //search-ajax
-                                    output += '<li><a href="#" class="ml-2" style="color:black; font-weight: bold">' + value.Name + '</a></li>';
+                                    output += '<li><a href="#" class="ml-2" style="color:black; font-weight: bold">' + value.Name + ' </a></li>';
 
                                     //content
                                     // content += "<h3>Name: " + value.Name + "; Type: " + value.Type + "</h3>";
@@ -127,7 +76,10 @@
 
                 $(document).on('click', 'li', function() {
                     $('#medicineName').val($(this).text());
+                    $('#id').val($(this).text());
+                    $('#type').val($(this).text());
                     $('#search-ajax').fadeOut();
+                    return false;
                 })
             });
         </script>

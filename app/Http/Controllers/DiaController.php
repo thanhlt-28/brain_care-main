@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Diagnose;
+use App\Models\Medicine;
 use App\Models\Prescription;
+use Faker\Provider\Medical;
 use Illuminate\Http\Request;
 
 class DiaController extends Controller
@@ -16,7 +18,7 @@ class DiaController extends Controller
     public function index()
     {
         $pres = Prescription::all();
-        return view('diagnose.medicine', compact('pres'));
+        return view('diagnose.index', compact('pres'));
     }
 
     /**
@@ -41,6 +43,13 @@ class DiaController extends Controller
         Diagnose::create($input);
         return redirect()->route('diagnose.index');
     }
+    public function getAllFields(Request $request)
+    {
+        $getFields = Medicine::where('cnic', $request->cnic)->first();
+
+        return response()->json($getFields, 200);
+    }
+
     /**
      * Display the specified resource.
      *

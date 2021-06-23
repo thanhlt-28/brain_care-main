@@ -14,14 +14,13 @@ class MedicineController extends Controller
 
     public function AutoSearch(Request $request)
     {
-
         // $data = Medicine::select('Name')
         //     ->where('Name', 'LIKE', "%{$request->keyword}%")
         //     ->get();
         // dd($data);
         if ($request->get('data')) {
             $data = $request->get('data');
-            $data = Medicine::select('Name', 'Type')
+            $data = Medicine::select('Name', 'type', 'grouptype', 'market', 'begin', 'treatment', 'national')
                 ->where('Name', 'LIKE', "%{$data}%")
                 ->get();
             // $output = '<ul class="dropdown-menu" style="display:block; position:relative;">';
