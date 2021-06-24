@@ -96,7 +96,7 @@
     </li>
     <li><a href="{{route('news')}}">Tin tức</a>
         <ul>
-            <li><a href="{{route('diagnose.index')}}">Thực tập sinh chuyên đề</a></li>
+            <li><a href="{{route('getallfields')}}">Thực tập sinh chuyên đề</a></li>
             <li><a href="#">Sản xuất phần mềm</a></li>
         </ul>
     </li>

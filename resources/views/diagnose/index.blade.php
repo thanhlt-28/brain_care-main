@@ -1,13 +1,15 @@
 @extends('layouts.main')
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Post</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 </head>
 
@@ -39,193 +41,116 @@
                         </div>
                     </div>
                 </div>
+
                 <form class="form" method="post" action="">
                     @csrf
-                    <div class="row justify-content-md-center">
-                        <div class="col-md-12">
-                            <div class="form-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="name">Name</label>
-                                            <input type="text" id="name" class="form-control" placeholder="Enter name" name="name" value="{{old('name')}}">
-                                            @if ($errors->has('name'))
-                                            <span style="color: red" class="help-block">{{ $errors->first('name') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="amount">Amount</label>
-                                            <input type="number" id="amount" class="form-control" placeholder="Enter amount" name="amount" value="{{old('amount')}}">
-                                            @if ($errors->has('amount'))
-                                            <span style="color: red" class="help-block">{{ $errors->first('amount') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="type">Type</label>
-                                            <input type="text" id="type" class="form-control" placeholder="Enter Type" name="type" value="{{old('type')}}">
-                                            @if ($errors->has('type'))
-                                            <span style="color: red" class="help-block">{{ $errors->first('type') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="grouptype">Grouptype</label>
-                                            <input type="text" id="grouptype" class="form-control" placeholder="Enter Grouptype" name="grouptype" value="{{old('grouptype')}}">
-                                            @if ($errors->has('grouptype'))
-                                            <span style="color: red" class="help-block">{{ $errors->first('grouptype') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="market">Market</label>
-                                            <input type="text" id="market" class="form-control" placeholder="Enter Market" name="market" value="{{old('market')}}">
-                                            @if ($errors->has('market'))
-                                            <span style="color: red" class="help-block">{{ $errors->first('market') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="begin">Begin</label>
-                                            <input type="text" id="begin" class="form-control" placeholder="Enter Begin" name="begin" value="{{old('begin')}}">
-                                            @if ($errors->has('begin'))
-                                            <span style="color: red" class="help-block">{{ $errors->first('begin') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="treatment">Treatment</label>
-                                    <input type="text" id="treatment" class="form-control" placeholder="Enter Treatment" name="treatment" value="{{old('treatment')}}">
-                                    @if ($errors->has('treatment'))
-                                    <span style="color: red" class="help-block">{{ $errors->first('treatment') }}</span>
-                                    @endif
-                                </div>
-                                <div class="form-group">
-                                    <label for="national">National</label>
-                                    <input type="text" id="national" class="form-control" placeholder="Enter National" name="national" value="{{old('national')}}">
-                                    @if ($errors->has('national'))
-                                    <span style="color: red" class="help-block">{{ $errors->first('national') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="search-ajax">
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
-                <!-- <h2 class="text-center">Hướng dẫn thiết giao diện trang giỏ hàng bằng Bootstrap</h2>
-                <div class="container">
-                    <table id="cart" class="table table-hover table-condensed">
-                        <thead>
-                            <tr>
-                                <th style="width:50%">Tên sản phẩm</th>
-                                <th style="width:10%">Giá</th>
-                                <th style="width:8%">Số lượng</th>
-                                <th style="width:22%" class="text-center">Thành tiền</th>
-                                <th style="width:10%"> </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td data-th="Product">
-                                    <div class="row">
-                                        <div class="col-sm-2 hidden-xs"><img src="http://hocwebgiare.com/thiet_ke_web_chuan_demo/shopping_cart/images/090.jpg" alt="Sản phẩm 1" class="img-responsive" width="100">
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <h4 class="nomargin">Sản phẩm 1</h4>
-                                            <p>Mô tả của sản phẩm 1</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td data-th="Price">200.000 đ</td>
-                                <td data-th="Quantity"><input class="form-control text-center" value="1" type="number">
-                                </td>
-                                <td data-th="Subtotal" class="text-center">200.000 đ</td>
-                                <td class="actions" data-th="">
-                                    <button class="btn btn-info btn-sm"><i class="fa fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-th="Product">
-                                    <div class="row">
-                                        <div class="col-sm-2 hidden-xs"><img src="http://hocwebgiare.com/thiet_ke_web_chuan_demo/shopping_cart/images/174.jpg" alt="Sản phẩm 1" class="img-responsive" width="100">
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <h4 class="nomargin">Sản phẩm 2</h4>
-                                            <p>Mô tả của sản phẩm 2</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td data-th="Price">300.000 đ</td>
-                                <td data-th="Quantity"><input class="form-control text-center" value="1" type="number">
-                                </td>
-                                <td data-th="Subtotal" class="text-center">300.000 đ</td>
-                                <td class="actions" data-th="">
-                                    <button class="btn btn-info btn-sm"><i class="fa fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr class="visible-xs">
-                                <td class="text-center"><strong>Tổng 200.000 đ</strong>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="http://hocwebgiare.com/" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a>
-                                </td>
-                                <td colspan="2" class="hidden-xs"> </td>
-                                <td class="hidden-xs text-center"><strong>Tổng tiền 500.000 đ</strong>
-                                </td>
-                                <td><a href="http://hocwebgiare.com/" class="btn btn-success btn-block">Thanh toán <i class="fa fa-angle-right"></i></a>
-                                </td>
-                            </tr>
-                        </tfoot>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th><input class='check_all' type='checkbox' onclick="select_all()" /></th>
+                            <th>S. No</th>
+                            <th>Country Name</th>
+                            <th>Country code</th>
+                        </tr>
+                        <tr>
+                            <td><input type='checkbox' class='chkbox' /></td>
+                            <td><span id='sn'>1.</span></td>
+                            <td><input class="form-control autocomplete_txt" type='text' data-type="medicineName" id='medicineName_1' name='medicineName' /></td>
+                            <td><input class="form-control autocomplete_txt" type='text' data-type="type" id='type_code_1' name='type' /> </td>
+                        </tr>
                     </table>
-                </div> -->
+                    <button type="button" class='btn btn-danger delete'>- Delete</button>
+                    <button type="button" class='btn btn-success addbtn'>+ Add More</button>
+                </form>
             </div>
         </div>
     </div>
 
-    <script>
-        $("#cnic").focusout(function(e) {
-            // alert($(this).val());
-            var cnic = $(this).val();
-            $.ajax({
-                type: "POST",
-                url: "{{route('diagnose.index')}}",
-                data: {
-                    'cnic': cnic
-                },
-                dataType: 'json',
-                success: function(data) {
-                    $('#name').val(data.name);
-                    $('#mobile_number').val(data.mobile);
-                    $('#party_joining_year').val(data.party_joining_year);
+    <script type="text/javascript">
+        $(".delete").on('click', function() {
+            $('.chkbox:checkbox:checked').parents("tr").remove();
+            $('.check_all').prop("checked", false);
+            updateSerialNo();
+        });
+        var i = $('table tr').length;
+        $(".addbtn").on('click', function() {
+            count = $('table tr').length;
 
+            var data = "<tr><td><input type='checkbox' class='chkbox'/></td>";
+            data += "<td><span id='sn" + i + "'>" + count + ".</span></td>";
+            data += "<td><input class='form-control autocomplete_txt' type='text' data-type='medicineName' id='medicineName_1" + i + "' name='medicineName'/></td>";
+            data += "<td><input class='form-control autocomplete_txt' type='text' data-type='type' id='type_code_1" + i + "' name='type'/></td></tr>";
+            $('table').append(data);
+            i++;
+        });
+
+        function select_all() {
+            $('input[class=chkbox]:checkbox').each(function() {
+                if ($('input[class=check_all]:checkbox:checked').length == 0) {
+                    $(this).prop("checked", false);
+                } else {
+                    $(this).prop("checked", true);
                 }
             });
+        }
+
+        function updateSerialNo() {
+            obj = $('table tr').find('span');
+            $.each(obj, function(key, value) {
+                id = value.id;
+                $('#' + id).html(key + 1);
+            });
+        }
+    </script>
+    <script>
+        //autocomplete script
+
+        $(document).ready(function() {
+            $('#medicineName').keyup(function() {
+                var data = $(this).val();
+                if (data != '') {
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                        url: "{{route('getallfields')}}",
+                        method: 'POST',
+                        data: {
+                            data: data,
+                            _token: _token
+                        },
+                        success: function(data) {
+                            let medicine = JSON.parse(data);
+                            let output = '<ul class="dropdown-menu" style="display:block; position:relative;">';
+
+                            let content = '';
+                            $.each(medicine, function(index, value) {
+                                // console.log(index, value);
+                                //search-ajax
+                                output += '<li><a href="#" class="ml-2" style="color:black; font-weight: bold">' + value.Name + ' </a></li>';
+
+                                //content
+                                // content += "<h3>Name: " + value.Name + "; Type: " + value.Type + "</h3>";
+                            });
+                            output += "</ul>";
+
+                            $('#search-ajax').fadeIn();
+                            $('#search-ajax').html(output);
+                            $('#content').html(content);
+                        }
+                    })
+                } else {
+                    $('#search-ajax').fadeOut();
+                }
+            });
+
+            $(document).on('click', 'li', function(ui, event) {
+                console.log(ui.item)
+                $('#medicineName').val($(this).text());
+                $('#mediId').val($(this).text());
+                $('#type').val($(this).text());
+                $('#search-ajax').fadeOut();
+                return false;
+            })
         });
     </script>
 </body>
-
-</html>
 
 @endsection

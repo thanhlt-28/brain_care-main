@@ -360,14 +360,12 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                    <button class="btn btn-primary" type="submit"> Lưu lại</button>
+                    <button class="btn btn-primary" id="btn-add" type="submit"> Lưu lại</button>
                 </div>
-
             </form>
-
         </div>
+
         <div class="tab-pane ml-5 fade show" id="tab1" role="tabpanel" aria-labelledby="home-tab">
             <h4>Trầm cảm</h4>
             <table class="table table-bordered border-primary" id="tt" border="1">
@@ -790,4 +788,17 @@
         @include('layouts.formMultiple')
     </div>
 </div>
+<script>
+    $('#btn-add').click(function(e) {
+        e.preventDefault();
+        var name = $('#name').val();
+        if (name == '') {
+            $('.message_box').html(
+                '<span style="color:red;">Enter Your Name!</span>'
+            );
+            $('#name').focus();
+            return false;
+        }
+    });
+</script>
 @endsection

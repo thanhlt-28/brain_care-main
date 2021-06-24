@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Diagnose;
 use App\Models\Medicine;
 use App\Models\Prescription;
-use Faker\Provider\Medical;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DiaController extends Controller
 {
@@ -17,37 +17,36 @@ class DiaController extends Controller
      */
     public function index()
     {
-        $pres = Prescription::all();
-        return view('diagnose.index', compact('pres'));
+        // $pres = Medicine::all();
+        return view('diagnose.index');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // return view('diagnose.formMultipleCheckbox');
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $input = $request->all();
-        $input['category'] = $request->input('category');
-        Diagnose::create($input);
-        return redirect()->route('diagnose.index');
-    }
+    // public function store(Request $request)
+    // {
+    //     $input = $request->all();
+    //     $input['category'] = $request->input('category');
+    //     Diagnose::create($input);
+    //     return redirect()->route('diagnose.index');
+    // }
     public function getAllFields(Request $request)
     {
-        $getFields = Medicine::where('cnic', $request->cnic)->first();
-
-        return response()->json($getFields, 200);
+        $query = $request->get('term', '');
+        $medicine = Medicine::all();
+        dd($medicine);
+        if ($request->type == 'medicineName') {
+            $medicine->where('name', 'LIKE', '%' . $query . '%');
+        }
+        if ($request->type == 'type_code') {
+            $medicine->where('type', 'LIKE', '%' . $query . '%');
+        }
+        $medicine = $medicine->get('_');
+        $data = array();
+        foreach ($medicine as $country) {
+            $data[] = array('name' => $country->name, 'type' => $country->type);
+        }
+        if (count($data))
+            return $data;
+        else
+            return ['name' => '', 'type' => ''];
     }
 
     /**
