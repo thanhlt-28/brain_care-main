@@ -17,8 +17,8 @@ class DiaController extends Controller
      */
     public function index()
     {
-        // $pres = Medicine::all();
-        return view('diagnose.index');
+        $pres = Prescription::all();
+        return view('diagnose.index', compact('pres'));
     }
     // public function store(Request $request)
     // {
@@ -29,24 +29,19 @@ class DiaController extends Controller
     // }
     public function getAllFields(Request $request)
     {
-        $query = $request->get('term', '');
-        $medicine = Medicine::all();
-        dd($medicine);
-        if ($request->type == 'medicineName') {
-            $medicine->where('name', 'LIKE', '%' . $query . '%');
+        $name = $request->get('name');
+        $fieldName = $request->get('fieldName');
+
+        $name = strtolower(trim($name));
+        if (empty($fieldName)) {
+            $fieldName = 'name';
         }
-        if ($request->type == 'type_code') {
-            $medicine->where('type', 'LIKE', '%' . $query . '%');
-        }
-        $medicine = $medicine->get('_');
-        $data = array();
-        foreach ($medicine as $country) {
-            $data[] = array('name' => $country->name, 'type' => $country->type);
-        }
-        if (count($data))
-            return $data;
-        else
-            return ['name' => '', 'type' => ''];
+        // dd($fieldName);
+        $data = $request->get('data');
+        $data = Medicine::select('medicine.*')
+            ->where(`LOWER(` . $fieldName . `)`, 'LIKE', "$name%")
+            ->get();
+        return $data;
     }
 
     /**

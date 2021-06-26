@@ -6,151 +6,196 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Post</title>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var rowcount, addBtn, tableBody, imgPath, basePath;
+            addBtn = $("#addNew");
+            rowcount = $("#autocomplete_table tbody tr").length + 1;
+            tableBody = $("#autocomplete_table tbody");
+            imgPath = $("#imgPath").val();
+            basePath = $("#basePath").val();
 
+
+            function formHtml() {
+                html = '<tr id="row_' + rowcount + '">';
+                html += '<th id="delete_"' + rowcount + ' scope="row" class="delete_row",deleteRow><img width = "30px" src="' + imgPath + '"alt = ""></th>';
+                html += '<td>';
+                html += '<input type="text" data-ee="name" name="name[]" id="medicineName_' + rowcount + '" class="form-control autocomplete_table">';
+                html += '</td>';
+                html += '<td>';
+                html += '<input type="number" min="0" data-ee="amount" name="amount[]" id="amountName_' + rowcount + '" class="form-control autocomplete_table">';
+                html += '</td>';
+                html += '<td>';
+                html += '<input type="text" data-ee="type" name="type[]" id="typeName_' + rowcount + '" class="form-control autocomplete_table">';
+                html += '</td>';
+                html += '<td>';
+                html += '<input type="text" data-ee="treatment" name="treatment" id="treatmentName_' + rowcount + '" class="form-control autocomplete_table">';
+                html += '</td>';
+                html += '</tr>';
+                rowcount++;
+                return html;
+            }
+
+            function addNewRow() {
+                var html = formHtml();
+                console.log(html);
+                tableBody.append(html);
+            };
+
+            function deleteRow() {
+                var rowNo;
+                id = $(this).attr('id');
+                console.log(id);
+                idArr = id.split("_");
+                console.log(idArr);
+                rowNo = idArr[idArr.length - 1];
+                console.log(rowNo);
+                $("#rowNo" + rowNo).remove();
+                // console.log($(this).parent());
+                // $(this).parent().remove();
+            }
+
+            function getId(element) {
+                var id, idArr;
+                id = element.attr('id');
+                idArr = id.split("_");
+                return idArr[idArr.length - 1];
+            }
+
+            function handleAutocomplete() {
+                var fieldName, currentEle;
+                currentEle = $(this);
+                fieldName = currentEle.data('field-name');
+
+                if (typeof fieldName === 'undifined') {
+                    return false;
+                }
+                currentEle.autocomplete({
+                    source: function(data, cb) {
+                        console.log(data);
+                        $.ajax({
+                            url: basePath + '{{route("getallfields")}}',
+                            method: 'post',
+                            dataType: 'json',
+                            data: {
+                                name: data.term,
+                                fieldName: fieldName
+                            },
+                            success: function(res) {
+                                var result;
+                                result = [{
+                                    label: 'There is not found' + data.term,
+                                    value: ''
+                                }];
+                                if (res.length) {
+                                    result = $.map(res, function(obj) {
+                                        return {
+                                            label: obj[fieldName],
+                                            value: obj[fieldName],
+                                            data: obj
+                                        };
+                                    });
+                                }
+                                cb(result);
+                            }
+                        });
+                    },
+                    autofocus: true,
+                    minLength: 1,
+                    select: function(event, selectData) {
+                        if (selectData && selectData.item && selectData.item.data) {
+                            console.log(seclectData);
+                            var rowNo, data;
+                            rowNo = getId(currentEle);
+                            data = seclectData.item.data;
+                            $('medicineName_' + rowNo).val(data.name);
+                            $('amountName_' + rowNo).val(data.amount);
+                            $('typeName_' + rowNo).val(data.type);
+                            $('treatmentName_' + rowNo).val(data.treatment);
+                        }
+                    }
+                })
+            }
+
+            function registerEvents() {
+                addBtn.on("click", addNewRow);
+                $(document).on('click', 'delete_row', deleteRow);
+
+                $(document), on('focus', 'autocomplete_txt', handleAutocomplete);
+
+            }
+            registerEvents();
+        });
+    </script>
 </head>
 
 <body>
-    <div class="container">
+    <?php
+    $imgPath = asset('assets/img/iconmonstr-minus-5.svg');
+    ?>
+    <input type="hidden" id="imgPath" value='<?= $imgPath ?>'>
+    <div class="container-wraper">
         <div class="row">
-            <div class="container-wraper">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Launch
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-xl">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h5>Tooltips in a modal</h5>
-                                <p><a href="#" class="tooltip-test" title="Tooltip">This link</a> and <a href="#" class="tooltip-test" title="Tooltip">that link</a> have tooltips on hover.</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <form class="form" method="post" action="">
-                    @csrf
-                    <table class="table table-bordered">
+            <div class="container">
+                <h3>ADD</h3>
+                <table id="autocomplete_table" class="table border border-colapse">
+                    <thead class="thead-light">
                         <tr>
-                            <th><input class='check_all' type='checkbox' onclick="select_all()" /></th>
-                            <th>S. No</th>
-                            <th>Country Name</th>
-                            <th>Country code</th>
+                            <th>&nbsp;</th>
+                            <th>Name</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                            <th>Treatment</th>
                         </tr>
-                        <tr>
-                            <td><input type='checkbox' class='chkbox' /></td>
-                            <td><span id='sn'>1.</span></td>
-                            <td><input class="form-control autocomplete_txt" type='text' data-type="medicineName" id='medicineName_1' name='medicineName' /></td>
-                            <td><input class="form-control autocomplete_txt" type='text' data-type="type" id='type_code_1' name='type' /> </td>
+                    </thead>
+
+                    <tbody>
+                        <tr class='row_1'>
+                            <th id="delete_" scope="row" class="delete_row" , deleteRow>
+                                <img width="30px" src='<?= $imgPath ?>' alt="">
+                            </th>
+                            <td>
+                                <input type="text" data-ee="name" name="name[]" id="medicineName" class="form-control autocomplete_table" autocomplete="off">
+                            </td>
+                            <td>
+                                <input type="number" min="0" data-ee="amount" name="amount[]" id="amountName" class="form-control autocomplete_table" autocomplete="off">
+                            </td>
+                            <td>
+                                <input type="text" data-ee="type" name="type[]" id="typeName" class="form-control autocomplete_table" autocomplete="off">
+                            </td>
+                            <td>
+                                <input type="text" data-ee="treatment" name="treatment" id="treatmentName" class="form-control autocomplete_table" autocomplete="off">
+                            </td>
                         </tr>
-                    </table>
-                    <button type="button" class='btn btn-danger delete'>- Delete</button>
-                    <button type="button" class='btn btn-success addbtn'>+ Add More</button>
-                </form>
+                    </tbody>
+                </table>
+                <br>
+                <input type='button' class="btn btn-success" value='Add more' id='addNew'>
+                <!-- <input type='button' class="btn btn-danger" value='Delete' id='delete'> -->
             </div>
+
+            <!-- <script type="text/javascript">
+                $(document).ready(function() {
+                    $("#medicineName").autocomplete({
+                        source: [{
+                            label: 'VietNam',
+                            value: '84',
+                            a: {
+                                "id": "84",
+                                "name": "Viet Nam",
+                                "type": "TramCam",
+                                "begin": "100mg",
+                                "national": "vietnammese",
+                            },
+                        }],
+                    })
+                });
+            </script> -->
         </div>
     </div>
-
-    <script type="text/javascript">
-        $(".delete").on('click', function() {
-            $('.chkbox:checkbox:checked').parents("tr").remove();
-            $('.check_all').prop("checked", false);
-            updateSerialNo();
-        });
-        var i = $('table tr').length;
-        $(".addbtn").on('click', function() {
-            count = $('table tr').length;
-
-            var data = "<tr><td><input type='checkbox' class='chkbox'/></td>";
-            data += "<td><span id='sn" + i + "'>" + count + ".</span></td>";
-            data += "<td><input class='form-control autocomplete_txt' type='text' data-type='medicineName' id='medicineName_1" + i + "' name='medicineName'/></td>";
-            data += "<td><input class='form-control autocomplete_txt' type='text' data-type='type' id='type_code_1" + i + "' name='type'/></td></tr>";
-            $('table').append(data);
-            i++;
-        });
-
-        function select_all() {
-            $('input[class=chkbox]:checkbox').each(function() {
-                if ($('input[class=check_all]:checkbox:checked').length == 0) {
-                    $(this).prop("checked", false);
-                } else {
-                    $(this).prop("checked", true);
-                }
-            });
-        }
-
-        function updateSerialNo() {
-            obj = $('table tr').find('span');
-            $.each(obj, function(key, value) {
-                id = value.id;
-                $('#' + id).html(key + 1);
-            });
-        }
-    </script>
-    <script>
-        //autocomplete script
-
-        $(document).ready(function() {
-            $('#medicineName').keyup(function() {
-                var data = $(this).val();
-                if (data != '') {
-                    var _token = $('input[name="_token"]').val();
-                    $.ajax({
-                        url: "{{route('getallfields')}}",
-                        method: 'POST',
-                        data: {
-                            data: data,
-                            _token: _token
-                        },
-                        success: function(data) {
-                            let medicine = JSON.parse(data);
-                            let output = '<ul class="dropdown-menu" style="display:block; position:relative;">';
-
-                            let content = '';
-                            $.each(medicine, function(index, value) {
-                                // console.log(index, value);
-                                //search-ajax
-                                output += '<li><a href="#" class="ml-2" style="color:black; font-weight: bold">' + value.Name + ' </a></li>';
-
-                                //content
-                                // content += "<h3>Name: " + value.Name + "; Type: " + value.Type + "</h3>";
-                            });
-                            output += "</ul>";
-
-                            $('#search-ajax').fadeIn();
-                            $('#search-ajax').html(output);
-                            $('#content').html(content);
-                        }
-                    })
-                } else {
-                    $('#search-ajax').fadeOut();
-                }
-            });
-
-            $(document).on('click', 'li', function(ui, event) {
-                console.log(ui.item)
-                $('#medicineName').val($(this).text());
-                $('#mediId').val($(this).text());
-                $('#type').val($(this).text());
-                $('#search-ajax').fadeOut();
-                return false;
-            })
-        });
-    </script>
 </body>
 
 @endsection

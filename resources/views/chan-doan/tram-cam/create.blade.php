@@ -1,5 +1,6 @@
 @extends('layouts.main')
 @section('content')
+<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
 <div class="container-wraper">
 
     <script type="text/javascript">
@@ -199,7 +200,7 @@
         $index=1
         @endphp
         <div class="tab-pane fade show active" id="tab0" role="tabpanel" aria-labelledby="home-tab">
-            <form class="mt-3 ml-5 mr-5" action="{{route('tram-cam.store')}}" method="POST" enctype="multipart/form-data">
+            <form id="form1" class="mt-3 ml-5 mr-5" action="{{route('tram-cam.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <h5>Thông tin
@@ -361,7 +362,9 @@
                     </div>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                    <button class="btn btn-primary" id="btn-add" type="submit"> Lưu lại</button>
+                    <!-- <button class="btn btn-primary" id="btn-add" type="submit"> Lưu lại</button> -->
+                    <input class="btn btn-info" type="submit" onclick="return false" value="Next&rlarr;" id="submitBtn"></input>
+                    <button type="submit" class="btn btn-success" id="submitBtn">Gửi</button>
                 </div>
             </form>
         </div>
@@ -786,19 +789,30 @@
             </table>
         </div>
         @include('layouts.formMultiple')
+
+        <script>
+            jQuery(function($) {
+
+                function copyForms($form1, $formMultiple) {
+                    $(':input[name]', $formMultiple).val(function() {
+                        return $(':input[name=' + this.name + ']', $form1).val();
+                    });
+                }
+
+                $('#submitBtn').on('click', function() {
+                    copyForms($('#form1'), $('#formMultiple'));
+                });
+
+                // $(document).ready(function() {
+                //     $('#submitBtn').on('click', function() {
+                //         $('#form1').submit();
+                //         $('#formMultiple').submit();
+
+                //     });
+
+                // });
+            });
+        </script>
     </div>
 </div>
-<script>
-    $('#btn-add').click(function(e) {
-        e.preventDefault();
-        var name = $('#name').val();
-        if (name == '') {
-            $('.message_box').html(
-                '<span style="color:red;">Enter Your Name!</span>'
-            );
-            $('#name').focus();
-            return false;
-        }
-    });
-</script>
 @endsection
