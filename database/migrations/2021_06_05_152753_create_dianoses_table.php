@@ -22,8 +22,8 @@ class CreateDianosesTable extends Migration
             $table->string('phone', 11);
             $table->string('cust_email')->unique();
             $table->longText('cust_address');
-            $table->string('time_sym');
-            $table->string('result');
+            $table->string('time_sym')->nullable;
+            $table->string('result')->nullable;
             $table->timestamps();
         });
     }

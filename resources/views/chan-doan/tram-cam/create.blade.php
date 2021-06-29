@@ -362,8 +362,7 @@
                     </div>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                    <!-- <button class="btn btn-primary" id="btn-add" type="submit"> Lưu lại</button> -->
-                    <input class="btn btn-info" type="submit" onclick="return false" value="Next&rlarr;" id="submitBtn"></input>
+                    <!--  -->
                     <button type="submit" class="btn btn-success" id="submitBtn">Gửi</button>
                 </div>
             </form>
@@ -795,22 +794,22 @@
 
                 function copyForms($form1, $formMultiple) {
                     $(':input[name]', $formMultiple).val(function() {
+                        console.log($(':input[name=' + this.name + ']', $form1).val());
                         return $(':input[name=' + this.name + ']', $form1).val();
                     });
                 }
 
-                $('#submitBtn').on('click', function() {
+                $('#submitnext').on('click', function() {
                     copyForms($('#form1'), $('#formMultiple'));
                 });
 
-                // $(document).ready(function() {
-                //     $('#submitBtn').on('click', function() {
-                //         $('#form1').submit();
-                //         $('#formMultiple').submit();
+                $(document).ready(function() {
+                    $('#submitBtn').on('click', function() {
+                        $('#form1').submit();
+                        $('#formMultiple').submit();
 
-                //     });
-
-                // });
+                    });
+                });
             });
         </script>
     </div>

@@ -22,12 +22,12 @@ class CreateTreatmentsTable extends Migration
             $table->string('treat_phone', 11);
             $table->string('treat_email')->unique();
             $table->longText('treat_address');
-            $table->string('sym_time');
-            $table->string('result')->NULL;
-            $table->string('medicine_once');
-            $table->string('medicine_twice');
-            $table->string('medicine_three');
-            $table->string('medicine_fourth')->NULL;
+            $table->string('sym_time')->nullable;
+            $table->string('result')->nullable;
+            $table->string('medicine_once')->nullable;
+            $table->string('medicine_twice')->nullable;
+            $table->string('medicine_three')->nullable;
+            $table->string('medicine_fourth')->nullable;
             $table->timestamps();
         });
     }

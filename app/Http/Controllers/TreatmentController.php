@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Models\Prescription;
 use App\Models\Treatment;
 use Illuminate\Http\Request;
@@ -10,11 +11,34 @@ class TreatmentController extends Controller
 {
     public function stores(Request $request)
     {
-        $pres = new Prescription();
-        $pres->fill($request->all());
-        $pres->save();
+        // Get the last created order
+        // $last_number = Prescription::orderBy('CustID', 'desc')->first();
 
-        return redirect(route('diagnose.medicine'));
+        // if (!$last_number)
+
+        //     $number = 0;
+        // else
+        //     $number = substr($last_number->CustID, 3);
+
+        // $last_number = 'BRC-' . sprintf('%010d', intval($number) + 1);
+        // $last_name = $request->Name;
+        // $pre = new Prescription();
+        // $pre->CustID = $last_number;
+        // $pre->Name = $last_name;
+        // $pre->fill($request->all());
+        // // return $pre;
+
+        // $pre->save();
+
+        $pre_name = $request->Name;
+        $CustID = Helper::IDGenerator(new Prescription, 'CustID', 10, 'BRC-');
+
+        $p = new Prescription();
+        $p->CustID = $CustID;
+        $p->Name = $pre_name;
+        // dd($p->CustID);
+        $p->fill($request->all());
+        $p->save();
     }
     //============== Trầm cảm
     public function index()

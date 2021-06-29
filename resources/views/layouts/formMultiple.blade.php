@@ -20,10 +20,10 @@
                                         <tr>
                                             <th><input class='check_all' type='checkbox' onclick="select_all()" /></th>
                                             <th>STT</th>
-                                            <th>Name</th>
-                                            <th>Type</th>
-                                            <th>Amount</th>
-                                            <th>National</th>
+                                            <th>Tên thuốc</th>
+                                            <th>Loại</th>
+                                            <!-- <th>CustID</th> -->
+                                            <th>Số lượng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -37,18 +37,15 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" id="" name="cust_name" readonly placeholder="Tên bệnh nhân">
+                                                    <input type="text" class="form-control" id="type_name" name="type" placeholder="Loại thuốc">
                                                 </td>
-                                                <td>
-                                                    <input type="number" class="form-control" name="CustID" placeholder="CustID">
-                                                </td>
+                                                <!-- <td>
+                                                    <input type="text" class="form-control" id="CustID" name="CustID" placeholder="CustID">
+                                                </td> -->
                                                 <td>
                                                     <input type="number" min="0" class="form-control" name="Amount" placeholder="Số lượng">
                                                 </td>
-                                                <td>
-                                                    <div id="content" style="clear: both">
-                                                    </div>
-                                                </td>
+
                                             </div>
                                         </tr>
                                     </tbody>
@@ -59,6 +56,11 @@
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                                     <button class="btn btn-success" id="submitBtn" type="submit">Nhập</button>
                                 </div> -->
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                    <!-- <button class="btn btn-primary" id="btn-add" type="submit"> Lưu lại</button> -->
+                                    <input class="btn btn-info" type="submit" onclick="return false" value="Next&rlarr;" id="submitnext"></input>
+                                    <button type="submit" class="btn btn-success" id="submitBtn">Gửi</button>
+                                </div>
                             </form>
                         </div>
                         <!-- <form class="form" id="formMultiple" method="post" action="">
@@ -98,6 +100,14 @@
         </div>
     </div>
     <script type="text/javascript">
+        $(document).ready(function() {
+            $('#submitBtn').on('click', function() {
+                $('#form1').submit();
+                $('#formMultiple').submit();
+
+            });
+
+        });
         $(".delete").on('click', function() {
             $('.chkbox:checkbox:checked').parents("tr").remove();
             $('.check_all').prop("checked", false);
@@ -111,10 +121,12 @@
             data += "<td><span id='sn" + i + "'>" + count + ".</span></td>";
             data += "<td>";
             data += "<input type='text' class='form-control' data-type='medicineName' id='medicineName" + i + "' name='Name' placeholder='Tên thuốc ...'/>";
-            data += "<div id='search-ajax'>";
+            data += "<div id='search-ajax'" + i + '>';
             data += "</div>";
             data += "</td>";
-            data += "<td><input class='form-control autocomplete_txt' type='text' data-type='type' id='type_code_1" + i + "' name='type'/></td>";
+            data += "<td><input class='form-control' type='text' data-type='type_name' id='type_name" + i + "' name='type' placeholder='Loại thuốc'/></td>";
+            data += "<td><input class='form-control' type='number' data-type='cust_id' id='cust_id" + i + "' name='CustID' placeholder='CustID'/></td>";
+            data += "<td><input class='form-control' type='number' data-type='amount_1' id='amount_1" + i + "' name='Amount' placeholder='Số lượng'/></td>";
             data += "</tr>";
 
             $('table').append(data);
@@ -187,7 +199,6 @@
                 $('#search-ajax').fadeOut();
                 return false;
             });
-
 
         });
     </script>

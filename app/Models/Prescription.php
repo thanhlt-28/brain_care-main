@@ -9,5 +9,5 @@ class Prescription extends Model
 {
     use HasFactory;
     protected $table = "prescription";
-    protected $fillable = ['CustID', 'Name', 'Amount', 'Type', 'Grouptype', 'Merket', 'Begin', 'Treatment', 'Company', 'National'];
+    protected $fillable = ['CustID', 'Name', 'Amount', 'Type', 'Grouptype', 'Market', 'Begin', 'Treatment', 'Company', 'National'];
 }

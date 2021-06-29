@@ -2,20 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Models\Dianose;
 use App\Models\Medicine;
 use App\Models\Prescription;
 use Illuminate\Http\Request;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class DianoseController extends Controller
 {
     public function stores(Request $request)
     {
-        $pres = new Prescription();
-        $pres->fill($request->all());
-        $pres->save();
+        // $last_number = Prescription::orderBy('CustID', 'desc')->first();
 
-        return redirect(route('diagnose.medicine'));
+        // if (!$last_number)
+
+        //     $number = 0;
+        // else
+        //     $number = substr($last_number->CustID, 3);
+
+        // $last_number = 'BRC-' . sprintf('%010d', intval($number) + 1);
+        // $last_name = $request->Name;
+        // $pre = new Prescription();
+        // $pre->CustID = $last_number;
+        // $pre->Name = $last_name;
+        // $pre->fill($request->all());
+        // $pre->save();
+        $pre_name = $request->Name;
+        $CustID = Helper::IDGenerator(new Prescription, 'CustID', 10, 'BRC');
+
+        $p = new Prescription();
+        $p->CustID = $CustID;
+        $p->Name = $pre_name;
+        // dd($p->$CustID);
+        $p->fill($request->all());
+        $p->save();
+        return redirect(route(''));
     }
     // ===========Trầm cảm
     public function index()
@@ -32,9 +54,14 @@ class DianoseController extends Controller
 
     public function store(Request $request)
     {
+        $cust_id = Helper::IDGenerator(new Dianose(), 'CustID', 10, 'BRC-');
+
+        $p = new Dianose();
+        $p->CustID = $cust_id;
         $input = $request->all();
         $input['symptom'] = implode(", ", $input['symptom']);
-        Dianose::create($input);
+        Dianose::create($input, $p);
+        // $p->save();
         return redirect(route('tram-cam.views'));
     }
 
