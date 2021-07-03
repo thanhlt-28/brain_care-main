@@ -10,5 +10,9 @@ class Dianose extends Model
     use HasFactory;
     protected $table = "dianoses";
 
-    protected $fillable = ['cust_name', 'symptom', 'cust_dob', 'cust_gender', 'phone', 'cust_email', 'cust_address', 'time_sym', 'result'];
+    protected $fillable = ['CustID', 'cust_name', 'symptom', 'cust_dob', 'cust_gender', 'phone', 'cust_email', 'cust_address', 'time_sym', 'result'];
+    public function p()
+    {
+        return $this->hasMany(Prescription::class, 'CustID');
+    }
 }

@@ -268,8 +268,8 @@ Route::get('chi-tiet/{id}', [PostController::class, 'details'])->name('posts.det
 // Search Medicine
 Route::get('search', [MedicineController::class, 'search']);
 Route::post('autocomplete', [MedicineController::class, 'AutoSearch'])->name('autocomplete');
-Route::post('save', [DianoseController::class, 'stores'])->name('stores');
-Route::post('save', [TreatmentController::class, 'stores'])->name('stores');
+Route::post('save', [DianoseController::class, 'store'])->name('store');
+// Route::post('save', [TreatmentController::class, 'stores'])->name('stores');
 Route::get('show', [DiaController::class, 'index']);
 Route::get('getallfields', [DiaController::class, 'getAllFields'])->name('getallfields');
 

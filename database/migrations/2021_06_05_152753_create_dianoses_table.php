@@ -15,6 +15,7 @@ class CreateDianosesTable extends Migration
     {
         Schema::create('dianoses', function (Blueprint $table) {
             $table->id();
+            $table->string('CustID', 20);
             $table->string('cust_name', 191)->unique();
             $table->string('symptom');
             $table->string('cust_dob');

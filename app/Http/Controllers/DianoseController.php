@@ -3,31 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Models\Diagnose;
 use App\Models\Dianose;
 use App\Models\Medicine;
 use App\Models\Prescription;
 use Illuminate\Http\Request;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\DB;
 
 class DianoseController extends Controller
 {
     public function stores(Request $request)
     {
-        // $last_number = Prescription::orderBy('CustID', 'desc')->first();
-
-        // if (!$last_number)
-
-        //     $number = 0;
-        // else
-        //     $number = substr($last_number->CustID, 3);
-
-        // $last_number = 'BRC-' . sprintf('%010d', intval($number) + 1);
-        // $last_name = $request->Name;
-        // $pre = new Prescription();
-        // $pre->CustID = $last_number;
-        // $pre->Name = $last_name;
-        // $pre->fill($request->all());
-        // $pre->save();
         $pre_name = $request->Name;
         $CustID = Helper::IDGenerator(new Prescription, 'CustID', 10, 'BRC');
 
@@ -43,26 +29,68 @@ class DianoseController extends Controller
     public function index()
     {
         $cust = Dianose::all();
+        // $cust->load('dianose');
         $medis = Medicine::all();
         return view('chan-doan.tram-cam.views', compact('cust', 'medis'));
     }
 
     public function create()
     {
-        return view('chan-doan.tram-cam.create');
+        $cust = Dianose::all();
+        return view('chan-doan.tram-cam.create', compact('cust'));
+    }
+
+
+    public function requestdata()
+    {
+
+        $users = DB::select('select * from users where active = ?', [1]);
+
+        return view('user.index', ['users' => $users]);
     }
 
     public function store(Request $request)
     {
-        $cust_id = Helper::IDGenerator(new Dianose(), 'CustID', 10, 'BRC-');
+        $pre_name = $request->cust_name;
+        $CustID = Helper::IDGenerator(new Dianose, 'CustID', 10, 'BRC');
 
-        $p = new Dianose();
-        $p->CustID = $cust_id;
-        $input = $request->all();
-        $input['symptom'] = implode(", ", $input['symptom']);
-        Dianose::create($input, $p);
+        $dia = new Dianose();
+        $dia->CustID = $CustID;
+        $dia->cust_name = $pre_name;
+        $dia->fill($request->all());
+        $dia['symptom'] = implode(", ", $dia['symptom']);
+        // Dianose::create($dia);
+        // $dia->save();
+        // dd($dia);
+
+        $Pre_ID = Helper::IDGenerator(new Prescription, 'Pre_ID', 10, 'PRE');
+        $p = new Prescription();
+        $p->Pre_ID = $Pre_ID;
+        $p->CustID = $CustID;
+        // $p->fill($request->input())->save();
+        // $p->fill($request->all());
+        // $p = [$request->all()];
+        // Prescription::created($data, $p);
+        // $p_ar = explode(', ', $p);
+        // var_dump($request->all());
+
+        // Nếu bạn muốn thêm hoặc ghi đè dữ liệu lồng nhau:
+        $p['data'] = $p->fill($request->all());
+        Prescription::create($p);
+
+        // Prescription::created($request->toArray($data));
+        // = Chuyển đổi mảng đa chiều
+        // function objectToArray($object)
+        // {
+        //     if (!is_object($object) && !is_array($object)) {
+        //         return $object;
+        //     }
+        //     return array_map('objectToArray', (array) $object, compact('pArray'));
+        // };
+        // Prescription::created('toJson');
         // $p->save();
-        return redirect(route('tram-cam.views'));
+
+        // return redirect(route('tram-cam.views'));
     }
 
     public function detail($id, Request $request)

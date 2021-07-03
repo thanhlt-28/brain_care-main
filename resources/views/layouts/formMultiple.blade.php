@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
 
 <div class="container">
-    <div class="row mt-5">
+    <div class="row">
         <div class="container-wraper">
             <div class="row">
                 <div class="col-md-12 offset-md-0">
@@ -13,7 +13,7 @@
                             <h5 class="card-title">Kê đơn thuốc</h5>
                         </div>
                         <div class="card-body">
-                            <form role="form" id="formMultiple" action="{{route('stores')}}" method="POST" enctype="multipart/form-data">
+                            <form role="form" id="formMultiple" action="{{route('store')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <table class="table table-bordered">
                                     <thead>
@@ -50,64 +50,26 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button type="button" class='btn btn-danger delete'>- Delete</button>
-                                <button type="button" class='btn btn-success addbtn'>+ Add More</button>
-                                <!-- 
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                                    <button class="btn btn-success" id="submitBtn" type="submit">Nhập</button>
-                                </div> -->
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                                    <!-- <button class="btn btn-primary" id="btn-add" type="submit"> Lưu lại</button> -->
-                                    <input class="btn btn-info" type="submit" onclick="return false" value="Next&rlarr;" id="submitnext"></input>
-                                    <button type="submit" class="btn btn-success" id="submitBtn">Gửi</button>
-                                </div>
+                                <button type="button" class='btn btn-danger delete'>- Xóa</button>
+                                <button type="button" class='btn btn-success addbtn'>+ Thêm</button>
                             </form>
                         </div>
-                        <!-- <form class="form" id="formMultiple" method="post" action="">
-                            @csrf
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th><input class='check_all' type='checkbox' onclick="select_all()" /></th>
-                                    <th>STT</th>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Amount</th>
-                                    <th>National</th>
-                                </tr>
-                                <tr>
-                                    <td><input type='checkbox' class='chkbox' /></td>
-                                    <td><span id='sn'>1.</span></td>
-                                    <td>
-                                        <input class="form-control autocomplete_txt" type='text' data-type="medicineName" id='medicineName' placeholder="Tên thuốc.." name='Name' />
-                                    </td>
-                                    <td>
-                                        <input class="form-control autocomplete_txt" type='text' data-type="type" id='type_code_1' name='type' />
-                                    </td>
-                                    <td>
-                                        <input class="form-control autocomplete_txt" type='number' min="0" data-type="type" id='amount' name='amount' />
-                                    </td>
-                                    <td>
-                                        <input class="form-control autocomplete_txt" type='text' data-type="type" id='national' name='national' />
-                                    </td>
-                                </tr>
-                                <div id="search-ajax">
-                                </div>
-                            </table>
-                        </form> -->
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#submitBtn').on('click', function() {
-                $('#form1').submit();
-                $('#formMultiple').submit();
+        //SUBMIT 2 form
+        // $(document).ready(function() {
+        //     $('#submitBtn').on('click', function() {
+        //         $('#form1').submit();
+        //         $('#formMultiple').submit();
+        //     });
+        //     console.log(document)
+        // });
 
-            });
-
-        });
         $(".delete").on('click', function() {
             $('.chkbox:checkbox:checked').parents("tr").remove();
             $('.check_all').prop("checked", false);
@@ -125,12 +87,11 @@
             data += "</div>";
             data += "</td>";
             data += "<td><input class='form-control' type='text' data-type='type_name' id='type_name" + i + "' name='type' placeholder='Loại thuốc'/></td>";
-            data += "<td><input class='form-control' type='number' data-type='cust_id' id='cust_id" + i + "' name='CustID' placeholder='CustID'/></td>";
             data += "<td><input class='form-control' type='number' data-type='amount_1' id='amount_1" + i + "' name='Amount' placeholder='Số lượng'/></td>";
             data += "</tr>";
 
             $('table').append(data);
-            i = 1;
+            i++;
         });
 
         function select_all() {
@@ -192,12 +153,12 @@
             });
 
             $(document).on('click', 'li', function(ui, event) {
-                console.log(ui.item)
+                console.log(ui.item);
                 $('#medicineName').val($(this).text());
-                $('#mediId').val($(this).text());
-                $('#type').val($(this).text());
+                // $('#mediId').val($(this).text());
+                // $('#type').val($(this).text());
                 $('#search-ajax').fadeOut();
-                return false;
+                // return false;
             });
 
         });

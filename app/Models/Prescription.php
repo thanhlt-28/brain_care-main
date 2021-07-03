@@ -10,4 +10,8 @@ class Prescription extends Model
     use HasFactory;
     protected $table = "prescription";
     protected $fillable = ['CustID', 'Name', 'Amount', 'Type', 'Grouptype', 'Market', 'Begin', 'Treatment', 'Company', 'National'];
+    public function dianose()
+    {
+        return $this->belongsTo(Diagnose::class, 'CustID');
+    }
 }

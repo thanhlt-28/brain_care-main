@@ -15,6 +15,7 @@ class CreateTreatmentsTable extends Migration
     {
         Schema::create('treatments', function (Blueprint $table) {
             $table->id();
+            $table->string('CustID', 20);
             $table->string('treat_name', 191)->unique();
             $table->string('symptom')->nullable(true);
             $table->string('treat_dob');

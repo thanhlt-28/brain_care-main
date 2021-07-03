@@ -15,6 +15,7 @@ class CreatePrescriptionTable extends Migration
     {
         Schema::create('prescription', function (Blueprint $table) {
             $table->id();
+            $table->string('Pre_ID', 20);
             $table->string('CustID', 20);
             $table->string('Name', 200);
             $table->bigInteger('Amount');
