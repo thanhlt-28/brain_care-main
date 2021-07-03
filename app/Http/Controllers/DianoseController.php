@@ -63,6 +63,7 @@ class DianoseController extends Controller
         // $dia->save();
         // dd($dia);
 
+        // ==== Tạo và lưu đơn thuốc ====
         $Pre_ID = Helper::IDGenerator(new Prescription, 'Pre_ID', 10, 'PRE');
         $p = new Prescription();
         $p->Pre_ID = $Pre_ID;
@@ -75,8 +76,8 @@ class DianoseController extends Controller
         // var_dump($request->all());
 
         // Nếu bạn muốn thêm hoặc ghi đè dữ liệu lồng nhau:
-        $p['data'] = $p->fill($request->all());
-        Prescription::create($p);
+        $data['data'] = $p->fill($request->all());
+        return $request->merge($data);
 
         // Prescription::created($request->toArray($data));
         // = Chuyển đổi mảng đa chiều
