@@ -7,8 +7,11 @@ use App\Models\Diagnose;
 use App\Models\Dianose;
 use App\Models\Medicine;
 use App\Models\Prescription;
+use BaconQrCode\Renderer\RendererStyle\Fill;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
 
 class DianoseController extends Controller
 {
@@ -68,27 +71,20 @@ class DianoseController extends Controller
         $p = new Prescription();
         $p->Pre_ID = $Pre_ID;
         $p->CustID = $CustID;
-        // $p->fill($request->input())->save();
-        // $p->fill($request->all());
-        // $p = [$request->all()];
-        // Prescription::created($data, $p);
-        // $p_ar = explode(', ', $p);
-        // var_dump($request->all());
+        $p->fill($request->all());
+        $var = array('Pre_ID' => $p->Pre_ID, 'CustID' => $p->CustID, 'Name' => $p->Name, 'Type' => $p->Type, 'Amount' => $p->Amount);
+        $varSerialize = serialize($var);
+        // dd($varSerialize);
+        $varSource = unserialize($varSerialize);
+        dd($varSource);
 
-        // Nếu bạn muốn thêm hoặc ghi đè dữ liệu lồng nhau:
-        $data['data'] = $p->fill($request->all());
-        return $request->merge($data);
-
-        // Prescription::created($request->toArray($data));
-        // = Chuyển đổi mảng đa chiều
-        // function objectToArray($object)
-        // {
-        //     if (!is_object($object) && !is_array($object)) {
-        //         return $object;
-        //     }
-        //     return array_map('objectToArray', (array) $object, compact('pArray'));
-        // };
-        // Prescription::created('toJson');
+        // $data = $p->fill($request->all());
+        // $arrayMess['data'][] = array('Pre_ID' => $p->Pre_ID, 'CustID' => $p->CustID, 'Name' => $data->Name, 'Type' => $data->Type, 'Amount' => $data->Amount);
+        // // return $arrayMess;
+        // Prescription::saved($arrayMess);
+        // dd($arrayMess);
+        // $data['data'] = $p->fill($request->all());
+        // dd($data);
         // $p->save();
 
         // return redirect(route('tram-cam.views'));

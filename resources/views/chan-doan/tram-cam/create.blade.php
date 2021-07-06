@@ -789,8 +789,8 @@
             </table>
         </div>
         <div class="card-body">
-            <!-- <form role="form" id="formMultiple" action="{{route('store')}}" method="POST" enctype="multipart/form-data">
-                @csrf -->
+
+            <!-- =============== Form thêm đơn thuốc ============ -->
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -798,7 +798,6 @@
                         <th>STT</th>
                         <th>Tên thuốc</th>
                         <th>Loại</th>
-                        <!-- <th>CustID</th> -->
                         <th>Số lượng</th>
                     </tr>
                 </thead>
@@ -824,6 +823,23 @@
                         <div class="row">
                             <td><input type='checkbox' class='chkbox' /></td>
                             <td><span id='sn'>2.</span></td>
+                            <td>
+                                <input id="medicineName" name="Name[]" type="text" class="form-control" placeholder="Tên thuốc ...">
+                                <div id="search-ajax">
+                                </div>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="type_name" name="Type[]" placeholder="Loại thuốc">
+                            </td>
+                            <td>
+                                <input type="number" min="0" class="form-control" name="Amount[]" placeholder="Số lượng">
+                            </td>
+                        </div>
+                    </tr>
+                    <tr class='row_3'>
+                        <div class="row">
+                            <td><input type='checkbox' class='chkbox' /></td>
+                            <td><span id='sn'>3.</span></td>
                             <td>
                                 <input id="medicineName" name="Name[]" type="text" class="form-control" placeholder="Tên thuốc ...">
                                 <div id="search-ajax">
