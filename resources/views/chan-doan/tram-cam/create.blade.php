@@ -791,7 +791,9 @@
         <div class="card-body">
 
             <!-- =============== Form thêm đơn thuốc ============ -->
-            <table class="table table-bordered">
+            <table id="datatable" class="table table-bordered">
+
+                </script>
                 <thead>
                     <tr>
                         <th><input class='check_all' type='checkbox' onclick="select_all()" /></th>
@@ -807,52 +809,19 @@
                             <td><input type='checkbox' class='chkbox' /></td>
                             <td><span id='sn'>1.</span></td>
                             <td>
-                                <input id="medicineName" name="Name" type="text" class="form-control" placeholder="Tên thuốc ...">
+                                <input id="medicineName" name="Name[]" type="text" class="form-control" placeholder="Tên thuốc ...">
                                 <div id="search-ajax">
                                 </div>
                             </td>
                             <td>
-                                <input type="text" class="form-control" id="type_name" name="Type" placeholder="Loại thuốc">
+                                <input type="text" class="form-control" id="type_name" name="Type[]" placeholder="Loại thuốc">
                             </td>
                             <td>
-                                <input type="number" min="0" class="form-control" name="Amount" placeholder="Số lượng">
+                                <input type="number" min="0" class="form-control" name="Amount[]" placeholder="Số lượng">
                             </td>
                         </div>
                     </tr>
-                    <tr class='row_2'>
-                        <div class="row">
-                            <td><input type='checkbox' class='chkbox' /></td>
-                            <td><span id='sn'>2.</span></td>
-                            <td>
-                                <input id="medicineName" name="Name" type="text" class="form-control" placeholder="Tên thuốc ...">
-                                <div id="search-ajax">
-                                </div>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="type_name" name="Type" placeholder="Loại thuốc">
-                            </td>
-                            <td>
-                                <input type="number" min="0" class="form-control" name="Amount" placeholder="Số lượng">
-                            </td>
-                        </div>
-                    </tr>
-                    <tr class='row_3'>
-                        <div class="row">
-                            <td><input type='checkbox' class='chkbox' /></td>
-                            <td><span id='sn'>3.</span></td>
-                            <td>
-                                <input id="medicineName" name="Name" type="text" class="form-control" placeholder="Tên thuốc ...">
-                                <div id="search-ajax">
-                                </div>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="type_name" name="Type" placeholder="Loại thuốc">
-                            </td>
-                            <td>
-                                <input type="number" min="0" class="form-control" name="Amount" placeholder="Số lượng">
-                            </td>
-                        </div>
-                    </tr>
+
                 </tbody>
             </table>
             <button type="button" class='btn btn-danger delete'>- Xóa</button>

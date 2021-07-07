@@ -62,31 +62,24 @@ class DianoseController extends Controller
         $dia->cust_name = $pre_name;
         $dia->fill($request->all());
         $dia['symptom'] = implode(", ", $dia['symptom']);
-        // Dianose::create($dia);
-        // $dia->save();
+        $dia->save();
         // dd($dia);
 
         // ==== Tạo và lưu đơn thuốc ====
+        $Name = $request->Name;
+        $Type = $request->Type;
+        $Amount = $request->Amount;
         $Pre_ID = Helper::IDGenerator(new Prescription, 'Pre_ID', 10, 'PRE');
-        $p = new Prescription();
-        $p->Pre_ID = $Pre_ID;
-        $p->CustID = $CustID;
-        $p->fill($request->all());
-        $var = array('Pre_ID' => $p->Pre_ID, 'CustID' => $p->CustID, 'Name' => $p->Name, 'Type' => $p->Type, 'Amount' => $p->Amount);
-        $varSerialize = serialize($var);
-        // dd($varSerialize);
-        $varSource = unserialize($varSerialize);
-        dd($varSource);
-
-        // $data = $p->fill($request->all());
-        // $arrayMess['data'][] = array('Pre_ID' => $p->Pre_ID, 'CustID' => $p->CustID, 'Name' => $data->Name, 'Type' => $data->Type, 'Amount' => $data->Amount);
-        // // return $arrayMess;
-        // Prescription::saved($arrayMess);
-        // dd($arrayMess);
-        // $data['data'] = $p->fill($request->all());
-        // dd($data);
-        // $p->save();
-
+        for ($i = 0; $i < count($Name); $i++) {
+            $p = new Prescription();
+            $p->Pre_ID = $Pre_ID;
+            $p->CustID = $CustID;
+            $p->Name = $Name[$i];
+            $p->Type = $Type[$i];
+            $p->Amount = $Amount[$i];
+            $p->save();
+        }
+        dd($p);
         // return redirect(route('tram-cam.views'));
     }
 
