@@ -62,13 +62,14 @@ class DianoseController extends Controller
         $dia->cust_name = $pre_name;
         $dia->fill($request->all());
         $dia['symptom'] = implode(", ", $dia['symptom']);
-        $dia->save();
+        // $dia->save();
         // dd($dia);
 
         // ==== Tạo và lưu đơn thuốc ====
         $Name = $request->Name;
         $Type = $request->Type;
         $Amount = $request->Amount;
+        $Treatment = $request->Treatment;
         $Pre_ID = Helper::IDGenerator(new Prescription, 'Pre_ID', 10, 'PRE');
         for ($i = 0; $i < count($Name); $i++) {
             $p = new Prescription();
@@ -77,7 +78,8 @@ class DianoseController extends Controller
             $p->Name = $Name[$i];
             $p->Type = $Type[$i];
             $p->Amount = $Amount[$i];
-            $p->save();
+            $p->Treatment = $Treatment[$i];
+            // $p->save();
         }
         dd($p);
         // return redirect(route('tram-cam.views'));

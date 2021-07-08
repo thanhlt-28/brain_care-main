@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('content')
 <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="{{asset('js/multi.js')}}"></script>
 <div class="container-wraper">
 
     <script type="text/javascript">
@@ -209,38 +210,38 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="cust_name" class="form-label">Họ và tên : </label>
-                            <input type="text" name="cust_name" class="form-control-sm" placeholder="Điền họ tên..." id="kc01">
+                            <input type="text" name="cust_name" class="form-control-sm" placeholder="Điền họ tên...">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="gender" class="form-label">Giới tính : </label>
-                            <input type="radio" class="form-input" name="cust_gender" value="Nam" checked="1" id="kc02"> Nam
-                            <input type="radio" class="form-input" name="cust_gender" value="Nữ" id="kc02"> Nữ
+                            <input type="radio" class="form-input" name="cust_gender" value="Nam" checked="1"> Nam
+                            <input type="radio" class="form-input" name="cust_gender" value="Nữ"> Nữ
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="doB" class="form-label">Năm sinh : </label>
-                            <input type="text" name="cust_dob" class="form-control-sm" placeholder="Năm sinh..." id="kc02">
+                            <input type="text" name="cust_dob" class="form-control-sm" placeholder="Năm sinh...">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="phone" class="form-label">SĐT : </label>
-                            <input type="number" name="phone" placeholder="Số điện thoại..." class="form-control-sm" id="kc03">
+                            <input type="number" name="phone" placeholder="Số điện thoại..." class="form-control-sm">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email : </label>
-                            <input type="email" name="cust_email" placeholder="Điền email..." class="form-control-sm" id="kc03">
+                            <input type="email" name="cust_email" placeholder="Điền email..." class="form-control-sm">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="address" class="form-label">Địa chỉ : </label>
-                            <input type="text" placeholder="Địa chỉ..." name="cust_address" class="form-control-sm" id="kc03">
+                            <input type="text" placeholder="Địa chỉ..." name="cust_address" class="form-control-sm">
                         </div>
                     </div>
                 </div>
@@ -789,178 +790,125 @@
             </table>
         </div>
         <div class="card-body">
-
+            <?php
+            $imgPath = asset('assets/img/minus.svg');
+            $imgAdd = asset('assets/img/addition.png');
+            ?>
+            <input type="hidden" id="imgPath" value="<?= $imgPath ?>">
+            <input type="hidden" id="imgAdd" width="25px" value="<?= $imgAdd ?>">
             <!-- =============== Form thêm đơn thuốc ============ -->
-            <table id="datatable" class="table table-bordered">
-
-                </script>
-                <thead>
-                    <tr>
-                        <th><input class='check_all' type='checkbox' onclick="select_all()" /></th>
-                        <th>STT</th>
-                        <th>Tên thuốc</th>
-                        <th>Loại</th>
-                        <th>Số lượng</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class='row_1'>
-                        <div class="row">
-                            <td><input type='checkbox' class='chkbox' /></td>
-                            <td><span id='sn'>1.</span></td>
+            <div class="table-responsive">
+                <table id="autocomplete_table" class="table table-hover autocomplete_table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <!-- <th><input class='check_all' type='checkbox' onclick="select_all()" /></th> -->
+                            <th>Tên thuốc</th>
+                            <th>Loại thuốc</th>
+                            <th>Số lượng</th>
+                            <th>Liều lượng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="row_1">
+                            <th id="delete_1" scope="row" class="delete_row"><img src="<?= $imgPath; ?>" alt=""></th>
                             <td>
-                                <input id="medicineName" name="Name[]" type="text" class="form-control" placeholder="Tên thuốc ...">
+                                <input type="text" data-field-name="name" name="Name[]" id="medicineName" class="form-control autocomplete_txt" placeholder="Tên thuốc" autocomplete="off" autofocus>
                                 <div id="search-ajax">
                                 </div>
                             </td>
                             <td>
-                                <input type="text" class="form-control" id="type_name" name="Type[]" placeholder="Loại thuốc">
+                                <input type="text" data-field-name="type" name="Type[]" id="countryno_1" class="form-control autocomplete_txt" placeholder="Loại thuốc" autocomplete="off" autofocus>
                             </td>
                             <td>
-                                <input type="number" min="0" class="form-control" name="Amount[]" placeholder="Số lượng">
+                                <input type="number" min="0" max="10" data-field-name="amount" name="Amount[]" id="phone_code_1" class="form-control autocomplete_txt" placeholder="Số lượng" autocomplete="off" autofocus>
                             </td>
-                        </div>
-                    </tr>
+                            <td>
+                                <input type="text" data-field-name="treatment" name="Treatment[]" id="country_code_1" class="form-control autocomplete_txt" placeholder="Liều lượng(viên)" autocomplete="off" autofocus>
+                            </td>
+                        </tr>
+                        <tr id="row_2">
+                            <th id="delete_1" scope="row" class="delete_row"><img src="<?= $imgPath; ?>" alt=""></th>
+                            <td>
+                                <input type="text" data-field-name="name" name="Name[]" id="medicineName" class="form-control autocomplete_txt" placeholder="Tên thuốc" autocomplete="off" autofocus>
+                                <div id="search-ajax">
+                                </div>
+                            </td>
+                            <td>
+                                <input type="text" data-field-name="type" name="Type[]" id="countryno_1" class="form-control autocomplete_txt" placeholder="Loại thuốc" autocomplete="off" autofocus>
+                            </td>
+                            <td>
+                                <input type="number" min="0" max="10" data-field-name="amount" name="Amount[]" id="phone_code_1" class="form-control autocomplete_txt" placeholder="Số lượng" autocomplete="off" autofocus>
+                            </td>
+                            <td>
+                                <input type="text" data-field-name="treatment" name="Treatment[]" id="country_code_1" class="form-control autocomplete_txt" placeholder="Liều lượng(viên)" autocomplete="off" autofocus>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button id="addNew" type="button" class='btn'><img src="<?= $imgAdd; ?>" width="25px" alt=""></button>
+                <button type="submit" class="btn btn-success" id="submitBtn">Lưu</button>
+                </form>
+            </div>
 
-                </tbody>
-            </table>
-            <button type="button" class='btn btn-danger delete'>- Xóa</button>
-            <button type="button" class='btn btn-success addbtn'>+ Thêm</button>
-            <button type="submit" class="btn btn-success" id="submitBtn">Lưu</button>
-            </form>
-        </div>
+            <script>
+                // jQuery(function($) {
+                // get value data form1->form2
+                //     function copyForms($form1, $formMultiple) {
+                //         $(' :input[name]', $formMultiple).val(function() { // console.log($(':input[name=' + this.name + ' ]', $form1).val()); // return $(':input[name=' + this.name + ' ]', $form1).val(); // }); // } // $('#submitnext').on('click', function() { // copyForms($('#form1'), $('#formMultiple')); // }); // }); //SUBMIT 2 form // $("#submitBtn").click(function() { // $('#form1').ajaxSubmit({ // forceSync: true, // error: function(errorDetails) { // console.log(form1); // }, // success: function() { // $('#formMultiple').submit(); // } // }); // }); // SUBMIT 2 form $(document).ready(function() { $('#submitBtn').click(function(e) { e.preventDefault(); // console.log(document); $('#form1').submit(); $('#formMultiple').submit(); // console.log($('#formMultiple').submit(), $('#form1').submit()); }); }); 
+            </script>
 
-        <script>
-            // jQuery(function($) {
-            // get value data form1->form2
-            //     function copyForms($form1, $formMultiple) {
-            //         $(':input[name]', $formMultiple).val(function() {
-            //             console.log($(':input[name=' + this.name + ']', $form1).val());
-            //             return $(':input[name=' + this.name + ']', $form1).val();
-            //         });
-            //     }
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-            //     $('#submitnext').on('click', function() {
-            //         copyForms($('#form1'), $('#formMultiple'));
-            //     });
-            // });
-            //SUBMIT 2 form
-            // $("#submitBtn").click(function() {
-            //     $('#form1').ajaxSubmit({
-            //         forceSync: true,
-            //         error: function(errorDetails) {
-            //             console.log(form1);
-            //         },
-            //         success: function() {
-            //             $('#formMultiple').submit();
-            //         }
-            //     });
-            // });
-            // SUBMIT 2 form
-            $(document).ready(function() {
-                $('#submitBtn').click(function(e) {
-                    e.preventDefault();
-                    // console.log(document);
-                    $('#form1').submit();
-                    $('#formMultiple').submit();
-                    // console.log($('#formMultiple').submit(), $('#form1').submit());
-                });
-            });
-        </script>
-        <script type="text/javascript">
-            $(".delete").on('click', function() {
-                $('.chkbox:checkbox:checked').parents("tr").remove();
-                $('.check_all').prop("checked", false);
-                updateSerialNo();
-            });
-            var i = $('table tr').length;
-            $(".addbtn").on('click', function() {
-                count = $('table tr').length;
-                var data = "<tr id='row_" + count + "'>";
-                data += "<td><input type='checkbox' class='chkbox'/></td>";
-                data += "<td><span id='sn" + i + "'>" + count + ".</span></td>";
-                data += "<td>";
-                data += "<input type='text' class='form-control' data-type='medicineName' id='medicineName" + i + "" + count + "' name='Name[]' placeholder='Tên thuốc ...'/>";
-                data += "<div id='search-ajax'" + i + '>';
-                data += "</div>";
-                data += "</td>";
-                data += "<td><input class='form-control' type='text' data-type='type_name' id='type_name" + i + "' name='Type[]' placeholder='Loại thuốc'/></td>";
-                data += "<td><input class='form-control' type='number' data-type='amount_1' id='amount_1" + i + "' name='Amount[]' placeholder='Số lượng'/></td>";
-                data += "</tr>";
+            <script>
+                $(document).ready(function() {
+                    $('#medicineName').keyup(function() {
+                        var data = $(this).val();
+                        if (data != '') {
+                            var _token = $('input[name="_token"]').val();
+                            $.ajax({
+                                url: "{{route('autocomplete')}}",
+                                method: 'POST',
+                                data: {
+                                    data: data,
+                                    _token: _token
+                                },
+                                success: function(data) {
+                                    let medicine = JSON.parse(data);
+                                    let output = '<ul class="dropdown-menu" style="display:block; position:relative;">';
 
-                $('table').append(data);
-                i++;
-            });
+                                    let content = '';
+                                    $.each(medicine, function(index, value) {
+                                        // console.log(index, value);
+                                        //search-ajax
+                                        output += '<li><a href="#" class="ml-2" style="color:black; font-weight: bold">' + value.Name + ' </a></li>';
 
-            function select_all() {
-                $('input[class=chkbox]:checkbox').each(function() {
-                    if ($('input[class=check_all]:checkbox:checked').length == 0) {
-                        $(this).prop("checked", false);
-                    } else {
-                        $(this).prop("checked", true);
-                    }
-                });
-            }
+                                        //content
+                                        // content += "<h3>Name: " + value.Name + "; Type: " + value.Type + "</h3>";
+                                    });
+                                    output += "</ul>";
 
-            function updateSerialNo() {
-                obj = $('table tr').find('span');
-                $.each(obj, function(key, value) {
-                    id = value.id;
-                    $('#' + id).html(key + 1);
-                });
-            }
-        </script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+                                    $('#search-ajax').fadeIn();
+                                    $('#search-ajax').html(output);
+                                    $('#content').html(content);
+                                }
+                            })
+                        } else {
+                            $('#search-ajax').fadeOut();
+                        }
+                    });
 
-        <script>
-            $(document).ready(function() {
-                $('#medicineName').keyup(function() {
-                    var data = $(this).val();
-                    if (data != '') {
-                        var _token = $('input[name="_token"]').val();
-                        $.ajax({
-                            url: "{{route('autocomplete')}}",
-                            method: 'POST',
-                            data: {
-                                data: data,
-                                _token: _token
-                            },
-                            success: function(data) {
-                                let medicine = JSON.parse(data);
-                                let output = '<ul class="dropdown-menu" style="display:block; position:relative;">';
-
-                                let content = '';
-                                $.each(medicine, function(index, value) {
-                                    // console.log(index, value);
-                                    //search-ajax
-                                    output += '<li><a href="#" class="ml-2" style="color:black; font-weight: bold">' + value.Name + ' </a></li>';
-
-                                    //content
-                                    // content += "<h3>Name: " + value.Name + "; Type: " + value.Type + "</h3>";
-                                });
-                                output += "</ul>";
-
-                                $('#search-ajax').fadeIn();
-                                $('#search-ajax').html(output);
-                                $('#content').html(content);
-                            }
-                        })
-                    } else {
+                    $(document).on('click', 'li', function(ui, event) {
+                        console.log(ui.item);
+                        $('#medicineName').val($(this).text());
+                        // $('#mediId').val($(this).text());
+                        // $('#type').val($(this).text());
                         $('#search-ajax').fadeOut();
-                    }
-                });
+                        // return false;
+                    });
 
-                $(document).on('click', 'li', function(ui, event) {
-                    console.log(ui.item);
-                    $('#medicineName').val($(this).text());
-                    // $('#mediId').val($(this).text());
-                    // $('#type').val($(this).text());
-                    $('#search-ajax').fadeOut();
-                    // return false;
                 });
-
-            });
-        </script>
+            </script>
+        </div>
     </div>
-</div>
-@endsection
+    @endsection
