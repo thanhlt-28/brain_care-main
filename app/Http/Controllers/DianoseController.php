@@ -15,19 +15,6 @@ use Illuminate\Support\Collection;
 
 class DianoseController extends Controller
 {
-    public function stores(Request $request)
-    {
-        $pre_name = $request->Name;
-        $CustID = Helper::IDGenerator(new Prescription, 'CustID', 10, 'BRC');
-
-        $p = new Prescription();
-        $p->CustID = $CustID;
-        $p->Name = $pre_name;
-        // dd($p->$CustID);
-        $p->fill($request->all());
-        $p->save();
-        return redirect(route(''));
-    }
     // ===========Trầm cảm
     public function index()
     {
@@ -85,12 +72,18 @@ class DianoseController extends Controller
         // return redirect(route('tram-cam.views'));
     }
 
-    public function detail($id, Request $request)
+    public function detail($id,  Prescription $pres, Request $request)
     {
         //==== Edit
         $model = Dianose::find($id);
         $model['symptom'] = explode("value", $model['symptom']);
-        return view('chan-doan.tram-cam.index', ['model' => $model]);
+        $pres = Prescription::all();
+        $pres = Prescription::find($pres);
+        // $pres = Prescription::with('dianose')
+        //     ->where('id', $request->id)
+        //     ->first();
+        // dd($pres);
+        return view('chan-doan.tram-cam.index', ['model' => $model, 'pres' => $pres]);
     }
 
     public function update(Request $request, $id)

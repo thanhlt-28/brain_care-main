@@ -790,6 +790,9 @@
             </table>
         </div>
         <div class="card-body">
+            <div class="card-title">
+                <h3>Đơn thuốc</h3>
+            </div>
             <?php
             $imgPath = asset('assets/img/minus.svg');
             $imgAdd = asset('assets/img/addition.png');
@@ -801,8 +804,7 @@
                 <table id="autocomplete_table" class="table table-hover autocomplete_table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <!-- <th><input class='check_all' type='checkbox' onclick="select_all()" /></th> -->
+                            <th></th>
                             <th>Tên thuốc</th>
                             <th>Loại thuốc</th>
                             <th>Số lượng</th>
@@ -813,35 +815,138 @@
                         <tr id="row_1">
                             <th id="delete_1" scope="row" class="delete_row"><img src="<?= $imgPath; ?>" alt=""></th>
                             <td>
-                                <input type="text" data-field-name="name" name="Name[]" id="medicineName" class="form-control autocomplete_txt" placeholder="Tên thuốc" autocomplete="off" autofocus>
+                                <input type="text" data-field-name="name" name="Name[]" id="medicineName" class="form-control autocomplete_txt" placeholder="Tên thuốc" autocomplete="off" value="{{old('name')}}">
                                 <div id="search-ajax">
                                 </div>
                             </td>
+
                             <td>
-                                <input type="text" data-field-name="type" name="Type[]" id="countryno_1" class="form-control autocomplete_txt" placeholder="Loại thuốc" autocomplete="off" autofocus>
+                                <select data-field-name="type" name="Type[]" id="type_" class="form-control autocomplete_txt" autocomplete="off" value="{{old('type')}}">
+                                    <option value="{{old('type')}}">Loạn thần</option>
+                                    <option value="{{old('type')}}">Trầm cảm</option>
+                                    <option value="{{old('type')}}">Co giật</option>
+                                    <option value="{{old('type')}}">Nghiện rượu</option>
+                                    <option value="{{old('type')}}">CTC</option>
+                                    <option value="{{old('type')}}">CLT</option>
+                                    <option value="{{old('type')}}">Loạn thần</option>
+                                    <option value="{{old('type')}}">Loạn thần</option>
+                                    <option value="{{old('type')}}">Mất trí</option>
+                                </select>
+                                <!-- <input type="text" data-field-name="type" name="Type[]" id="type_" class="form-control autocomplete_txt" placeholder="Loại thuốc" autocomplete="off" value="{{old('type')}}"> -->
                             </td>
                             <td>
-                                <input type="number" min="0" max="10" data-field-name="amount" name="Amount[]" id="phone_code_1" class="form-control autocomplete_txt" placeholder="Số lượng" autocomplete="off" autofocus>
+                                <input type="number" min="0" max="10" data-field-name="amount" name="Amount[]" id="amount_code_" class="form-control autocomplete_txt" placeholder="Số lượng" autocomplete="off" value="{{old('amount')}}">
                             </td>
                             <td>
-                                <input type="text" data-field-name="treatment" name="Treatment[]" id="country_code_1" class="form-control autocomplete_txt" placeholder="Liều lượng(viên)" autocomplete="off" autofocus>
+                                <input type="text" data-field-name="treatment" name="Treatment[]" id="treament_code_" class="form-control autocomplete_txt" placeholder="Liều lượng(viên)" autocomplete="off" value="{{old('treatment')}}">
                             </td>
                         </tr>
                         <tr id="row_2">
                             <th id="delete_1" scope="row" class="delete_row"><img src="<?= $imgPath; ?>" alt=""></th>
                             <td>
-                                <input type="text" data-field-name="name" name="Name[]" id="medicineName" class="form-control autocomplete_txt" placeholder="Tên thuốc" autocomplete="off" autofocus>
+                                <input type="text" data-field-name="name" name="Name[]" id="medicineName" class="form-control autocomplete_txt" placeholder="Tên thuốc" autocomplete="off">
                                 <div id="search-ajax">
                                 </div>
                             </td>
                             <td>
-                                <input type="text" data-field-name="type" name="Type[]" id="countryno_1" class="form-control autocomplete_txt" placeholder="Loại thuốc" autocomplete="off" autofocus>
+                                <select data-field-name="type" name="Type[]" id="type_" class="form-control autocomplete_txt" autocomplete="off" value="{{old('type')}}">
+                                    <option value="{{old('type')}}">Loạn thần</option>
+                                    <option value="{{old('type')}}">Trầm cảm</option>
+                                    <option value="{{old('type')}}">Co giật</option>
+                                    <option value="{{old('type')}}">Nghiện rượu</option>
+                                    <option value="{{old('type')}}">CTC</option>
+                                    <option value="{{old('type')}}">CLT</option>
+                                    <option value="{{old('type')}}">Loạn thần</option>
+                                    <option value="{{old('type')}}">Loạn thần</option>
+                                    <option value="{{old('type')}}">Mất trí</option>
+                                </select>
                             </td>
                             <td>
-                                <input type="number" min="0" max="10" data-field-name="amount" name="Amount[]" id="phone_code_1" class="form-control autocomplete_txt" placeholder="Số lượng" autocomplete="off" autofocus>
+                                <input type="number" min="0" max="10" data-field-name="amount" name="Amount[]" id="amount_code_" class="form-control autocomplete_txt" placeholder="Số lượng" autocomplete="off">
                             </td>
                             <td>
-                                <input type="text" data-field-name="treatment" name="Treatment[]" id="country_code_1" class="form-control autocomplete_txt" placeholder="Liều lượng(viên)" autocomplete="off" autofocus>
+                                <input type="text" data-field-name="treatment" name="Treatment[]" id="treament_code_" class="form-control autocomplete_txt" placeholder="Liều lượng(viên)" autocomplete="off">
+                            </td>
+                        </tr>
+                        <tr id="row_3">
+                            <th id="delete_1" scope="row" class="delete_row"><img src="<?= $imgPath; ?>" alt=""></th>
+                            <td>
+                                <input type="text" data-field-name="name" name="Name[]" id="medicineName" class="form-control autocomplete_txt" placeholder="Tên thuốc" autocomplete="off">
+                                <div id="search-ajax">
+                                </div>
+                            </td>
+                            <td>
+                                <select data-field-name="type" name="Type[]" id="type_" class="form-control autocomplete_txt" autocomplete="off" value="{{old('type')}}">
+                                    <option value="{{old('type')}}">Loạn thần</option>
+                                    <option value="{{old('type')}}">Trầm cảm</option>
+                                    <option value="{{old('type')}}">Co giật</option>
+                                    <option value="{{old('type')}}">Nghiện rượu</option>
+                                    <option value="{{old('type')}}">CTC</option>
+                                    <option value="{{old('type')}}">CLT</option>
+                                    <option value="{{old('type')}}">Loạn thần</option>
+                                    <option value="{{old('type')}}">Loạn thần</option>
+                                    <option value="{{old('type')}}">Mất trí</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" min="0" max="10" data-field-name="amount" name="Amount[]" id="amount_code_" class="form-control autocomplete_txt" placeholder="Số lượng" autocomplete="off">
+                            </td>
+                            <td>
+                                <input type="text" data-field-name="treatment" name="Treatment[]" id="treament_code_" class="form-control autocomplete_txt" placeholder="Liều lượng(viên)" autocomplete="off">
+                            </td>
+                        </tr>
+                        <tr id="row_4">
+                            <th id="delete_1" scope="row" class="delete_row"><img src="<?= $imgPath; ?>" alt=""></th>
+                            <td>
+                                <input type="text" data-field-name="name" name="Name[]" id="medicineName" class="form-control autocomplete_txt" placeholder="Tên thuốc" autocomplete="off">
+                                <div id="search-ajax">
+                                </div>
+                            </td>
+                            <td>
+                                <select data-field-name="type" name="Type[]" id="type_" class="form-control autocomplete_txt" autocomplete="off" value="{{old('type')}}">
+                                    <option value="{{old('type')}}">Loạn thần</option>
+                                    <option value="{{old('type')}}">Trầm cảm</option>
+                                    <option value="{{old('type')}}">Co giật</option>
+                                    <option value="{{old('type')}}">Nghiện rượu</option>
+                                    <option value="{{old('type')}}">CTC</option>
+                                    <option value="{{old('type')}}">CLT</option>
+                                    <option value="{{old('type')}}">Loạn thần</option>
+                                    <option value="{{old('type')}}">Loạn thần</option>
+                                    <option value="{{old('type')}}">Mất trí</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" min="0" max="10" data-field-name="amount" name="Amount[]" id="amount_code_" class="form-control autocomplete_txt" placeholder="Số lượng" autocomplete="off">
+                            </td>
+                            <td>
+                                <input type="text" data-field-name="treatment" name="Treatment[]" id="treament_code_" class="form-control autocomplete_txt" placeholder="Liều lượng(viên)" autocomplete="off">
+                            </td>
+                        </tr>
+                        <tr id="row_5">
+                            <th id="delete_1" scope="row" class="delete_row"><img src="<?= $imgPath; ?>" alt=""></th>
+                            <td>
+                                <input type="text" data-field-name="name" name="Name[]" id="medicineName" class="form-control autocomplete_txt" placeholder="Tên thuốc" autocomplete="off">
+                                <div id="search-ajax">
+                                </div>
+                            </td>
+                            <td>
+                                <select data-field-name="type" name="Type[]" id="type_" class="form-control autocomplete_txt" autocomplete="off" value="{{old('type')}}">
+                                    <option value="{{old('type')}}">Loạn thần</option>
+                                    <option value="{{old('type')}}">Trầm cảm</option>
+                                    <option value="{{old('type')}}">Co giật</option>
+                                    <option value="{{old('type')}}">Nghiện rượu</option>
+                                    <option value="{{old('type')}}">CTC</option>
+                                    <option value="{{old('type')}}">CLT</option>
+                                    <option value="{{old('type')}}">Loạn thần</option>
+                                    <option value="{{old('type')}}">Loạn thần</option>
+                                    <option value="{{old('type')}}">Mất trí</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" min="0" max="10" data-field-name="amount" name="Amount[]" id="amount_code_" class="form-control autocomplete_txt" placeholder="Số lượng" autocomplete="off">
+                            </td>
+                            <td>
+                                <input type="text" data-field-name="treatment" name="Treatment[]" id="treament_code_" class="form-control autocomplete_txt" placeholder="Liều lượng(viên)" autocomplete="off">
                             </td>
                         </tr>
                     </tbody>
@@ -851,19 +956,19 @@
                 </form>
             </div>
 
-            <script>
-                // jQuery(function($) {
-                // get value data form1->form2
-                //     function copyForms($form1, $formMultiple) {
-                //         $(' :input[name]', $formMultiple).val(function() { // console.log($(':input[name=' + this.name + ' ]', $form1).val()); // return $(':input[name=' + this.name + ' ]', $form1).val(); // }); // } // $('#submitnext').on('click', function() { // copyForms($('#form1'), $('#formMultiple')); // }); // }); //SUBMIT 2 form // $("#submitBtn").click(function() { // $('#form1').ajaxSubmit({ // forceSync: true, // error: function(errorDetails) { // console.log(form1); // }, // success: function() { // $('#formMultiple').submit(); // } // }); // }); // SUBMIT 2 form $(document).ready(function() { $('#submitBtn').click(function(e) { e.preventDefault(); // console.log(document); $('#form1').submit(); $('#formMultiple').submit(); // console.log($('#formMultiple').submit(), $('#form1').submit()); }); }); 
-            </script>
-
             <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
             <script>
                 $(document).ready(function() {
                     $('#medicineName').keyup(function() {
                         var data = $(this).val();
+                        var fieldName, currentEle;
+                        currentEle = $(this);
+                        fieldName = currentEle.data('field-name');
+
+                        if (typeof fieldName === 'undefined') {
+                            return false;
+                        }
                         if (data != '') {
                             var _token = $('input[name="_token"]').val();
                             $.ajax({
@@ -871,6 +976,7 @@
                                 method: 'POST',
                                 data: {
                                     data: data,
+                                    fieldName: fieldName,
                                     _token: _token
                                 },
                                 success: function(data) {
@@ -882,6 +988,7 @@
                                         // console.log(index, value);
                                         //search-ajax
                                         output += '<li><a href="#" class="ml-2" style="color:black; font-weight: bold">' + value.Name + ' </a></li>';
+
 
                                         //content
                                         // content += "<h3>Name: " + value.Name + "; Type: " + value.Type + "</h3>";
@@ -901,14 +1008,17 @@
                     $(document).on('click', 'li', function(ui, event) {
                         console.log(ui.item);
                         $('#medicineName').val($(this).text());
-                        // $('#mediId').val($(this).text());
-                        // $('#type').val($(this).text());
+                        $('#type_').val($(this).text());
+                        $('#amount_code_').val($(this).text());
+                        $('#treament_code_').val($(this).text());
                         $('#search-ajax').fadeOut();
                         // return false;
                     });
 
                 });
             </script>
+            <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
+            <script src="{{asset('js/multi.js')}}"></script>
         </div>
     </div>
     @endsection

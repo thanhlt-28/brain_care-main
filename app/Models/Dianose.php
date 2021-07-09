@@ -11,7 +11,7 @@ class Dianose extends Model
     protected $table = "dianoses";
 
     protected $fillable = ['CustID', 'cust_name', 'symptom', 'cust_dob', 'cust_gender', 'phone', 'cust_email', 'cust_address', 'time_sym', 'result'];
-    public function p()
+    public function pres()
     {
         return $this->hasMany(Prescription::class, 'CustID');
     }

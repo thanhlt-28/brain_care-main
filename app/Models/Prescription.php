@@ -12,6 +12,6 @@ class Prescription extends Model
     protected $fillable = ['CustID', 'Name', 'Amount', 'Type', 'Grouptype', 'Market', 'Begin', 'Treatment', 'Company', 'National'];
     public function dianose()
     {
-        return $this->belongsTo(Diagnose::class, 'CustID');
+        return $this->belongsTo(Dianose::class, 'CustID');
     }
 }

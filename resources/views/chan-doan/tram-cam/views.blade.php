@@ -205,9 +205,6 @@
                                     <th>Địa chỉ</th>
                                     <th>Kết quả</th>
                                     <th>
-                                        Thuốc
-                                    </th>
-                                    <th>
                                         <a href="{{ route('tram-cam.create') }}" class="btn btn-success">Thêm chẩn đoán mới</a>
                                     </th>
 
@@ -223,7 +220,6 @@
                                     <td>{{ $item->cust_dob }}</td>
                                     <td>{{ $item->cust_address }}</td>
                                     <td>{{ $item->result }}</td>
-                                    <td><button class="btn btn-light">Đơn thuốc</button></td>
                                     <td>
                                         <a class="btn btn-info" href="{{route('tram-cam.index', $item->id)}}">Xem chi tiết</a>
                                         <a class="btn btn-warning" href="{{route('tram-cam.destroy', ['id' => $item->id])}}">Xóa</a>
