@@ -75,3 +75,14 @@ $(document).ready(function() {
     }
     registerEvents();
 });
+
+// Print
+function print() {
+	printJS({
+    printable: 'printElement',
+    type: 'html',
+    targetStyles: ['*']
+ })
+}
+
+document.getElementById('printButton').addEventListener ("click", print);

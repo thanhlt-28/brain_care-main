@@ -789,7 +789,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-body">
+        <div id="printElement" class="card-body">
             <div class="card-title">
                 <h3>Đơn thuốc</h3>
             </div>
@@ -953,6 +953,9 @@
                 </table>
                 <button id="addNew" type="button" class='btn'><img src="<?= $imgAdd; ?>" width="25px" alt=""></button>
                 <button type="submit" class="btn btn-success" id="submitBtn">Lưu</button>
+                <button class="btn btn-primary" id="printButton">
+                    Print
+                </button>
                 </form>
             </div>
 
@@ -1019,6 +1022,7 @@
             </script>
             <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
             <script src="{{asset('js/multi.js')}}"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/print-js/1.6.0/print.css"></script>
         </div>
     </div>
     @endsection
