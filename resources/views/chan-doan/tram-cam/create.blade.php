@@ -821,15 +821,13 @@
                             </td>
 
                             <td>
-                                <select data-field-name="type" name="Type[]" id="type_" class="form-control autocomplete_txt" autocomplete="off" value="{{old('type')}}">
-                                    <option value="{{old('type')}}">Loạn thần</option>
+                                <select aria-label="Default select example" data-field-name="type" name="Type[]" id="type_" class="form-select autocomplete_txt" autocomplete="off" value="{{old('type')}}">
+                                    <option value="{{old('type')}}" selected>Loạn thần</option>
                                     <option value="{{old('type')}}">Trầm cảm</option>
                                     <option value="{{old('type')}}">Co giật</option>
                                     <option value="{{old('type')}}">Nghiện rượu</option>
                                     <option value="{{old('type')}}">CTC</option>
                                     <option value="{{old('type')}}">CLT</option>
-                                    <option value="{{old('type')}}">Loạn thần</option>
-                                    <option value="{{old('type')}}">Loạn thần</option>
                                     <option value="{{old('type')}}">Mất trí</option>
                                 </select>
                                 <!-- <input type="text" data-field-name="type" name="Type[]" id="type_" class="form-control autocomplete_txt" placeholder="Loại thuốc" autocomplete="off" value="{{old('type')}}"> -->
@@ -849,15 +847,13 @@
                                 </div>
                             </td>
                             <td>
-                                <select data-field-name="type" name="Type[]" id="type_" class="form-control autocomplete_txt" autocomplete="off" value="{{old('type')}}">
-                                    <option value="{{old('type')}}">Loạn thần</option>
+                                <select aria-label="Default select example" data-field-name="type" name="Type[]" id="type_" class="form-select autocomplete_txt" autocomplete="off" value="{{old('type')}}">
+                                    <option value="{{old('type')}}" selected>Loạn thần</option>
                                     <option value="{{old('type')}}">Trầm cảm</option>
                                     <option value="{{old('type')}}">Co giật</option>
                                     <option value="{{old('type')}}">Nghiện rượu</option>
                                     <option value="{{old('type')}}">CTC</option>
                                     <option value="{{old('type')}}">CLT</option>
-                                    <option value="{{old('type')}}">Loạn thần</option>
-                                    <option value="{{old('type')}}">Loạn thần</option>
                                     <option value="{{old('type')}}">Mất trí</option>
                                 </select>
                             </td>
@@ -876,15 +872,13 @@
                                 </div>
                             </td>
                             <td>
-                                <select data-field-name="type" name="Type[]" id="type_" class="form-control autocomplete_txt" autocomplete="off" value="{{old('type')}}">
-                                    <option value="{{old('type')}}">Loạn thần</option>
+                                <select aria-label="Default select example" data-field-name="type" name="Type[]" id="type_" class="form-select autocomplete_txt" autocomplete="off" value="{{old('type')}}">
+                                    <option value="{{old('type')}}" selected>Loạn thần</option>
                                     <option value="{{old('type')}}">Trầm cảm</option>
                                     <option value="{{old('type')}}">Co giật</option>
                                     <option value="{{old('type')}}">Nghiện rượu</option>
                                     <option value="{{old('type')}}">CTC</option>
                                     <option value="{{old('type')}}">CLT</option>
-                                    <option value="{{old('type')}}">Loạn thần</option>
-                                    <option value="{{old('type')}}">Loạn thần</option>
                                     <option value="{{old('type')}}">Mất trí</option>
                                 </select>
                             </td>
@@ -903,15 +897,13 @@
                                 </div>
                             </td>
                             <td>
-                                <select data-field-name="type" name="Type[]" id="type_" class="form-control autocomplete_txt" autocomplete="off" value="{{old('type')}}">
-                                    <option value="{{old('type')}}">Loạn thần</option>
+                                <select data-field-name="type" aria-label="Default select example" name="Type[]" id="type_" class="form-select autocomplete_txt" autocomplete="off" value="{{old('type')}}">
+                                    <option value="{{old('type')}}" selected>Loạn thần</option>
                                     <option value="{{old('type')}}">Trầm cảm</option>
                                     <option value="{{old('type')}}">Co giật</option>
                                     <option value="{{old('type')}}">Nghiện rượu</option>
                                     <option value="{{old('type')}}">CTC</option>
                                     <option value="{{old('type')}}">CLT</option>
-                                    <option value="{{old('type')}}">Loạn thần</option>
-                                    <option value="{{old('type')}}">Loạn thần</option>
                                     <option value="{{old('type')}}">Mất trí</option>
                                 </select>
                             </td>
@@ -930,15 +922,13 @@
                                 </div>
                             </td>
                             <td>
-                                <select data-field-name="type" name="Type[]" id="type_" class="form-control autocomplete_txt" autocomplete="off" value="{{old('type')}}">
-                                    <option value="{{old('type')}}">Loạn thần</option>
+                                <select data-field-name="type" aria-label="Default select example" name="Type[]" id="type_" class="form-select autocomplete_txt" autocomplete="off" value="{{old('type')}}">
+                                    <option value="{{old('type')}}" selected>Loạn thần</option>
                                     <option value="{{old('type')}}">Trầm cảm</option>
                                     <option value="{{old('type')}}">Co giật</option>
                                     <option value="{{old('type')}}">Nghiện rượu</option>
                                     <option value="{{old('type')}}">CTC</option>
                                     <option value="{{old('type')}}">CLT</option>
-                                    <option value="{{old('type')}}">Loạn thần</option>
-                                    <option value="{{old('type')}}">Loạn thần</option>
                                     <option value="{{old('type')}}">Mất trí</option>
                                 </select>
                             </td>
@@ -953,9 +943,6 @@
                 </table>
                 <button id="addNew" type="button" class='btn'><img src="<?= $imgAdd; ?>" width="25px" alt=""></button>
                 <button type="submit" class="btn btn-success" id="submitBtn">Lưu</button>
-                <button class="btn btn-primary" id="printButton">
-                    Print
-                </button>
                 </form>
             </div>
 

@@ -70,6 +70,7 @@ Route::prefix('/')->group(function () {
         Route::post('luu-lai', [DianoseController::class, 'store'])->name('tram-cam.store');
         Route::get('xoa-ket-qua/{id}', [DianoseController::class, 'destroy'])->name('tram-cam.destroy');
         Route::get('chi-tiet/{id}', [DianoseController::class, 'detail'])->name('tram-cam.index');
+        Route::get('don-thuoc/{id}', [DianoseController::class, 'thuoctramcam'])->name('tram-cam.viewer');
         Route::post('update/{id}', [DianoseController::class, 'update'])->name('tram-cam.update');
         // Route::get('dieu-tri-tram-cam', [TreatmentController::class, 'indexof'])->name('tram-cam.index-2');
         //........Nghiện rượu

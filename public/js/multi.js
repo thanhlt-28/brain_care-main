@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var rowcount, addBtn, tableBody, imgPath, basePath;
 
     addBtn = $("#addNew");
@@ -76,13 +76,3 @@ $(document).ready(function() {
     registerEvents();
 });
 
-// Print
-function print() {
-	printJS({
-    printable: 'printElement',
-    type: 'html',
-    targetStyles: ['*']
- })
-}
-
-document.getElementById('printButton').addEventListener ("click", print);

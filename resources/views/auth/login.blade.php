@@ -216,7 +216,7 @@
                                 </div>
                             </div>
                             <div class="bottom text-center mb-5">
-                                <p href="#" class="sm-text mx-auto mb-3">Chưa có tài khoản?<button class="btn btn-white ml-2">Tạo mới</button></p>
+                                <p class="sm-text mx-auto mb-3">Chưa có tài khoản?<a href="{{route('register')}}" class="btn btn-white ml-2">Tạo mới</a></p>
                             </div>
                         </div>
                         <div class="card card2">

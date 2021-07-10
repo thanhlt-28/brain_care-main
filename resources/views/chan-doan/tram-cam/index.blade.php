@@ -440,6 +440,8 @@
                         </table>
                         <button id="addNew" type="button" class='btn'><img src="<?= $imgAdd; ?>" width="25px" alt=""></button>
                         <button type="submit" class="btn btn-success" id="submitBtn">Lưu</button>
+                    </div>
+                </div>
             </form>
         </div>
 

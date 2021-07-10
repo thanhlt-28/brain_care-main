@@ -204,6 +204,7 @@
                                     <th>Năm sinh</th>
                                     <th>Địa chỉ</th>
                                     <th>Kết quả</th>
+                                    <th>Đơn thuốc</th>
                                     <th>
                                         <a href="{{ route('tram-cam.create') }}" class="btn btn-success">Thêm chẩn đoán mới</a>
                                     </th>
@@ -220,6 +221,27 @@
                                     <td>{{ $item->cust_dob }}</td>
                                     <td>{{ $item->cust_address }}</td>
                                     <td>{{ $item->result }}</td>
+                                    <td>
+                                        <a class="modal-lg" data-bs-toggle="modal-lg" data-bs-target="#exampleModal" href="{{route('tram-cam.viewer', $item->id)}}">Đơn thuốc</a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td>
                                         <a class="btn btn-info" href="{{route('tram-cam.index', $item->id)}}">Xem chi tiết</a>
                                         <a class="btn btn-warning" href="{{route('tram-cam.destroy', ['id' => $item->id])}}">Xóa</a>

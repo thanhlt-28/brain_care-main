@@ -23,6 +23,13 @@ class DianoseController extends Controller
         $medis = Medicine::all();
         return view('chan-doan.tram-cam.views', compact('cust', 'medis'));
     }
+    public function thuoctramcam($id, Request $request, Prescription $pres)
+    {
+        $model = Dianose::find($id);
+        $pres = Prescription::all();
+        $pres = Prescription::find($pres);
+        return view('chan-doan.tram-cam.viewer', compact('model', 'pres'));
+    }
 
     public function create()
     {
